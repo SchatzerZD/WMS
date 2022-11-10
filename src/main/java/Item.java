@@ -1,5 +1,3 @@
-import java.io.IOException;
-
 /**
  * A class representing an item stored inside
  * the warehouse. An item contains information accessed
