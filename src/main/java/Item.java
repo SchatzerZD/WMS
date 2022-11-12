@@ -116,7 +116,7 @@ public class Item {
 
   @Override
   public String toString() {
-    return String.format("| %-15s | %-22s | %-6d | %-6d | %-10.2f | %-10.2f | %-10.2f | %-8s | %-18s | %s\n",
+    return String.format("| %-15s | %-22s | %6d | %6d | %10.2f | %10.2f | %10.2f | %-8s | %-18s | %s\n",
             this.getItemNumber(), this.getBrandName(),
             this.getPrice(), this.getWarehouseStock(),
             this.getWeight(), this.getLength(), this.getHeight(),

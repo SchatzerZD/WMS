@@ -51,6 +51,12 @@ public class ItemRegister {
             "ITEM NUMBER", "BRAND NAME", "PRICE", "STOCK", "WEIGHT",
             "LENGTH", "HEIGHT", "COLOR", "CATEGORY", "DESCRIPTION"));
 
+    returnString.append("+ ").append("-".repeat(15)).append(" + ").append("-".repeat(22)).append(" + ")
+            .append("-".repeat(6)).append(" + ").append("-".repeat(6)).append(" + ")
+            .append("-".repeat(10)).append(" + ").append("-".repeat(10)).append(" + ")
+            .append("-".repeat(10)).append(" + ").append("-".repeat(8)).append(" + ")
+            .append("-".repeat(18)).append(" + ").append("-".repeat(64)).append("\n");
+
     for (Item item: itemList) {
       returnString.append(item.toString());
     }
