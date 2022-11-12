@@ -12,7 +12,7 @@ class ItemTest {
   @BeforeEach
   void setUp() {
     testItem = new Item("A1005B","An item for testing","Dan AS",
-            16,2,81.4,32.7,180.4,Color.YELLOW,Category.VINDUER);
+            16,2,81.4,32.7,180.4,Color.YELLOW,Category.WINDOWS);
   }
 
   @Test
@@ -62,7 +62,7 @@ class ItemTest {
 
   @Test
   void getCategory() {
-    assertEquals(Category.VINDUER,testItem.getCategory());
+    assertEquals(Category.WINDOWS,testItem.getCategory());
   }
 
   @Test
@@ -89,27 +89,27 @@ class ItemTest {
     //Tests negative price value
     assertThrows(IllegalArgumentException.class, () ->
             new Item("A1005B","An item for testing","Dan AS",
-            -16,2,81.4,32.7,180.4,Color.YELLOW,Category.VINDUER));
+            -16,2,81.4,32.7,180.4,Color.YELLOW,Category.WINDOWS));
 
     //Tests negative warehouseStock value
     assertThrows(IllegalArgumentException.class, () ->
             new Item("A1005B","An item for testing","Dan AS",
-                    16,-2,81.4,32.7,180.4,Color.YELLOW,Category.VINDUER));
+                    16,-2,81.4,32.7,180.4,Color.YELLOW,Category.WINDOWS));
 
     //Tests negative weight value
     assertThrows(IllegalArgumentException.class, () ->
             new Item("A1005B","An item for testing","Dan AS",
-                    16,2,-81.4,32.7,180.4,Color.YELLOW,Category.VINDUER));
+                    16,2,-81.4,32.7,180.4,Color.YELLOW,Category.WINDOWS));
 
     //Tests negative length value
     assertThrows(IllegalArgumentException.class, () ->
             new Item("A1005B","An item for testing","Dan AS",
-                    16,2,81.4,-32.7,180.4,Color.YELLOW,Category.VINDUER));
+                    16,2,81.4,-32.7,180.4,Color.YELLOW,Category.WINDOWS));
 
     //Tests negative height value
     assertThrows(IllegalArgumentException.class, () ->
             new Item("A1005B","An item for testing","Dan AS",
-                    16,2,81.4,32.7,-180.4,Color.YELLOW,Category.VINDUER));
+                    16,2,81.4,32.7,-180.4,Color.YELLOW,Category.WINDOWS));
   }
 
 }

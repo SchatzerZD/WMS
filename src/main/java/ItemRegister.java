@@ -3,28 +3,60 @@ import java.util.List;
 
 public class ItemRegister {
 
-  private List<Item> itemList;
+  private final List<Item> itemList;
 
   public ItemRegister(){
     itemList = new ArrayList<>();
   }
 
 
+  public Item searchByItemNumber(String itemNumberInput){
+    for (Item item: itemList) {
+      if(item.getItemNumber().equals(itemNumberInput))return item;
+    }
+    return null;
+  }
+
+  public Item searchByItemDesc(String itemDescInput){
+    for (Item item: itemList) {
+      if(item.getDesc().equals(itemDescInput))return item;
+    }
+    return null;
+  }
+
   public void addItem(Item itemInput){
     itemList.add(itemInput);
+    sortByItemNumber();
+  }
+
+  public void addStockToItem(Item itemInput, int stock){
+    itemInput.setWarehouseStock(itemInput.getWarehouseStock() + stock);
+  }
+
+  public void sortByItemNumber(){
+    itemList.sort((o1,o2) -> {
+      if(o1.getItemNumber().equals(o2.getItemNumber()))return 0;
+      return o1.getItemNumber().compareTo(o2.getItemNumber()) > 0 ? 1 : -1;
+    });
+  }
+
+  public List<Item> getItemList(){
+    return itemList;
   }
 
   @Override
   public String toString() {
-    String returnString = String.format("%-10s %-10s %-6s %-6s %-6s %-6s %-6s %-8s %-12s \n","Item number","Brand Name","Item Price","Stock","Weight","Length","Height","Color","Category");
+    StringBuilder returnString = new StringBuilder(String.format(
+            "| %-15s | %-22s | %-6s | %-6s | %-10s | %-10s | %-10s | %-8s | %-18s | %s\n",
+            "ITEM NUMBER", "BRAND NAME", "PRICE", "STOCK", "WEIGHT",
+            "LENGTH", "HEIGHT", "COLOR", "CATEGORY", "DESCRIPTION"));
+
     for (Item item: itemList) {
-      returnString +=
-              String.format("%-10s %-10s %-6d %-6d %-6.2f %-6.2f %-6.2f %-8s %-12s \n",
-                            item.getItemNumber(), item.getBrandName(),
-                            item.getPrice(), item.getWarehouseStock(),
-                            item.getWeight(), item.getLength(), item.getHeight(),
-                            item.getColor(), item.getCategory());
+      returnString.append(item.toString());
     }
-    return returnString;
+
+    return returnString.toString();
   }
+
+
 }

@@ -7,9 +7,9 @@
  */
 public enum Category {
 
-    GULV_LAMINATER,
-    VINDUER,
-    DØRER,
-    TRELAST
+    FLOOR_LAMINATES,
+    WINDOWS,
+    DOORS,
+    LUMBER
 
 }
