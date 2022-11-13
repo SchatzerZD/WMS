@@ -110,6 +110,23 @@ class ItemTest {
     assertThrows(IllegalArgumentException.class, () ->
             new Item("A1005B","An item for testing","Dan AS",
                     16,2,81.4,32.7,-180.4,Color.YELLOW,Category.WINDOWS));
+
+    //Tests negative price value in setPrice method
+    assertThrows(IllegalArgumentException.class, () ->{
+      Item illegalItem = new Item("A1005B","An item for testing","Dan AS",
+              16,2,81.4,32.7,180.4,Color.YELLOW,Category.WINDOWS);
+
+      illegalItem.setPrice(-5);
+    });
+
+    //Tests negative price value in setWarehouseStock method
+    assertThrows(IllegalArgumentException.class, () ->{
+      Item illegalItem = new Item("A1005B","An item for testing","Dan AS",
+              16,2,81.4,32.7,180.4,Color.YELLOW,Category.WINDOWS);
+
+      illegalItem.setWarehouseStock(-1);
+    });
+
   }
 
 }

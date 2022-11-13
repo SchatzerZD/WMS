@@ -4,7 +4,7 @@
  * by the warehouse for simple warehouse functionality
  *
  * @author Daniel Ireneo Neri Saren
- * @version 1.0.0
+ * @version 1.1.0
  */
 public class Item {
   private String itemNumber;
@@ -106,20 +106,37 @@ public class Item {
     this.desc = desc;
   }
 
+  /**
+   *
+   *
+   * @param price
+   */
   public void setPrice(int price) {
+    if (price < 0) {
+      throw new IllegalArgumentException();
+    }
     this.price = price;
   }
 
+  /**
+   *
+   *
+   * @param warehouseStock
+   */
   public void setWarehouseStock(int warehouseStock) {
+    if (warehouseStock < 0) {
+      throw new IllegalArgumentException();
+    }
     this.warehouseStock = warehouseStock;
   }
 
   @Override
   public String toString() {
-    return String.format("| %-15s | %-22s | %6d | %6d | %10.2f | %10.2f | %10.2f | %-8s | %-18s | %s\n",
+    return String.format(
+            "| %-15s | %-22s | %6d | %6d | %10.2f | %10.2f | %10.2f | %-8s | %-18s | %s\n",
             this.getItemNumber(), this.getBrandName(),
             this.getPrice(), this.getWarehouseStock(),
             this.getWeight(), this.getLength(), this.getHeight(),
-            this.getColor(), this.getCategory(),this.getDesc());
+            this.getColor(), this.getCategory(), this.getDesc());
   }
 }
