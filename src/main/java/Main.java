@@ -6,10 +6,13 @@ public class Main{
     ItemRegister itemRegister = new ItemRegister();
     itemRegister.fillListWithDefaultItems();
 
+    Menu menu = new Menu(itemRegister);
 
-    System.out.println(itemRegister + "\n\n\n");
 
-
+    while(true){
+      System.out.println(menu);
+      menu.selectMenu(Integer.parseInt(menu.getUserInput("")));
+    }
 
 
   }
