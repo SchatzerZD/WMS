@@ -53,12 +53,69 @@ public class Menu {
   }
 
   private void addNewItem() {
-    itemRegister.addItem(getUserInput("Input item number"),getUserInput("Input item description"),
-            getUserInput("Input item brand"),Integer.parseInt(getUserInput("Input item price")),
-            Integer.parseInt(getUserInput("Input item stock")), Double.parseDouble(getUserInput("Specify item weight")),
-            Double.parseDouble(getUserInput("Specify item length")),Double.parseDouble(getUserInput("Specify item height")),
-            Color.valueOf(getUserInput("Specify item color " + Arrays.toString(Color.values())).toUpperCase()),
-            Category.valueOf(getUserInput("Input item category " + Arrays.toString(Category.values())).toUpperCase()));
+    itemRegister.addItem(getUserInput("Input item number",() -> {
+              boolean itemNumberExists;
+              boolean isNullString;
+              String itemNumberInput;
+              do{
+                itemNumberExists = false;
+                isNullString = false;
+                itemNumberInput = scanner.nextLine();
+                if(itemNumberInput.equals("")){
+                  System.out.println("Cant input empty string");
+                  isNullString = true;
+                  continue;
+                }
+                for (Item item: itemRegister.getItemList()) {
+                  if (item.getItemNumber().equals(itemNumberInput)) {
+                    itemNumberExists = true;
+                    break;
+                  }
+                }
+                if(itemNumberExists){
+                  System.out.println("Item number already exists, try again");
+                }
+              }while(itemNumberExists || isNullString);
+
+              return itemNumberInput;
+            }),getUserInput("Input item description"),
+            getUserInput("Input item brand"),Integer.parseInt(getUserInput("Input item price", intUserInput())),
+            Integer.parseInt(getUserInput("Input item stock", intUserInput())), Double.parseDouble(getUserInput("Specify item weight", doubleUserInput())),
+            Double.parseDouble(getUserInput("Specify item length", doubleUserInput())),Double.parseDouble(getUserInput("Specify item height", doubleUserInput())),
+            Color.valueOf(getUserInput("Specify item color " + Arrays.toString(Color.values()),() -> {
+              boolean isColor;
+              String colorInput;
+              do{
+                isColor = false;
+                colorInput = scanner.nextLine().toUpperCase();
+                try{
+                  Color.valueOf(colorInput);
+                  isColor = true;
+                }catch (IllegalArgumentException iae){
+                  System.out.println("Could not find color, try again");
+                }
+              }while(!isColor);
+
+
+              return colorInput;
+            })),
+            Category.valueOf(getUserInput("Input item category " + Arrays.toString(Category.values()), () -> {
+              boolean isCategory;
+              String categoryInput;
+              do{
+                isCategory = false;
+                categoryInput = scanner.nextLine().toUpperCase();
+                try{
+                  Category.valueOf(categoryInput);
+                  isCategory = true;
+                }catch (IllegalArgumentException iae){
+                  System.out.println("Could not find category, try again");
+                }
+              }while(!isCategory);
+
+
+              return categoryInput;
+            })));
   }
 
   private void increaseItemStock(){
@@ -81,9 +138,69 @@ public class Menu {
     scanner.close();
   }
 
+  public String getUserInput(String message,UserInput userInput){
+    System.out.println(message);
+    return userInput.input();
+  }
+
   public String getUserInput(String message){
     System.out.println(message);
     return scanner.nextLine();
+  }
+
+
+  private UserInput intUserInput(){
+    return () -> {
+      boolean isNumber;
+      boolean isNegative;
+      String itemStockInput;
+
+      do{
+        isNumber = false;
+        isNegative = false;
+        itemStockInput = scanner.nextLine();
+        try{
+          if(itemStockInput.equals("")){
+            throw new NullPointerException();
+          }
+          int stringToInt = Integer.parseInt(itemStockInput);
+          isNumber = true;
+          if(stringToInt < 0){
+            isNegative = true;
+            System.out.println("Can't input negative numbers, try again");
+          }
+        }catch (NumberFormatException | NullPointerException e){
+          System.out.println("Input numbers, try again");
+        }
+      }while (!isNumber || isNegative);
+
+      return itemStockInput;
+    };
+  }
+  private UserInput doubleUserInput(){
+    return () -> {
+      boolean isNumber;
+      boolean isNegative;
+      String itemStockInput;
+
+      do{
+        isNumber = false;
+        isNegative = false;
+        itemStockInput = scanner.nextLine();
+        try{
+          double stringToDouble = Double.parseDouble(itemStockInput);
+          isNumber = true;
+          if(stringToDouble < 0){
+            isNegative = true;
+            System.out.println("Can't input negative numbers, try again");
+          }
+        }catch (NumberFormatException | NullPointerException e){
+          System.out.println("Input numbers. try again");
+        }
+      }while (!isNumber || isNegative);
+
+      return itemStockInput;
+    };
   }
 
 
