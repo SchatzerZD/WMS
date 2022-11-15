@@ -63,7 +63,7 @@ public class Menu {
                 isNullString = false;
                 itemNumberInput = scanner.nextLine();
                 if(itemNumberInput.equals("")){
-                  System.out.println("Cant input empty string");
+                  System.out.print("Cant input empty string: ");
                   isNullString = true;
                   continue;
                 }
@@ -74,7 +74,7 @@ public class Menu {
                   }
                 }
                 if(itemNumberExists){
-                  System.out.println("Item number already exists, try again");
+                  System.out.print("Item number already exists, try again: ");
                 }
               }while(itemNumberExists || isNullString);
 
@@ -88,7 +88,7 @@ public class Menu {
                 itemDescInput = scanner.nextLine();
                 if(itemDescInput.equals("")){
                   isNullString = true;
-                  System.out.println("Cant input empty string");
+                  System.out.print("Cant input empty string: ");
                 }
               }while(isNullString);
 
@@ -103,7 +103,7 @@ public class Menu {
                 itemBrandInput = scanner.nextLine();
                 if(itemBrandInput.equals("")){
                   isNullString = true;
-                  System.out.println("Cant input empty string");
+                  System.out.print("Cant input empty string: ");
                 }
               }while(isNullString);
 
@@ -121,7 +121,7 @@ public class Menu {
                   Color.valueOf(colorInput);
                   isColor = true;
                 }catch (IllegalArgumentException iae){
-                  System.out.println("Could not find color, try again");
+                  System.out.print("Could not find color, try again: ");
                 }
               }while(!isColor);
 
@@ -138,7 +138,7 @@ public class Menu {
                   Category.valueOf(categoryInput);
                   isCategory = true;
                 }catch (IllegalArgumentException iae){
-                  System.out.println("Could not find category, try again");
+                  System.out.print("Could not find category, try again: ");
                 }
               }while(!isCategory);
 
@@ -152,6 +152,12 @@ public class Menu {
 
   private void increaseItemStock(){
 
+    System.out.printf("%-5s | %-15s | %-22s | %-6s | %-6s | %-10s | %-10s | %-10s | %-8s | %-18s | %s\n",
+                      "index","ITEM NUMBER", "BRAND NAME", "PRICE", "STOCK", "WEIGHT",
+                      "LENGTH", "HEIGHT", "COLOR", "CATEGORY", "DESCRIPTION");
+    for (int i = 1; i < itemRegister.getItemList().size()+1; i++) {
+        System.out.printf("%5d %s\n",i,itemRegister.getItemList().get(i-1));
+    }
   }
 
   private void decreaseItemStock(){
@@ -167,16 +173,18 @@ public class Menu {
   }
 
   private void noMenuWasSelected() {
+    System.out.println("Application closed");
     scanner.close();
+    System.exit(0);
   }
 
   public String getUserInput(String message,UserInput userInput){
-    System.out.println(message);
+    System.out.print(message + ": ");
     return userInput.input();
   }
 
   public String getUserInput(String message){
-    System.out.println(message);
+    System.out.print(message + ": ");
     return scanner.nextLine();
   }
 
@@ -199,10 +207,10 @@ public class Menu {
           isNumber = true;
           if(stringToInt < 0){
             isNegative = true;
-            System.out.println("Can't input negative numbers, try again");
+            System.out.print("Can't input negative numbers, try again: ");
           }
         }catch (NumberFormatException | NullPointerException e){
-          System.out.println("Input numbers, try again");
+          System.out.print("Input numbers, try again: ");
         }
       }while (!isNumber || isNegative);
 
@@ -224,10 +232,10 @@ public class Menu {
           isNumber = true;
           if(stringToDouble < 0){
             isNegative = true;
-            System.out.println("Can't input negative numbers, try again");
+            System.out.print("Can't input negative numbers, try again: ");
           }
         }catch (NumberFormatException | NullPointerException e){
-          System.out.println("Input numbers. try again");
+          System.out.print("Input numbers. try again: ");
         }
       }while (!isNumber || isNegative);
 
@@ -235,6 +243,9 @@ public class Menu {
     };
   }
 
+  public Scanner getScanner() {
+    return scanner;
+  }
 
   @Override
   public String toString() {

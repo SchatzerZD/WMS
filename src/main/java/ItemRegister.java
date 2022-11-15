@@ -98,7 +98,7 @@ public class ItemRegister {
             .append("-".repeat(18)).append(" + ").append("-".repeat(64)).append("\n");
 
     for (Item item: itemList) {
-      returnString.append(item.toString());
+      returnString.append(item.toString()).append("\n");
     }
 
     return returnString.toString();
