@@ -14,6 +14,5 @@ public class Main{
       menu.selectMenu(Integer.parseInt(menu.getUserInput("")));
     }
 
-
   }
 }

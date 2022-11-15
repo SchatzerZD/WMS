@@ -30,12 +30,11 @@ public class Menu {
       case changeItemPrice -> changeItemPrice();
       default -> noMenuWasSelected();
     }
-
   }
 
   private void printOutItems() {
     System.out.println(itemRegister);
-    getUserInput("Press ENTER to return to main menu");
+    getUserInput("Press ENTER to continue");
   }
 
   private void searchForItem() {
@@ -49,6 +48,8 @@ public class Menu {
     } else {
       System.out.println("Item not found");
     }
+
+    getUserInput("Press ENTER to continue");
 
   }
 
@@ -78,8 +79,36 @@ public class Menu {
               }while(itemNumberExists || isNullString);
 
               return itemNumberInput;
-            }),getUserInput("Input item description"),
-            getUserInput("Input item brand"),Integer.parseInt(getUserInput("Input item price", intUserInput())),
+            }),getUserInput("Input item description", () -> {
+              boolean isNullString;
+              String itemDescInput;
+
+              do{
+                isNullString = false;
+                itemDescInput = scanner.nextLine();
+                if(itemDescInput.equals("")){
+                  isNullString = true;
+                  System.out.println("Cant input empty string");
+                }
+              }while(isNullString);
+
+              return itemDescInput;
+            }),
+            getUserInput("Input item brand", () -> {
+              boolean isNullString;
+              String itemBrandInput;
+
+              do{
+                isNullString = false;
+                itemBrandInput = scanner.nextLine();
+                if(itemBrandInput.equals("")){
+                  isNullString = true;
+                  System.out.println("Cant input empty string");
+                }
+              }while(isNullString);
+
+              return itemBrandInput;
+            }),Integer.parseInt(getUserInput("Input item price", intUserInput())),
             Integer.parseInt(getUserInput("Input item stock", intUserInput())), Double.parseDouble(getUserInput("Specify item weight", doubleUserInput())),
             Double.parseDouble(getUserInput("Specify item length", doubleUserInput())),Double.parseDouble(getUserInput("Specify item height", doubleUserInput())),
             Color.valueOf(getUserInput("Specify item color " + Arrays.toString(Color.values()),() -> {
@@ -116,6 +145,9 @@ public class Menu {
 
               return categoryInput;
             })));
+
+    System.out.println("Item successfully added");
+    getUserInput("Press ENTER to continue");
   }
 
   private void increaseItemStock(){
@@ -153,17 +185,17 @@ public class Menu {
     return () -> {
       boolean isNumber;
       boolean isNegative;
-      String itemStockInput;
+      String numberStringInput;
 
       do{
         isNumber = false;
         isNegative = false;
-        itemStockInput = scanner.nextLine();
+        numberStringInput = scanner.nextLine();
         try{
-          if(itemStockInput.equals("")){
+          if(numberStringInput.equals("")){
             throw new NullPointerException();
           }
-          int stringToInt = Integer.parseInt(itemStockInput);
+          int stringToInt = Integer.parseInt(numberStringInput);
           isNumber = true;
           if(stringToInt < 0){
             isNegative = true;
@@ -174,21 +206,21 @@ public class Menu {
         }
       }while (!isNumber || isNegative);
 
-      return itemStockInput;
+      return numberStringInput;
     };
   }
   private UserInput doubleUserInput(){
     return () -> {
       boolean isNumber;
       boolean isNegative;
-      String itemStockInput;
+      String numberStringInput;
 
       do{
         isNumber = false;
         isNegative = false;
-        itemStockInput = scanner.nextLine();
+        numberStringInput = scanner.nextLine();
         try{
-          double stringToDouble = Double.parseDouble(itemStockInput);
+          double stringToDouble = Double.parseDouble(numberStringInput);
           isNumber = true;
           if(stringToDouble < 0){
             isNegative = true;
@@ -199,7 +231,7 @@ public class Menu {
         }
       }while (!isNumber || isNegative);
 
-      return itemStockInput;
+      return numberStringInput;
     };
   }
 
