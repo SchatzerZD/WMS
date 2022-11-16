@@ -155,9 +155,37 @@ public class Menu {
     System.out.printf("%-5s | %-15s | %-22s | %-6s | %-6s | %-10s | %-10s | %-10s | %-8s | %-18s | %s\n",
                       "index","ITEM NUMBER", "BRAND NAME", "PRICE", "STOCK", "WEIGHT",
                       "LENGTH", "HEIGHT", "COLOR", "CATEGORY", "DESCRIPTION");
-    for (int i = 1; i < itemRegister.getItemList().size()+1; i++) {
-        System.out.printf("%5d %s\n",i,itemRegister.getItemList().get(i-1));
+    for (int i = 0; i < itemRegister.size(); i++) {
+      System.out.printf("%5d %s\n",i+1,itemRegister.getItem(i));
     }
+
+    int listIndex = Integer.parseInt(getUserInput("Input the index number of the item you wish to edit", () -> {
+      boolean isListIndex;
+      String indexInput;
+
+      do {
+        isListIndex = false;
+        indexInput = scanner.nextLine();
+
+        try{
+          int stringToInt = Integer.parseInt(indexInput);
+          if(stringToInt > 0 && stringToInt <= itemRegister.size()){
+            isListIndex = true;
+          }else{
+            System.out.print("Input a number in the index list, try again: ");
+          }
+        }catch (NumberFormatException nfe){
+          System.out.print("Input numbers, try again: ");
+        }
+
+      }while(!isListIndex);
+
+      return indexInput;
+    })) - 1;
+
+    Item selectedItem = itemRegister.getItem(listIndex);
+
+
   }
 
   private void decreaseItemStock(){
@@ -260,7 +288,6 @@ public class Menu {
             7. Change price of an item
             
             Select option by typing the index number
-            Press any other key to exit program
-            """;
+            Press any other key to exit program""";
   }
 }

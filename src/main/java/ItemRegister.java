@@ -84,6 +84,14 @@ public class ItemRegister {
     return itemList;
   }
 
+  public Item getItem(int index){
+    return itemList.get(index);
+  }
+
+  public int size(){
+    return itemList.size();
+  }
+
   @Override
   public String toString() {
     StringBuilder returnString = new StringBuilder(String.format(

@@ -11,7 +11,7 @@ public class Main{
 
     while(true){
       System.out.println(menu);
-      menu.selectMenu(Integer.parseInt(menu.getUserInput("", () -> {
+      menu.selectMenu(Integer.parseInt(menu.getUserInput("Input", () -> {
         String menuIndexInput = menu.getScanner().nextLine();
         try{
           Integer.parseInt(menuIndexInput);
