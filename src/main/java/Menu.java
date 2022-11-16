@@ -67,12 +67,13 @@ public class Menu {
                   isNullString = true;
                   continue;
                 }
-                for (Item item: itemRegister.getItemList()) {
-                  if (item.getItemNumber().equals(itemNumberInput)) {
+                for (int i = 0; i < itemRegister.size(); i++) {
+                  if (itemRegister.getItem(i).getItemNumber().equals(itemNumberInput)) {
                     itemNumberExists = true;
                     break;
                   }
                 }
+
                 if(itemNumberExists){
                   System.out.print("Item number already exists, try again: ");
                 }
@@ -151,45 +152,29 @@ public class Menu {
   }
 
   private void increaseItemStock(){
+    Item selectedItem = itemSelection();
 
-    System.out.printf("%-5s | %-15s | %-22s | %-6s | %-6s | %-10s | %-10s | %-10s | %-8s | %-18s | %s\n",
-                      "index","ITEM NUMBER", "BRAND NAME", "PRICE", "STOCK", "WEIGHT",
-                      "LENGTH", "HEIGHT", "COLOR", "CATEGORY", "DESCRIPTION");
-    for (int i = 0; i < itemRegister.size(); i++) {
-      System.out.printf("%5d %s\n",i+1,itemRegister.getItem(i));
-    }
+    int stockIncrease = Integer.parseInt(getUserInput("Input stock amount which should be added", intUserInput()));
+    itemRegister.increaseItemStock(selectedItem, stockIncrease);
 
-    int listIndex = Integer.parseInt(getUserInput("Input the index number of the item you wish to edit", () -> {
-      boolean isListIndex;
-      String indexInput;
-
-      do {
-        isListIndex = false;
-        indexInput = scanner.nextLine();
-
-        try{
-          int stringToInt = Integer.parseInt(indexInput);
-          if(stringToInt > 0 && stringToInt <= itemRegister.size()){
-            isListIndex = true;
-          }else{
-            System.out.print("Input a number in the index list, try again: ");
-          }
-        }catch (NumberFormatException nfe){
-          System.out.print("Input numbers, try again: ");
-        }
-
-      }while(!isListIndex);
-
-      return indexInput;
-    })) - 1;
-
-    Item selectedItem = itemRegister.getItem(listIndex);
-
-
+    System.out.printf("Item updated: \n %5d" + selectedItem + "\n", itemRegister.getIndexOfItem(selectedItem) + 1);
+    getUserInput("Press ENTER to continue");
   }
 
   private void decreaseItemStock(){
+    Item selectedItem = itemSelection();
 
+    int stockDecrease = Integer.parseInt(getUserInput("Input stock amount which should be removed", intUserInput()));
+    //TODO: ADD EXCEPTION
+    try{
+      itemRegister.decreaseItemStock(selectedItem, stockDecrease);
+    }catch (IllegalArgumentException iae){
+
+    }
+
+
+    System.out.printf("Item updated: \n %5d" + selectedItem + "\n", itemRegister.getIndexOfItem(selectedItem) + 1);
+    getUserInput("Press ENTER to continue");
   }
 
   private void removeItem(){
@@ -269,6 +254,44 @@ public class Menu {
 
       return numberStringInput;
     };
+  }
+
+  private Item itemSelection(){
+    System.out.printf("%-5s | %-15s | %-22s | %-6s | %-6s | %-10s | %-10s | %-10s | %-8s | %-18s | %s\n",
+            "index","ITEM NUMBER", "BRAND NAME", "PRICE", "STOCK", "WEIGHT",
+            "LENGTH", "HEIGHT", "COLOR", "CATEGORY", "DESCRIPTION");
+    for (int i = 0; i < itemRegister.size(); i++) {
+      System.out.printf("%5d %s\n",i+1,itemRegister.getItem(i));
+    }
+
+    int listIndex = Integer.parseInt(getUserInput("Input the index number of the item you wish to edit", () -> {
+      boolean isListIndex;
+      String indexInput;
+
+      do {
+        isListIndex = false;
+        indexInput = scanner.nextLine();
+
+        try{
+          int stringToInt = Integer.parseInt(indexInput);
+          if(stringToInt > 0 && stringToInt <= itemRegister.size()){
+            isListIndex = true;
+          }else{
+            System.out.print("Input a number in the index list, try again: ");
+          }
+        }catch (NumberFormatException nfe){
+          System.out.print("Input numbers, try again: ");
+        }
+
+      }while(!isListIndex);
+
+      return indexInput;
+    })) - 1;
+
+    Item selectedItem = itemRegister.getItem(listIndex);
+    System.out.printf("Selected item: \n %5d" + selectedItem + "\n", listIndex+1);
+
+    return selectedItem;
   }
 
   public Scanner getScanner() {

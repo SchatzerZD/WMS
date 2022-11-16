@@ -52,6 +52,17 @@ public class ItemRegister {
     return true;
   }
 
+  public int getIndexOfItem(Item itemInput){
+    int indexNumber = -1;
+    for (int i = 0; i < itemList.size(); i++) {
+      if(itemInput.equals(itemList.get(i))){
+        indexNumber = i;
+        break;
+      }
+    }
+    return indexNumber;
+  }
+
   public boolean removeItem(Item item){
     return itemList.remove(item);
   }
@@ -64,26 +75,17 @@ public class ItemRegister {
   }
 
   public void fillListWithDefaultItems(){
-    itemList.add(new Item("A1205B","Large Christmas Window","SULOLI",
+    addItem(new Item("A1205B","Large Christmas Window","SULOLI",
             130,2,0.45,15.8,27.5,Color.WHITE,Category.WINDOWS));
-
-    itemList.add(new Item("M5788B","Cherry Lumber","Barrington Hardwoods",
+    addItem(new Item("M5788B","Cherry Lumber","Barrington Hardwoods",
             120,8,2.43,30.48,3.2,Color.BROWN,Category.LUMBER));
-
-    itemList.add(new Item("C1007B","Magnetic Thermal Insulated","Mpmedo",
+    addItem(new Item("C1007B","Magnetic Thermal Insulated","Mpmedo",
             298,31,52.4,57.3,210.47,Color.GRAY,Category.DOORS));
-
-    itemList.add(new Item("A1008B","Basement Hopper Window","Park products",
+    addItem(new Item("A1008B","Basement Hopper Window","Park products",
             977,76,8.6,96.3,45.2,Color.GRAY,Category.WINDOWS));
-
-    itemList.add(new Item("F4020G","Self Adhesive Vinyl Floor Tile","Achim",
+    addItem(new Item("F4020G","Self Adhesive Vinyl Floor Tile","Achim",
             173,211,4.08,30.48,30.48,Color.BLACK,Category.FLOOR_LAMINATES));
   }
-
-  public List<Item> getItemList(){
-    return itemList;
-  }
-
   public Item getItem(int index){
     return itemList.get(index);
   }
