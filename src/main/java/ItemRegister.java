@@ -23,11 +23,6 @@ public class ItemRegister {
     return null;
   }
 
-  public void addItem(Item itemInput){
-    itemList.add(itemInput);
-    sortByItemNumber();
-  }
-
   public void addItem(String itemNumber, String desc, String brandName, int price, int warehouseStock,
                       double weight, double length, double height, Color color, Category category){
 
@@ -80,16 +75,16 @@ public class ItemRegister {
 
 
   public void fillListWithDefaultItems(){
-    addItem(new Item("A1205B","Large Christmas Window","SULOLI",
-            130,2,0.45,15.8,27.5,Color.WHITE,Category.WINDOWS));
-    addItem(new Item("M5788B","Cherry Lumber","Barrington Hardwoods",
-            120,8,2.43,30.48,3.2,Color.BROWN,Category.LUMBER));
-    addItem(new Item("C1007B","Magnetic Thermal Insulated","Mpmedo",
-            298,31,52.4,57.3,210.47,Color.GRAY,Category.DOORS));
-    addItem(new Item("A1008B","Basement Hopper Window","Park products",
-            977,76,8.6,96.3,45.2,Color.GRAY,Category.WINDOWS));
-    addItem(new Item("F4020G","Self Adhesive Vinyl Floor Tile","Achim",
-            173,211,4.08,30.48,30.48,Color.BLACK,Category.FLOOR_LAMINATES));
+    addItem("A1205B","Large Christmas Window","SULOLI",
+            130,2,0.45,15.8,27.5,Color.WHITE,Category.WINDOWS);
+    addItem("M5788B","Cherry Lumber","Barrington Hardwoods",
+            120,8,2.43,30.48,3.2,Color.BROWN,Category.LUMBER);
+    addItem("C1007B","Magnetic Thermal Insulated","Mpmedo",
+            298,31,52.4,57.3,210.47,Color.GRAY,Category.DOORS);
+    addItem("A1008B","Basement Hopper Window","Park products",
+            977,76,8.6,96.3,45.2,Color.GRAY,Category.WINDOWS);
+    addItem("F4020G","Self Adhesive Vinyl Floor Tile","Achim",
+            173,211,4.08,30.48,30.48,Color.BLACK,Category.FLOOR_LAMINATES);
   }
   public Item getItem(int index){
     return itemList.get(index);

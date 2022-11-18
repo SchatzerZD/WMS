@@ -7,19 +7,10 @@ public class Main{
 
     Menu menu = new Menu(itemRegister);
 
+    menu.start();
 
-    while(true){
-      System.out.println(menu);
-      menu.selectMenu(Integer.parseInt(menu.getUserInput("Input", () -> {
-        String menuIndexInput = menu.getScanner().nextLine();
-        try{
-          Integer.parseInt(menuIndexInput);
-        }catch (NumberFormatException nfe){
-          menuIndexInput = "0";
-        }
-        return menuIndexInput;
-      })));
-    }
+
+
 
   }
 }

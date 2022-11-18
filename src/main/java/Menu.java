@@ -10,7 +10,22 @@ public class Menu {
     this.scanner = new Scanner(System.in);
   }
 
-  public void selectMenu(int menuSelection) {
+  public void start(){
+    while(true){
+      System.out.println(this);
+      selectMenu(Integer.parseInt(getUserInput("Input", () -> {
+        String menuIndexInput = scanner.nextLine();
+        try{
+          Integer.parseInt(menuIndexInput);
+        }catch (NumberFormatException nfe){
+          menuIndexInput = "0";
+        }
+        return menuIndexInput;
+      })));
+    }
+  }
+
+  private void selectMenu(int menuSelection) {
 
     final int printOutItems = 1;
     final int searchForItem = 2;
@@ -339,10 +354,6 @@ public class Menu {
     System.out.printf("Selected item: \n %5d" + selectedItem + "\n", listIndex+1);
 
     return selectedItem;
-  }
-
-  public Scanner getScanner() {
-    return scanner;
   }
 
   @Override
