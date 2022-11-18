@@ -37,30 +37,33 @@ public class ItemRegister {
   }
 
   public boolean increaseItemStock(Item itemInput, int stockIncrease){
-    if (!itemList.contains(itemInput)){
-      return false;
+    int itemIndex = itemList.indexOf(itemInput);
+    if (itemIndex >= 0){
+      itemList.get(itemIndex).setWarehouseStock(itemInput.getWarehouseStock() + stockIncrease);
+      return true;
     }
-    itemInput.setWarehouseStock(itemInput.getWarehouseStock() + stockIncrease);
-    return true;
+    return false;
   }
 
   public boolean decreaseItemStock(Item itemInput, int stockDecrease){
-    if (!itemList.contains(itemInput)){
-      return false;
+    int itemIndex = itemList.indexOf(itemInput);
+    if (itemIndex >= 0){
+      itemList.get(itemIndex).setWarehouseStock(itemInput.getWarehouseStock() - stockDecrease);
+      return true;
     }
-    itemInput.setWarehouseStock(itemInput.getWarehouseStock() - stockDecrease);
-    return true;
+    return false;
+  }
+  public boolean changePriceOfItem(Item item, int price){
+    int itemIndex = itemList.indexOf(item);
+    if(itemIndex >= 0){
+      itemList.get(itemIndex).setPrice(price);
+      return true;
+    }
+    return false;
   }
 
   public int getIndexOfItem(Item itemInput){
-    int indexNumber = -1;
-    for (int i = 0; i < itemList.size(); i++) {
-      if(itemInput.equals(itemList.get(i))){
-        indexNumber = i;
-        break;
-      }
-    }
-    return indexNumber;
+    return itemList.indexOf(itemInput);
   }
 
   public boolean removeItem(Item item){
@@ -73,6 +76,8 @@ public class ItemRegister {
       return o1.getItemNumber().compareTo(o2.getItemNumber()) > 0 ? 1 : -1;
     });
   }
+
+
 
   public void fillListWithDefaultItems(){
     addItem(new Item("A1205B","Large Christmas Window","SULOLI",

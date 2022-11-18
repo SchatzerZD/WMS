@@ -154,35 +154,82 @@ public class Menu {
   private void increaseItemStock(){
     Item selectedItem = itemSelection();
 
-    int stockIncrease = Integer.parseInt(getUserInput("Input stock amount which should be added", intUserInput()));
-    itemRegister.increaseItemStock(selectedItem, stockIncrease);
+    int stockIncrease = Integer.parseInt(getUserInput("Input stock amount which should be added", () -> {
+      boolean isGreaterThanMax;
+      String numberInput;
+      do {
+        numberInput = intUserInput().input();
+        isGreaterThanMax = false;
 
-    System.out.printf("Item updated: \n %5d" + selectedItem + "\n", itemRegister.getIndexOfItem(selectedItem) + 1);
-    getUserInput("Press ENTER to continue");
+        int stringToInt = Integer.parseInt(numberInput);
+        if(selectedItem.getWarehouseStock() + stringToInt < 0){
+          isGreaterThanMax = true;
+          System.out.print("Stock amount exceeds maximum amount, try again: ");
+        }
+      }while (isGreaterThanMax);
+
+      return numberInput;
+    }));
+
+    if(itemRegister.increaseItemStock(selectedItem, stockIncrease)){
+      System.out.printf("Item updated: \n %5d" + selectedItem + "\n", itemRegister.getIndexOfItem(selectedItem) + 1);
+      getUserInput("Press ENTER to continue");
+    }else{
+      System.out.print("Something went wrong");
+    }
+
+
   }
 
   private void decreaseItemStock(){
     Item selectedItem = itemSelection();
 
-    int stockDecrease = Integer.parseInt(getUserInput("Input stock amount which should be removed", intUserInput()));
-    //TODO: ADD EXCEPTION
-    try{
-      itemRegister.decreaseItemStock(selectedItem, stockDecrease);
-    }catch (IllegalArgumentException iae){
+    int stockDecrease = Integer.parseInt(getUserInput("Input stock amount which should be removed", () -> {
+      boolean isGreaterThanStock;
+      String numberInput;
+      do {
+        numberInput = intUserInput().input();
+        isGreaterThanStock = false;
 
+        int stringToInt = Integer.parseInt(numberInput);
+        if(selectedItem.getWarehouseStock() < stringToInt){
+          isGreaterThanStock = true;
+          System.out.print("Number inputted is greater than item stock, try again: ");
+        }
+      }while (isGreaterThanStock);
+
+      return numberInput;
+    }));
+
+    if(itemRegister.decreaseItemStock(selectedItem, stockDecrease)){
+      System.out.printf("Item updated: \n %5d" + selectedItem + "\n", itemRegister.getIndexOfItem(selectedItem) + 1);
+      getUserInput("Press ENTER to continue");
+    }else{
+      System.out.print("Something went wrong");
     }
 
-
-    System.out.printf("Item updated: \n %5d" + selectedItem + "\n", itemRegister.getIndexOfItem(selectedItem) + 1);
-    getUserInput("Press ENTER to continue");
   }
 
   private void removeItem(){
+    Item selectedItem = itemSelection();
+
+    if(itemRegister.removeItem(selectedItem)){
+      System.out.print("Item successfully removed\n");
+      getUserInput("Press ENTER to continue");
+    }
 
   }
 
   private void changeItemPrice(){
+    Item selectedItem = itemSelection();
 
+    int newPrice = Integer.parseInt(getUserInput("Input new price for the item", intUserInput()));
+    if(itemRegister.changePriceOfItem(selectedItem,newPrice)){
+      System.out.printf("Item updated: \n %5d" + selectedItem + "\n", itemRegister.getIndexOfItem(selectedItem) + 1);
+      getUserInput("Press ENTER to continue");
+    }else{
+      System.out.print("Something went wrong");
+    }
   }
 
   private void noMenuWasSelected() {
