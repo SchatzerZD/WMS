@@ -49,12 +49,12 @@ public class Menu {
 
   private void printOutItems() {
     System.out.println(itemRegister);
-    getUserInput("Press ENTER to continue");
+    halt();
   }
 
   private void searchForItem() {
     System.out.println("Search for item by number or description");
-    String userInput = scanner.nextLine();
+    String userInput = scannerNextLine();
 
     if (itemRegister.searchByItemNumber(userInput) != null) {
       System.out.println(itemRegister.searchByItemNumber(userInput));
@@ -64,7 +64,7 @@ public class Menu {
       System.out.println("Item not found");
     }
 
-    getUserInput("Press ENTER to continue");
+    halt();
 
   }
 
@@ -76,7 +76,7 @@ public class Menu {
               do{
                 itemNumberExists = false;
                 isNullString = false;
-                itemNumberInput = scanner.nextLine();
+                itemNumberInput = scannerNextLine();
                 if(itemNumberInput.equals("")){
                   System.out.print("Cant input empty string: ");
                   isNullString = true;
@@ -101,7 +101,7 @@ public class Menu {
 
               do{
                 isNullString = false;
-                itemDescInput = scanner.nextLine();
+                itemDescInput = scannerNextLine();
                 if(itemDescInput.equals("")){
                   isNullString = true;
                   System.out.print("Cant input empty string: ");
@@ -116,7 +116,7 @@ public class Menu {
 
               do{
                 isNullString = false;
-                itemBrandInput = scanner.nextLine();
+                itemBrandInput = scannerNextLine();
                 if(itemBrandInput.equals("")){
                   isNullString = true;
                   System.out.print("Cant input empty string: ");
@@ -132,7 +132,7 @@ public class Menu {
               String colorInput;
               do{
                 isColor = false;
-                colorInput = scanner.nextLine().toUpperCase();
+                colorInput = scannerNextLine().toUpperCase();
                 try{
                   Color.valueOf(colorInput);
                   isColor = true;
@@ -149,7 +149,7 @@ public class Menu {
               String categoryInput;
               do{
                 isCategory = false;
-                categoryInput = scanner.nextLine().toUpperCase();
+                categoryInput = scannerNextLine().toUpperCase();
                 try{
                   Category.valueOf(categoryInput);
                   isCategory = true;
@@ -163,7 +163,7 @@ public class Menu {
             })));
 
     System.out.println("Item successfully added");
-    getUserInput("Press ENTER to continue");
+    halt();
   }
 
   private void increaseItemStock(){
@@ -188,7 +188,7 @@ public class Menu {
 
     if(itemRegister.increaseItemStock(selectedItem, stockIncrease)){
       System.out.printf("Item updated: \n %5d" + selectedItem + "\n", itemRegister.getIndexOfItem(selectedItem) + 1);
-      getUserInput("Press ENTER to continue");
+      halt();
     }else{
       System.out.print("Something went wrong");
     }
@@ -218,7 +218,7 @@ public class Menu {
 
     if(itemRegister.decreaseItemStock(selectedItem, stockDecrease)){
       System.out.printf("Item updated: \n %5d" + selectedItem + "\n", itemRegister.getIndexOfItem(selectedItem) + 1);
-      getUserInput("Press ENTER to continue");
+      halt();
     }else{
       System.out.print("Something went wrong");
     }
@@ -230,7 +230,7 @@ public class Menu {
 
     if(itemRegister.removeItem(selectedItem)){
       System.out.print("Item successfully removed\n");
-      getUserInput("Press ENTER to continue");
+      halt();
     }
 
   }
@@ -241,7 +241,7 @@ public class Menu {
     int newPrice = Integer.parseInt(getUserInput("Input new price for the item", intUserInput()));
     if(itemRegister.changePriceOfItem(selectedItem,newPrice)){
       System.out.printf("Item updated: \n %5d" + selectedItem + "\n", itemRegister.getIndexOfItem(selectedItem) + 1);
-      getUserInput("Press ENTER to continue");
+      halt();
     }else{
       System.out.print("Something went wrong");
     }
@@ -258,9 +258,9 @@ public class Menu {
     return userInput.input();
   }
 
-  public String getUserInput(String message){
-    System.out.print(message + ": ");
-    return scanner.nextLine();
+  public void halt(){
+    System.out.println("Press ENTER to continue");
+    scanner.nextLine();
   }
 
 
@@ -273,7 +273,7 @@ public class Menu {
       do{
         isNumber = false;
         isNegative = false;
-        numberStringInput = scanner.nextLine();
+        numberStringInput = scannerNextLine();
         try{
           if(numberStringInput.equals("")){
             throw new NullPointerException();
@@ -301,7 +301,8 @@ public class Menu {
       do{
         isNumber = false;
         isNegative = false;
-        numberStringInput = scanner.nextLine();
+        numberStringInput = scannerNextLine();
+
         try{
           double stringToDouble = Double.parseDouble(numberStringInput);
           isNumber = true;
@@ -332,7 +333,7 @@ public class Menu {
 
       do {
         isListIndex = false;
-        indexInput = scanner.nextLine();
+        indexInput = scannerNextLine();
 
         try{
           int stringToInt = Integer.parseInt(indexInput);
@@ -356,6 +357,15 @@ public class Menu {
     return selectedItem;
   }
 
+  private String scannerNextLine(){
+    String userInput = scanner.nextLine();
+    if(userInput.equals("/BACK")){
+      start();
+    }
+    return userInput;
+
+  }
+
   @Override
   public String toString() {
     return """
@@ -369,6 +379,7 @@ public class Menu {
             7. Change price of an item
             
             Select option by typing the index number
+            Type "/BACK" to return to this menu at any point
             Press any other key to exit program""";
   }
 }
