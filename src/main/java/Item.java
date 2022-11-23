@@ -13,6 +13,7 @@ public class Item {
 
   private int price;
   private int warehouseStock;
+  private double discount;
 
   private double weight;
   private double length;
@@ -58,6 +59,7 @@ public class Item {
 
     this.color = color;
     this.category = category;
+    this.discount = 0;
 
   }
 
@@ -74,7 +76,7 @@ public class Item {
   }
 
   public int getPrice() {
-    return price;
+    return (int) (price * (1 - (discount / 100)));
   }
 
   public int getWarehouseStock() {
@@ -116,6 +118,13 @@ public class Item {
       throw new IllegalArgumentException();
     }
     this.price = price;
+  }
+
+  public void setDiscount(double discount) {
+    if (discount < 0 || discount > 100) {
+      throw new IllegalArgumentException();
+    }
+    this.discount = discount;
   }
 
   /**
