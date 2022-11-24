@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.function.Predicate;
 
 public class ItemRegister {
 
@@ -10,17 +13,11 @@ public class ItemRegister {
   }
 
   public Item searchByItemNumber(String itemNumberInput){
-    for (Item item: itemList) {
-      if(item.getItemNumber().equals(itemNumberInput))return item;
-    }
-    return null;
+    return optionalItemFromList(item -> item.getItemNumber().equals(itemNumberInput)).orElse(null);
   }
 
   public Item searchByItemDesc(String itemDescInput){
-    for (Item item: itemList) {
-      if(item.getDesc().equals(itemDescInput))return item;
-    }
-    return null;
+    return optionalItemFromList(item -> item.getDesc().equals(itemDescInput)).orElse(null);
   }
 
   public void addItem(String itemNumber, String desc, String brandName, int price, int warehouseStock,
@@ -31,30 +28,19 @@ public class ItemRegister {
 
   }
 
-  public boolean increaseItemStock(Item itemInput, int stockIncrease){
-    int itemIndex = itemList.indexOf(itemInput);
-    if (itemIndex >= 0){
-      itemList.get(itemIndex).setWarehouseStock(itemInput.getWarehouseStock() + stockIncrease);
-      return true;
-    }
-    return false;
+  public void increaseItemStock(Item itemInput, int stockIncrease){
+    optionalItemFromList(item -> item.equals(itemInput)).orElseThrow(NoSuchElementException::new)
+            .setWarehouseStock(itemInput.getWarehouseStock() + stockIncrease);
   }
 
-  public boolean decreaseItemStock(Item itemInput, int stockDecrease){
-    int itemIndex = itemList.indexOf(itemInput);
-    if (itemIndex >= 0){
-      itemList.get(itemIndex).setWarehouseStock(itemInput.getWarehouseStock() - stockDecrease);
-      return true;
-    }
-    return false;
+  public void decreaseItemStock(Item itemInput, int stockDecrease){
+    optionalItemFromList(item -> item.equals(itemInput)).orElseThrow(NoSuchElementException::new)
+            .setWarehouseStock(itemInput.getWarehouseStock() - stockDecrease);
   }
-  public boolean changePriceOfItem(Item item, int price){
-    int itemIndex = itemList.indexOf(item);
-    if(itemIndex >= 0){
-      itemList.get(itemIndex).setPrice(price);
-      return true;
-    }
-    return false;
+
+  public void changePriceOfItem(Item itemInput, int price){
+    optionalItemFromList(item -> item.equals(itemInput)).orElseThrow(NoSuchElementException::new)
+            .setPrice(price);
   }
 
   public int getIndexOfItem(Item itemInput){
@@ -70,6 +56,30 @@ public class ItemRegister {
       if(o1.getItemNumber().equals(o2.getItemNumber()))return 0;
       return o1.getItemNumber().compareTo(o2.getItemNumber()) > 0 ? 1 : -1;
     });
+  }
+
+  public void sortByPrice(){
+
+  }
+
+  public void sortByStock(){
+
+  }
+
+  public void sortByWeight(){
+
+  }
+
+  public void sortByLength(){
+
+  }
+
+  public void sortByHeight(){
+
+  }
+
+  private Optional<Item> optionalItemFromList(Predicate<Item> predicate){
+    return itemList.stream().filter(predicate).findFirst();
   }
 
 

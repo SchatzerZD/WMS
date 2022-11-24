@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Menu {
@@ -186,13 +187,13 @@ public class Menu {
       return numberInput;
     }));
 
-    if(itemRegister.increaseItemStock(selectedItem, stockIncrease)){
+    try{
+      itemRegister.increaseItemStock(selectedItem, stockIncrease);
       System.out.printf("Item updated: \n %5d" + selectedItem + "\n", itemRegister.getIndexOfItem(selectedItem) + 1);
       halt();
-    }else{
-      System.out.print("Something went wrong");
+    }catch (NoSuchElementException nee){
+      System.out.print("Item was not found in the item register");
     }
-
 
   }
 
@@ -216,11 +217,12 @@ public class Menu {
       return numberInput;
     }));
 
-    if(itemRegister.decreaseItemStock(selectedItem, stockDecrease)){
+    try{
+      itemRegister.decreaseItemStock(selectedItem, stockDecrease);
       System.out.printf("Item updated: \n %5d" + selectedItem + "\n", itemRegister.getIndexOfItem(selectedItem) + 1);
       halt();
-    }else{
-      System.out.print("Something went wrong");
+    }catch (NoSuchElementException nee){
+      System.out.print("Item was not found in the item register");
     }
 
   }
@@ -239,11 +241,12 @@ public class Menu {
     Item selectedItem = itemSelection();
 
     int newPrice = Integer.parseInt(getUserInput("Input new price for the item", intUserInput()));
-    if(itemRegister.changePriceOfItem(selectedItem,newPrice)){
+    try{
+      itemRegister.changePriceOfItem(selectedItem,newPrice);
       System.out.printf("Item updated: \n %5d" + selectedItem + "\n", itemRegister.getIndexOfItem(selectedItem) + 1);
       halt();
-    }else{
-      System.out.print("Something went wrong");
+    }catch (NoSuchElementException nee){
+      System.out.println("Item was not found in the item register");
     }
   }
 
