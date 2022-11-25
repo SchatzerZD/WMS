@@ -13,11 +13,13 @@ public class ItemRegister {
   }
 
   public Item searchByItemNumber(String itemNumberInput){
-    return optionalItemFromList(item -> item.getItemNumber().equals(itemNumberInput)).orElse(null);
+    return optionalItemFromList(item -> item.getItemNumber().equals(itemNumberInput))
+            .orElse(null);
   }
 
   public Item searchByItemDesc(String itemDescInput){
-    return optionalItemFromList(item -> item.getDesc().equals(itemDescInput)).orElse(null);
+    return optionalItemFromList(item -> item.getDesc().equals(itemDescInput))
+            .orElse(null);
   }
 
   public void addItem(String itemNumber, String desc, String brandName, int price, int warehouseStock,
@@ -25,21 +27,23 @@ public class ItemRegister {
 
     itemList.add(new Item(itemNumber,desc,brandName,price,warehouseStock,weight,length,height,color,category));
     sortByItemNumber();
-
   }
 
   public void increaseItemStock(Item itemInput, int stockIncrease){
-    optionalItemFromList(item -> item.equals(itemInput)).orElseThrow(NoSuchElementException::new)
+    optionalItemFromList(item -> item.equals(itemInput))
+            .orElseThrow(NoSuchElementException::new)
             .setWarehouseStock(itemInput.getWarehouseStock() + stockIncrease);
   }
 
   public void decreaseItemStock(Item itemInput, int stockDecrease){
-    optionalItemFromList(item -> item.equals(itemInput)).orElseThrow(NoSuchElementException::new)
+    optionalItemFromList(item -> item.equals(itemInput))
+            .orElseThrow(NoSuchElementException::new)
             .setWarehouseStock(itemInput.getWarehouseStock() - stockDecrease);
   }
 
   public void changePriceOfItem(Item itemInput, int price){
-    optionalItemFromList(item -> item.equals(itemInput)).orElseThrow(NoSuchElementException::new)
+    optionalItemFromList(item -> item.equals(itemInput))
+            .orElseThrow(NoSuchElementException::new)
             .setPrice(price);
   }
 
@@ -58,28 +62,10 @@ public class ItemRegister {
     });
   }
 
-  public void sortByPrice(){
-
-  }
-
-  public void sortByStock(){
-
-  }
-
-  public void sortByWeight(){
-
-  }
-
-  public void sortByLength(){
-
-  }
-
-  public void sortByHeight(){
-
-  }
-
   private Optional<Item> optionalItemFromList(Predicate<Item> predicate){
-    return itemList.stream().filter(predicate).findFirst();
+    return itemList.stream()
+            .filter(predicate)
+            .findFirst();
   }
 
 
