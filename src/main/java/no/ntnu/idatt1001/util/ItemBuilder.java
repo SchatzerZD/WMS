@@ -1,3 +1,5 @@
+package no.ntnu.idatt1001.util;
+
 public class ItemBuilder {
 
   private String itemNumber;

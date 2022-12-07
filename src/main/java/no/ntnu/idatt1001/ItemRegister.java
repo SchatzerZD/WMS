@@ -1,3 +1,9 @@
+package no.ntnu.idatt1001;
+
+import no.ntnu.idatt1001.util.Category;
+import no.ntnu.idatt1001.util.Color;
+import no.ntnu.idatt1001.util.Item;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;

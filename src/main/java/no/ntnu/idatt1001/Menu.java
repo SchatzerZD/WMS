@@ -1,3 +1,9 @@
+package no.ntnu.idatt1001;
+
+import no.ntnu.idatt1001.util.Category;
+import no.ntnu.idatt1001.util.Color;
+import no.ntnu.idatt1001.util.Item;
+
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -256,7 +262,7 @@ public class Menu {
     System.exit(0);
   }
 
-  public String getUserInput(String message,UserInput userInput){
+  public String getUserInput(String message, UserInput userInput){
     System.out.print(message + ": ");
     return userInput.input();
   }

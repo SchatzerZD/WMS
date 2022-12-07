@@ -1,3 +1,6 @@
+import no.ntnu.idatt1001.util.Category;
+import no.ntnu.idatt1001.util.Color;
+import no.ntnu.idatt1001.util.Item;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +15,7 @@ class ItemTest {
   @BeforeEach
   void setUp() {
     testItem = new Item("A1005B","An item for testing","Dan AS",
-            16,2,81.4,32.7,180.4,Color.YELLOW,Category.WINDOWS);
+            16,2,81.4,32.7,180.4, Color.YELLOW, Category.WINDOWS);
   }
 
   @Test
