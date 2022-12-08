@@ -1,6 +1,7 @@
 import no.ntnu.idatt1001.util.Category;
 import no.ntnu.idatt1001.util.Color;
 import no.ntnu.idatt1001.util.Item;
+import no.ntnu.idatt1001.util.ItemBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,28 +15,37 @@ class ItemTest {
 
   @BeforeEach
   void setUp() {
-    testItem = new Item("A1005B","An item for testing","Dan AS",
-            16,2,81.4,32.7,180.4, Color.YELLOW, Category.WINDOWS);
+    testItem = new ItemBuilder()
+            .setItemNumber("A1205B")
+            .setDesc("Large Christmas Window")
+            .setBrandName("SULOLI")
+            .setPrice(130)
+            .setWarehouseStock(2)
+            .setWeight(0.45)
+            .setLength(15.8)
+            .setHeight(27.5)
+            .setColor(Color.WHITE)
+            .setCategory(Category.WINDOWS).build();
   }
 
   @Test
   void getItemNumber() {
-    Assertions.assertEquals("A1005B",testItem.getItemNumber());
+    Assertions.assertEquals("A1205B",testItem.getItemNumber());
   }
 
   @Test
   void getDesc() {
-    assertEquals("An item for testing",testItem.getDesc());
+    assertEquals("Large Christmas Window",testItem.getDesc());
   }
 
   @Test
   void getBrandName() {
-    assertEquals("Dan AS",testItem.getBrandName());
+    assertEquals("SULOLI",testItem.getBrandName());
   }
 
   @Test
   void getPrice() {
-    assertEquals(16,testItem.getPrice());
+    assertEquals(130,testItem.getPrice());
   }
 
   @Test
@@ -45,22 +55,22 @@ class ItemTest {
 
   @Test
   void getWeight() {
-    assertEquals(81.4,testItem.getWeight());
+    assertEquals(0.45,testItem.getWeight());
   }
 
   @Test
   void getLength() {
-    assertEquals(32.7,testItem.getLength());
+    assertEquals(15.8,testItem.getLength());
   }
 
   @Test
   void getHeight() {
-    assertEquals(180.4,testItem.getHeight());
+    assertEquals(27.5,testItem.getHeight());
   }
 
   @Test
   void getColor() {
-    assertEquals(Color.YELLOW,testItem.getColor());
+    assertEquals(Color.WHITE,testItem.getColor());
   }
 
   @Test
@@ -91,41 +101,104 @@ class ItemTest {
   void testIfIllegalArgumentExceptionIsThrown(){
     //Tests negative price value
     assertThrows(IllegalArgumentException.class, () ->
-            new Item("A1005B","An item for testing","Dan AS",
-            -16,2,81.4,32.7,180.4,Color.YELLOW,Category.WINDOWS));
+            new ItemBuilder()
+                    .setItemNumber("A1205B")
+                    .setDesc("Large Christmas Window")
+                    .setBrandName("SULOLI")
+                    .setPrice(-130)
+                    .setWarehouseStock(2)
+                    .setWeight(0.45)
+                    .setLength(15.8)
+                    .setHeight(27.5)
+                    .setColor(Color.WHITE)
+                    .setCategory(Category.WINDOWS).build());
 
     //Tests negative warehouseStock value
     assertThrows(IllegalArgumentException.class, () ->
-            new Item("A1005B","An item for testing","Dan AS",
-                    16,-2,81.4,32.7,180.4,Color.YELLOW,Category.WINDOWS));
+            new ItemBuilder()
+                    .setItemNumber("A1205B")
+                    .setDesc("Large Christmas Window")
+                    .setBrandName("SULOLI")
+                    .setPrice(130)
+                    .setWarehouseStock(-2)
+                    .setWeight(0.45)
+                    .setLength(15.8)
+                    .setHeight(27.5)
+                    .setColor(Color.WHITE)
+                    .setCategory(Category.WINDOWS).build());
 
     //Tests negative weight value
     assertThrows(IllegalArgumentException.class, () ->
-            new Item("A1005B","An item for testing","Dan AS",
-                    16,2,-81.4,32.7,180.4,Color.YELLOW,Category.WINDOWS));
+            new ItemBuilder()
+                    .setItemNumber("A1205B")
+                    .setDesc("Large Christmas Window")
+                    .setBrandName("SULOLI")
+                    .setPrice(130)
+                    .setWarehouseStock(2)
+                    .setWeight(-0.45)
+                    .setLength(15.8)
+                    .setHeight(27.5)
+                    .setColor(Color.WHITE)
+                    .setCategory(Category.WINDOWS).build());
 
     //Tests negative length value
     assertThrows(IllegalArgumentException.class, () ->
-            new Item("A1005B","An item for testing","Dan AS",
-                    16,2,81.4,-32.7,180.4,Color.YELLOW,Category.WINDOWS));
+            new ItemBuilder()
+                    .setItemNumber("A1205B")
+                    .setDesc("Large Christmas Window")
+                    .setBrandName("SULOLI")
+                    .setPrice(130)
+                    .setWarehouseStock(2)
+                    .setWeight(0.45)
+                    .setLength(-15.8)
+                    .setHeight(27.5)
+                    .setColor(Color.WHITE)
+                    .setCategory(Category.WINDOWS).build());
 
     //Tests negative height value
     assertThrows(IllegalArgumentException.class, () ->
-            new Item("A1005B","An item for testing","Dan AS",
-                    16,2,81.4,32.7,-180.4,Color.YELLOW,Category.WINDOWS));
+            new ItemBuilder()
+                    .setItemNumber("A1205B")
+                    .setDesc("Large Christmas Window")
+                    .setBrandName("SULOLI")
+                    .setPrice(130)
+                    .setWarehouseStock(2)
+                    .setWeight(0.45)
+                    .setLength(15.8)
+                    .setHeight(-27.5)
+                    .setColor(Color.WHITE)
+                    .setCategory(Category.WINDOWS).build());
 
     //Tests negative price value in setPrice method
     assertThrows(IllegalArgumentException.class, () ->{
-      Item illegalItem = new Item("A1005B","An item for testing","Dan AS",
-              16,2,81.4,32.7,180.4,Color.YELLOW,Category.WINDOWS);
+      Item illegalItem = new ItemBuilder()
+              .setItemNumber("A1205B")
+              .setDesc("Large Christmas Window")
+              .setBrandName("SULOLI")
+              .setPrice(130)
+              .setWarehouseStock(2)
+              .setWeight(0.45)
+              .setLength(15.8)
+              .setHeight(27.5)
+              .setColor(Color.WHITE)
+              .setCategory(Category.WINDOWS).build();
 
       illegalItem.setPrice(-5);
     });
 
     //Tests negative price value in setWarehouseStock method
     assertThrows(IllegalArgumentException.class, () ->{
-      Item illegalItem = new Item("A1005B","An item for testing","Dan AS",
-              16,2,81.4,32.7,180.4,Color.YELLOW,Category.WINDOWS);
+      Item illegalItem = new ItemBuilder()
+              .setItemNumber("A1205B")
+              .setDesc("Large Christmas Window")
+              .setBrandName("SULOLI")
+              .setPrice(130)
+              .setWarehouseStock(2)
+              .setWeight(0.45)
+              .setLength(15.8)
+              .setHeight(27.5)
+              .setColor(Color.WHITE)
+              .setCategory(Category.WINDOWS).build();
 
       illegalItem.setWarehouseStock(-1);
     });

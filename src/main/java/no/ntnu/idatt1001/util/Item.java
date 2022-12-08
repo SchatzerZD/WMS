@@ -44,7 +44,7 @@ public class Item{
    * @throws IllegalArgumentException   If the specified price, warehouse stock, weight,
    *                                    length or height is below 0
    */
-  public Item(String itemNumber, String desc, String brandName, int price, int warehouseStock,
+  protected Item(String itemNumber, String desc, String brandName, int price, int warehouseStock,
        double weight, double length, double height, Color color, Category category) {
 
     if (price < 0 || warehouseStock < 0 || weight < 0 || length < 0 || height < 0) {

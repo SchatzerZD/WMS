@@ -3,6 +3,7 @@ package no.ntnu.idatt1001;
 import no.ntnu.idatt1001.util.Category;
 import no.ntnu.idatt1001.util.Color;
 import no.ntnu.idatt1001.util.Item;
+import no.ntnu.idatt1001.util.ItemBuilder;
 
 import java.util.Arrays;
 import java.util.NoSuchElementException;
@@ -76,98 +77,107 @@ public class Menu {
   }
 
   private void addNewItem() {
-    itemRegister.addItem(getUserInput("Input item number",() -> {
-              boolean itemNumberExists;
-              boolean isNullString;
-              String itemNumberInput;
-              do{
-                itemNumberExists = false;
-                isNullString = false;
-                itemNumberInput = scannerNextLine();
-                if(itemNumberInput.equals("")){
-                  System.out.print("Cant input empty string: ");
-                  isNullString = true;
-                  continue;
-                }
-                for (int i = 0; i < itemRegister.size(); i++) {
-                  if (itemRegister.getItem(i).getItemNumber().equals(itemNumberInput)) {
-                    itemNumberExists = true;
-                    break;
-                  }
-                }
 
-                if(itemNumberExists){
-                  System.out.print("Item number already exists, try again: ");
-                }
-              }while(itemNumberExists || isNullString);
+    itemRegister.addItem(new ItemBuilder()
 
-              return itemNumberInput;
-            }),getUserInput("Input item description", () -> {
-              boolean isNullString;
-              String itemDescInput;
+            .setItemNumber(getUserInput("Input item number",() -> {
+                          boolean itemNumberExists;
+                          boolean isNullString;
+                          String itemNumberInput;
+                          do{
+                            itemNumberExists = false;
+                            isNullString = false;
+                            itemNumberInput = scannerNextLine();
+                            if(itemNumberInput.equals("")){
+                              System.out.print("Cant input empty string: ");
+                              isNullString = true;
+                              continue;
+                            }
+                            for (int i = 0; i < itemRegister.size(); i++) {
+                              if (itemRegister.getItem(i).getItemNumber().equals(itemNumberInput)) {
+                                itemNumberExists = true;
+                                break;
+                              }
+                            }
 
-              do{
-                isNullString = false;
-                itemDescInput = scannerNextLine();
-                if(itemDescInput.equals("")){
-                  isNullString = true;
-                  System.out.print("Cant input empty string: ");
-                }
-              }while(isNullString);
+                            if(itemNumberExists){
+                              System.out.print("Item number already exists, try again: ");
+                            }
+                          }while(itemNumberExists || isNullString);
 
-              return itemDescInput;
-            }),
-            getUserInput("Input item brand", () -> {
-              boolean isNullString;
-              String itemBrandInput;
+                          return itemNumberInput;
+                        }))
 
-              do{
-                isNullString = false;
-                itemBrandInput = scannerNextLine();
-                if(itemBrandInput.equals("")){
-                  isNullString = true;
-                  System.out.print("Cant input empty string: ");
-                }
-              }while(isNullString);
+            .setDesc(getUserInput("Input item description", () -> {
+                          boolean isNullString;
+                          String itemDescInput;
 
-              return itemBrandInput;
-            }),Integer.parseInt(getUserInput("Input item price", intUserInput())),
-            Integer.parseInt(getUserInput("Input item stock", intUserInput())), Double.parseDouble(getUserInput("Specify item weight", doubleUserInput())),
-            Double.parseDouble(getUserInput("Specify item length", doubleUserInput())),Double.parseDouble(getUserInput("Specify item height", doubleUserInput())),
-            Color.valueOf(getUserInput("Specify item color " + Arrays.toString(Color.values()),() -> {
-              boolean isColor;
-              String colorInput;
-              do{
-                isColor = false;
-                colorInput = scannerNextLine().toUpperCase();
-                try{
-                  Color.valueOf(colorInput);
-                  isColor = true;
-                }catch (IllegalArgumentException iae){
-                  System.out.print("Could not find color, try again: ");
-                }
-              }while(!isColor);
+                          do{
+                            isNullString = false;
+                            itemDescInput = scannerNextLine();
+                            if(itemDescInput.equals("")){
+                              isNullString = true;
+                              System.out.print("Cant input empty string: ");
+                            }
+                          }while(isNullString);
 
+                          return itemDescInput;
+                        }))
 
-              return colorInput;
-            })),
-            Category.valueOf(getUserInput("Input item category " + Arrays.toString(Category.values()), () -> {
-              boolean isCategory;
-              String categoryInput;
-              do{
-                isCategory = false;
-                categoryInput = scannerNextLine().toUpperCase();
-                try{
-                  Category.valueOf(categoryInput);
-                  isCategory = true;
-                }catch (IllegalArgumentException iae){
-                  System.out.print("Could not find category, try again: ");
-                }
-              }while(!isCategory);
+            .setBrandName(getUserInput("Input item brand", () -> {
+                          boolean isNullString;
+                          String itemBrandInput;
+
+                          do{
+                            isNullString = false;
+                            itemBrandInput = scannerNextLine();
+                            if(itemBrandInput.equals("")){
+                              isNullString = true;
+                              System.out.print("Cant input empty string: ");
+                            }
+                          }while(isNullString);
+
+                          return itemBrandInput;
+                        }))
+            .setPrice(Integer.parseInt(getUserInput("Input item price", intUserInput())))
+            .setWarehouseStock(Integer.parseInt(getUserInput("Input item stock", intUserInput())))
+            .setWeight(Double.parseDouble(getUserInput("Specify item weight", doubleUserInput())))
+            .setLength(Double.parseDouble(getUserInput("Specify item length", doubleUserInput())))
+            .setHeight(Double.parseDouble(getUserInput("Specify item height", doubleUserInput())))
+            .setColor(Color.valueOf(getUserInput("Specify item color " + Arrays.toString(Color.values()),() -> {
+                          boolean isColor;
+                          String colorInput;
+                          do{
+                            isColor = false;
+                            colorInput = scannerNextLine().toUpperCase();
+                            try{
+                              Color.valueOf(colorInput);
+                              isColor = true;
+                            }catch (IllegalArgumentException iae){
+                              System.out.print("Could not find color, try again: ");
+                            }
+                          }while(!isColor);
 
 
-              return categoryInput;
-            })));
+                          return colorInput;
+                        })))
+            .setCategory(Category.valueOf(getUserInput("Input item category " + Arrays.toString(Category.values()), () -> {
+                          boolean isCategory;
+                          String categoryInput;
+                          do{
+                            isCategory = false;
+                            categoryInput = scannerNextLine().toUpperCase();
+                            try{
+                              Category.valueOf(categoryInput);
+                              isCategory = true;
+                            }catch (IllegalArgumentException iae){
+                              System.out.print("Could not find category, try again: ");
+                            }
+                          }while(!isCategory);
+
+
+                          return categoryInput;
+            }))));
 
     System.out.println("Item successfully added");
     halt();
@@ -244,6 +254,8 @@ public class Menu {
   }
 
   private void changeItemPrice(){
+
+
     Item selectedItem = itemSelection();
 
     int newPrice = Integer.parseInt(getUserInput("Input new price for the item", intUserInput()));

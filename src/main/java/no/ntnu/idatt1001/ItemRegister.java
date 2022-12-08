@@ -3,6 +3,7 @@ package no.ntnu.idatt1001;
 import no.ntnu.idatt1001.util.Category;
 import no.ntnu.idatt1001.util.Color;
 import no.ntnu.idatt1001.util.Item;
+import no.ntnu.idatt1001.util.ItemBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +29,9 @@ public class ItemRegister {
             .orElse(null);
   }
 
-  public void addItem(String itemNumber, String desc, String brandName, int price, int warehouseStock,
-                      double weight, double length, double height, Color color, Category category){
+  public void addItem(ItemBuilder itemBuilder){
 
-    itemList.add(new Item(itemNumber,desc,brandName,price,warehouseStock,weight,length,height,color,category));
+    itemList.add(itemBuilder.build());
     sortByItemNumber();
   }
 
@@ -51,6 +51,12 @@ public class ItemRegister {
     optionalItemFromList(item -> item.equals(itemInput))
             .orElseThrow(NoSuchElementException::new)
             .setPrice(price);
+  }
+
+  public void changeDiscountOfItem(Item itemInput, int discount){
+    optionalItemFromList(item -> item.equals(itemInput))
+            .orElseThrow(NoSuchElementException::new)
+            .setDiscount(discount);
   }
 
   public int getIndexOfItem(Item itemInput){
@@ -77,16 +83,65 @@ public class ItemRegister {
 
 
   public void fillListWithDefaultItems(){
-    addItem("A1205B","Large Christmas Window","SULOLI",
-            130,2,0.45,15.8,27.5,Color.WHITE,Category.WINDOWS);
-    addItem("M5788B","Cherry Lumber","Barrington Hardwoods",
-            120,8,2.43,30.48,3.2,Color.BROWN,Category.LUMBER);
-    addItem("C1007B","Magnetic Thermal Insulated","Mpmedo",
-            298,31,52.4,57.3,210.47,Color.GRAY,Category.DOORS);
-    addItem("A1008B","Basement Hopper Window","Park products",
-            977,76,8.6,96.3,45.2,Color.GRAY,Category.WINDOWS);
-    addItem("F4020G","Self Adhesive Vinyl Floor Tile","Achim",
-            173,211,4.08,30.48,30.48,Color.BLACK,Category.FLOOR_LAMINATES);
+    addItem(new ItemBuilder()
+            .setItemNumber("A1205B")
+            .setDesc("Large Christmas Window")
+            .setBrandName("SULOLI")
+            .setPrice(130)
+            .setWarehouseStock(2)
+            .setWeight(0.45)
+            .setLength(15.8)
+            .setHeight(27.5)
+            .setColor(Color.WHITE)
+            .setCategory(Category.WINDOWS));
+
+    addItem(new ItemBuilder()
+            .setItemNumber("M5788B")
+            .setDesc("Cherry Lumber")
+            .setBrandName("Barrington Hardwoods")
+            .setPrice(120)
+            .setWarehouseStock(8)
+            .setWeight(2.43)
+            .setLength(30.48)
+            .setHeight(3.2)
+            .setColor(Color.BROWN)
+            .setCategory(Category.LUMBER));
+
+    addItem(new ItemBuilder()
+            .setItemNumber("C1007B")
+            .setDesc("Magnetic Thermal Insulated")
+            .setBrandName("Mpmedo")
+            .setPrice(298)
+            .setWarehouseStock(31)
+            .setWeight(52.4)
+            .setLength(57.3)
+            .setHeight(210.47)
+            .setColor(Color.GRAY)
+            .setCategory(Category.DOORS));
+
+    addItem(new ItemBuilder()
+            .setItemNumber("A1008B")
+            .setDesc("Basement Hopper Window")
+            .setBrandName("Park products")
+            .setPrice(977)
+            .setWarehouseStock(76)
+            .setWeight(8.6)
+            .setLength(96.3)
+            .setHeight(45.2)
+            .setColor(Color.GRAY)
+            .setCategory(Category.WINDOWS));
+
+    addItem(new ItemBuilder()
+            .setItemNumber("F4020G")
+            .setDesc("Self Adhesive Vinyl Floor Tile")
+            .setBrandName("Achim")
+            .setPrice(173)
+            .setWarehouseStock(211)
+            .setWeight(4.08)
+            .setLength(30.48)
+            .setHeight(30.48)
+            .setColor(Color.BLACK)
+            .setCategory(Category.FLOOR_LAMINATES));
   }
   public Item getItem(int index){
     return itemList.get(index);
