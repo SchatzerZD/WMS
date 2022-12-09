@@ -30,9 +30,7 @@ public class ItemRegister {
   }
 
   public void addItem(Item item){
-
     itemList.add(item);
-    sortByItemNumber();
   }
 
   public void increaseItemStock(Item itemInput, int stockIncrease){
@@ -67,11 +65,53 @@ public class ItemRegister {
     return itemList.remove(item);
   }
 
-  public void sortByItemNumber(){
-    itemList.sort((o1,o2) -> {
+  public void sortListByItemnumber(){
+    itemList.sort(((o1, o2) -> {
       if(o1.getItemNumber().equals(o2.getItemNumber()))return 0;
-      return o1.getItemNumber().compareTo(o2.getItemNumber()) > 0 ? 1 : -1;
-    });
+      return (o1.getItemNumber().compareTo(o2.getItemNumber()) > 0) ? 1 : -1;
+    }));
+  }
+
+  public void sortListByBrandname(){
+    itemList.sort(((o1, o2) -> {
+      if(o1.getBrandName().equals(o2.getBrandName()))return 0;
+      return (o1.getBrandName().compareTo(o2.getBrandName()) > 0) ? 1 : -1;
+    }));
+  }
+
+  public void sortListByPrice(boolean ascending){
+    itemList.sort(((o1, o2) -> {
+      if(o1.getPrice() == o2.getPrice())return 0;
+      if(ascending)
+        return (o1.getPrice() > o2.getPrice()) ? 1 : -1;
+      else
+        return (o1.getPrice() > o2.getPrice()) ? -1 : 1;
+    }));
+  }
+
+  public void sortListByWarehousestock(){
+    itemList.sort(((o1, o2) -> {
+      if(o1.getWarehouseStock() == o2.getWarehouseStock())return 0;
+      return (o1.getWarehouseStock() > o2.getWarehouseStock()) ? 1 : -1;
+    }));
+  }
+
+  public void sortListByColor(){
+    itemList.sort(((o1, o2) -> {
+      if(o1.getColor().equals(o2.getColor()))return 0;
+      return (o1.getColor().compareTo(o2.getColor()) > 0) ? 1 : -1;
+    }));
+  }
+
+  public void sortListByCategory(){
+    itemList.sort(((o1, o2) -> {
+      if(o1.getCategory().equals(o2.getCategory()))return 0;
+      return (o1.getCategory().compareTo(o2.getCategory()) > 0) ? 1 : -1;
+    }));
+  }
+
+  public List<Item> getCopyOfList(){
+    return itemList.stream().map(ItemBuilder::deepCopy).toList();
   }
 
   private Optional<Item> optionalItemFromList(Predicate<Item> predicate){

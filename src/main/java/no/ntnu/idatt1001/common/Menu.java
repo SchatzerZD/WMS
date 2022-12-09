@@ -53,6 +53,7 @@ public class Menu {
       case REMOVE_ITEM -> removeItem();
       case CHANGE_ITEM_PRICE -> changeItemPrice();
       case CHANGE_ITEM_DISCOUNT -> changeItemDiscount();
+      case SORT_LIST -> sortList();
       default -> noMenuWasSelected();
     }
   }
@@ -297,6 +298,23 @@ public class Menu {
     }
   }
 
+  private void sortList() {
+    String sortMenu =
+            """
+            1. Sort by item number
+            2. Sort by brand name
+            3. Sort by price
+            4. Sort by warehouse stock
+            5. Sort by color
+            6. Sort by category
+            
+            """;
+    System.out.println(sortMenu);
+
+
+
+  }
+
   private void noMenuWasSelected() {
     System.out.println("Application closed");
     scanner.close();
@@ -431,6 +449,7 @@ public class Menu {
             6. Remove an item
             7. Change price of an item
             8. Change discount of an item
+            9. Sort List
             
             Select option by typing the index number
             Type "/BACK" to return to this menu at any point

@@ -219,4 +219,8 @@ public class ItemBuilder {
     return new Item(itemNumber, desc, brandName, price,
             warehouseStock, weight, length, height, color, category);
   }
+
+  public static Item deepCopy(Item item){
+    return new Item(item);
+  }
 }

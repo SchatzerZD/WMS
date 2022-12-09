@@ -72,6 +72,24 @@ public class Item {
 
   }
 
+  protected Item(Item item){
+    if(item == null){
+      throw new NullPointerException();
+    }
+
+    this.itemNumber = item.getItemNumber();
+    this.desc = item.getDesc();
+    this.brandName = item.getBrandName();
+    this.price = item.getPrice();
+    this.warehouseStock = item.getWarehouseStock();
+    this.weight = item.getWeight();
+    this.length = item.getLength();
+    this.height = item.getHeight();
+    this.color = item.getColor();
+    this.category = item.getCategory();
+    this.discount = item.getDiscount();
+  }
+
   public String getItemNumber() {
     return itemNumber;
   }
