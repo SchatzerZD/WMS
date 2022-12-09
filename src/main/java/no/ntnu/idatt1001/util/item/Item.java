@@ -72,8 +72,15 @@ public class Item {
 
   }
 
-  protected Item(Item item){
-    if(item == null){
+  /**
+   * Constructor for creating a deep copy of an {@link Item} object.
+   * The constructor takes an item as a parameter, and assigns the value
+   * of each field to this object's fields.
+   *
+   * @param item  The {@link Item} which should be copied from
+   */
+  protected Item(Item item) {
+    if (item == null) {
       throw new NullPointerException();
     }
 

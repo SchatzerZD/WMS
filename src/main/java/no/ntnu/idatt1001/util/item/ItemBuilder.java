@@ -220,7 +220,16 @@ public class ItemBuilder {
             warehouseStock, weight, length, height, color, category);
   }
 
-  public static Item deepCopy(Item item){
+  /**
+   * A static method for creating a deep-copy of an {@link Item} object.
+   * Utilizes the {@link Item#Item(Item)} constructor for creating a
+   * new item with all the same field values as the specified item.
+   *
+   * @param item  The {@link Item} which should be copied from
+   * @return      An instance of a new {@link Item} object which has
+   *              been deep-copied from the specified item
+   */
+  public static Item deepCopy(Item item) {
     return new Item(item);
   }
 }
