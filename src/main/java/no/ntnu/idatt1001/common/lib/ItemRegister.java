@@ -1,57 +1,148 @@
 package no.ntnu.idatt1001.common.lib;
 
-import no.ntnu.idatt1001.util.Category;
-import no.ntnu.idatt1001.util.Color;
-import no.ntnu.idatt1001.util.item.Item;
-import no.ntnu.idatt1001.util.item.ItemBuilder;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.Predicate;
+import no.ntnu.idatt1001.util.Category;
+import no.ntnu.idatt1001.util.Color;
+import no.ntnu.idatt1001.util.item.Item;
+import no.ntnu.idatt1001.util.item.ItemBuilder;
 
+
+/**
+ * A class representing a register for instances of the {@link Item} class.
+ * The register provides basic functionality for modifying a list containing
+ * {@code Item} objects. The register doesn't allow items with duplicate
+ * item numbers, and item numbers are not case-sensitive.
+ *
+ * @author Daniel Ireneo Neri Saren
+ * @version 1.0.0
+ */
 public class ItemRegister {
 
   private final List<Item> itemList;
 
-  public ItemRegister(){
+  /**
+   * A constructor for the {@link ItemRegister} class. Creates a new
+   * instance of an {@link ArrayList} for containing {@code Item} objects.
+   */
+  public ItemRegister() {
     itemList = new ArrayList<>();
   }
 
-  public Item searchByItemNumber(String itemNumberInput){
-    return optionalItemFromList(item -> item.getItemNumber().equals(itemNumberInput))
-            .orElse(null);
-  }
+  /**
+   * Adds the specified {@link Item} to this register's {@code itemList}. A check
+   * is performed before the item is added to the list, which checks if list
+   * already contains the specified item's item number. If the check returns
+   * true, an {@link IllegalArgumentException} is thrown, otherwise the item
+   * gets added to the list. Since this method is the only way of adding new items,
+   * this ensures that every item in the list has a unique item number.
+   *
+   * @param item                        The {@link Item} which should be
+   *                                    added to this register's list
+   * @throws IllegalArgumentException   If the specified item's item number
+   *                                    already exists in the register's list
+   */
+  public void addItem(Item item) {
+    boolean itemNumberExists = itemList.stream().anyMatch(itemInList ->
+            itemInList.getItemNumber().equalsIgnoreCase(item.getItemNumber()));
 
-  public Item searchByItemDesc(String itemDescInput){
-    return optionalItemFromList(item -> item.getDesc().equals(itemDescInput))
-            .orElse(null);
-  }
+    if (itemNumberExists) {
+      throw new IllegalArgumentException();
+    }
 
-  public void addItem(Item item){
     itemList.add(item);
   }
 
-  public void increaseItemStock(Item itemInput, int stockIncrease){
+  /**
+   * Searches the {@link ItemRegister#itemList} of this instance for the
+   * specified item number. Creates a deep-copy of the item that was found,
+   * and returns the copy. Only uses one matching item if any matches were
+   * found.
+   *
+   * @param itemNumberInput Item number which is used to find any matches
+   * @return                Copy of an {@link Item} object if any matches
+   *                        were found,otherwise returns {@code null}
+   */
+  public Item searchByItemNumber(String itemNumberInput) {
+    Item optionalItem = optionalItemFromList(item ->
+            item.getItemNumber().toLowerCase().trim().equals(itemNumberInput.toLowerCase().trim()))
+            .orElse(null);
+
+    if (optionalItem != null) {
+      return ItemBuilder.deepCopy(optionalItem);
+    }
+
+    return null;
+  }
+
+  /**
+   * Searches the {@link ItemRegister#itemList} of this instance for the
+   * specified description. Creates a deep-copy of the item that was found,
+   * and returns the copy. Only uses one matching item if any matches were
+   * found.
+   *
+   * @param itemDescInput   Item description which is used to find any matches
+   * @return                Copy of an {@link Item} object if any matches
+   *                        were found,otherwise returns {@code null}
+   */
+  public Item searchByItemDesc(String itemDescInput) {
+    Item optionalItem = optionalItemFromList(item ->
+            item.getDesc().toLowerCase().trim().equals(itemDescInput.toLowerCase().trim()))
+            .orElse(null);
+
+    if (optionalItem != null) {
+      return ItemBuilder.deepCopy(optionalItem);
+    }
+
+    return null;
+  }
+
+  /**
+   * Increases the stock of the specified {@link Item} by the specified amount of stock,
+   * utilizing the {@link Item#setWarehouseStock(int)} method.
+   * The method searches the list for the specified item and adds the specified amount
+   * to the existing amount. If the item is not found in this register's list, a
+   * {@link NoSuchElementException} is thrown.
+   *
+   * @param itemInput               The {@link Item} which the stock of should be changed
+   * @param stockIncrease           The amount of stock that should be added to the
+   *                                specified item's stock
+   * @throws NoSuchElementException If the specified item doesn't exist in this register's list
+   */
+  public void increaseItemStock(Item itemInput, int stockIncrease) {
     optionalItemFromList(item -> item.equals(itemInput))
             .orElseThrow(NoSuchElementException::new)
             .setWarehouseStock(itemInput.getWarehouseStock() + stockIncrease);
   }
 
-  public void decreaseItemStock(Item itemInput, int stockDecrease){
+  /**
+   * Decreases the stock of the specified {@link Item} by the specified amount of stock,
+   * utilizing the {@link Item#setWarehouseStock(int)} method.
+   * The method searches the list for the specified item and subtracts the specified amount
+   * from the existing amount. If the item is not found in this register's list, a
+   * {@link NoSuchElementException} is thrown.
+   *
+   * @param itemInput               The {@link Item} which the stock of should be changed
+   * @param stockDecrease           The amount of stock that should be subtraced from the
+   *                                specified item's stock
+   * @throws NoSuchElementException If the specified item doesn't exist in this register's list
+   */
+  public void decreaseItemStock(Item itemInput, int stockDecrease) {
     optionalItemFromList(item -> item.equals(itemInput))
             .orElseThrow(NoSuchElementException::new)
             .setWarehouseStock(itemInput.getWarehouseStock() - stockDecrease);
   }
 
-  public void changePriceOfItem(Item itemInput, int price){
+  public void changePriceOfItem(Item itemInput, int price) {
     optionalItemFromList(item -> item.equals(itemInput))
             .orElseThrow(NoSuchElementException::new)
             .setPrice(price);
   }
 
-  public void changeDiscountOfItem(Item itemInput, double discount){
+  public void changeDiscountOfItem(Item itemInput, double discount) {
     optionalItemFromList(item -> item.equals(itemInput))
             .orElseThrow(NoSuchElementException::new)
             .setDiscount(discount);

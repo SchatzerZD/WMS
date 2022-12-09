@@ -66,11 +66,22 @@ public class Menu {
     System.out.println("Search for item by item number or description");
     String userInput = scannerNextLine();
 
-    if (itemRegister.searchByItemNumber(userInput) != null) {
-      System.out.println(itemRegister.searchByItemNumber(userInput));
-    } else if (itemRegister.searchByItemDesc(userInput) != null) {
-      System.out.println(itemRegister.searchByItemDesc(userInput));
-    } else {
+    Item itemSearchedFor = itemRegister.searchByItemNumber(userInput);
+    boolean found = false;
+
+    if (itemSearchedFor != null) {
+      System.out.println(itemSearchedFor);
+      found = true;
+    } else{
+      itemSearchedFor = itemRegister.searchByItemDesc(userInput);
+    }
+
+    if(!found && itemSearchedFor != null){
+      System.out.println(itemSearchedFor);
+      found = true;
+    }
+
+    if(!found){
       System.out.println("Item not found");
     }
 
@@ -98,7 +109,7 @@ public class Menu {
                 String finalItemNumberInput = itemNumberInput;
                 itemNumberExists = itemArrayList
                         .stream()
-                        .anyMatch(item -> item.getItemNumber().equals(finalItemNumberInput));
+                        .anyMatch(item -> item.getItemNumber().equalsIgnoreCase(finalItemNumberInput));
 
                 if(itemNumberExists){
                   System.out.print("Item number already exists, try again: ");
