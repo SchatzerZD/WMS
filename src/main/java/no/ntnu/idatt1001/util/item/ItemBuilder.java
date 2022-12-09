@@ -16,7 +16,7 @@ import no.ntnu.idatt1001.util.IllegalNumberException;
 public class ItemBuilder {
 
   private String itemNumber;
-  private String desc;
+  private String description;
   private String brandName;
   private int price;
   private int warehouseStock;
@@ -45,16 +45,16 @@ public class ItemBuilder {
   }
 
   /**
-   * Sets the {@link ItemBuilder#desc} to the specified string.
-   * If the specified string is null, the {@link ItemBuilder#desc} is
+   * Sets the {@link ItemBuilder#description} to the specified string.
+   * If the specified string is null, the {@link ItemBuilder#description} is
    * set to an empty string.
    *
-   * @param desc    The description for an {@link Item} object
+   * @param description    The description for an {@link Item} object
    * @return        This builder object
    */
-  public ItemBuilder setDesc(String desc) {
+  public ItemBuilder setDescription(String description) {
 
-    this.desc = Objects.requireNonNullElse(desc, "");
+    this.description = Objects.requireNonNullElse(description, "");
 
     return this;
   }
@@ -206,7 +206,7 @@ public class ItemBuilder {
   public Item build() {
 
     this.setItemNumber(itemNumber);
-    this.setDesc(desc);
+    this.setDescription(description);
     this.setBrandName(brandName);
     this.setPrice(price);
     this.setWarehouseStock(warehouseStock);
@@ -216,7 +216,7 @@ public class ItemBuilder {
     this.setColor(color);
     this.setCategory(category);
 
-    return new Item(itemNumber, desc, brandName, price,
+    return new Item(itemNumber, description, brandName, price,
             warehouseStock, weight, length, height, color, category);
   }
 

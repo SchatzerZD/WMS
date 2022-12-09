@@ -1,4 +1,4 @@
-package no.ntnu.idatt1001.common.lib;
+package no.ntnu.idatt1001.common;
 
 /**
  * A functional interface for receiving input from

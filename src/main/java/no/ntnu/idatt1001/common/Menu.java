@@ -2,8 +2,6 @@ package no.ntnu.idatt1001.common;
 
 import java.util.*;
 
-import no.ntnu.idatt1001.common.lib.ItemRegister;
-import no.ntnu.idatt1001.common.lib.UserInput;
 import no.ntnu.idatt1001.util.Category;
 import no.ntnu.idatt1001.util.Color;
 import no.ntnu.idatt1001.util.item.Item;
@@ -119,7 +117,7 @@ public class Menu {
               return itemNumberInput;
             }))
 
-            .setDesc(getUserInput("Input item description", () -> {
+            .setDescription(getUserInput("Input item description", () -> {
               boolean isNullString;
               String itemDescInput;
 

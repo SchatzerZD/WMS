@@ -1,6 +1,6 @@
 package no.ntnu.idatt1001;
 
-import no.ntnu.idatt1001.common.lib.ItemRegister;
+import no.ntnu.idatt1001.common.ItemRegister;
 import no.ntnu.idatt1001.common.Menu;
 
 public class Main{

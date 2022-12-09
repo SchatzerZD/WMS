@@ -14,7 +14,7 @@ import no.ntnu.idatt1001.util.IllegalNumberException;
  */
 public class Item {
   private final String itemNumber;
-  private String desc;
+  private String description;
   private final String brandName;
 
   private int price;
@@ -36,7 +36,7 @@ public class Item {
    *
    * @param itemNumber                  The item number of the item,
    *                                    contatins both numbers and letters
-   * @param desc                        A text which describes the item
+   * @param description                        A text which describes the item
    * @param brandName                   A text containing the brand which the item was created by
    * @param price                       Integer representing the price of the item
    * @param warehouseStock              Integer representing how many of
@@ -49,8 +49,8 @@ public class Item {
    * @throws IllegalNumberException     If the specified price is below 0. Also throws
    *                                    if weight, length or height is 0 or below 0.
    */
-  protected Item(String itemNumber, String desc, String brandName, int price, int warehouseStock,
-       double weight, double length, double height, Color color, Category category) {
+  protected Item(String itemNumber, String description, String brandName, int price, int warehouseStock,
+                 double weight, double length, double height, Color color, Category category) {
 
     if (price < 0 || warehouseStock < 0 || weight <= 0 || length <= 0 || height <= 0) {
       throw new IllegalNumberException();
@@ -63,7 +63,7 @@ public class Item {
     this.height = height;
 
     this.itemNumber = itemNumber;
-    this.desc = desc;
+    this.description = description;
     this.brandName = brandName;
 
     this.color = color;
@@ -85,7 +85,7 @@ public class Item {
     }
 
     this.itemNumber = item.getItemNumber();
-    this.desc = item.getDesc();
+    this.description = item.getDescription();
     this.brandName = item.getBrandName();
     this.price = item.getPrice();
     this.warehouseStock = item.getWarehouseStock();
@@ -101,8 +101,8 @@ public class Item {
     return itemNumber;
   }
 
-  public String getDesc() {
-    return desc;
+  public String getDescription() {
+    return description;
   }
 
   public String getBrandName() {
@@ -151,8 +151,14 @@ public class Item {
   }
 
 
-  public void setDesc(String desc) {
-    this.desc = desc;
+  /**
+   * Sets the {@link Item#description} of the item to the specified string.
+   *
+   * @param description                      The description which the item should be set to
+   * @throws IllegalNumberException   If the price specified is negative
+   */
+  public void setDescription(String description) {
+    this.description = description;
   }
 
   /**
@@ -204,6 +210,6 @@ public class Item {
             this.getItemNumber(), this.getBrandName(),
             this.getPrice(), this.getDiscount(), this.getWarehouseStock(),
             this.getWeight(), this.getLength(), this.getHeight(),
-            this.getColor(), this.getCategory(), this.getDesc());
+            this.getColor(), this.getCategory(), this.getDescription());
   }
 }
