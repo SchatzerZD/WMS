@@ -4,6 +4,8 @@ package no.ntnu.idatt1001.util;
  * Thrown to indicate that a method has been passed an illegal or
  * inappropriate number.
  *
+ * @author Daniel Ireneo Neri Saren
+ * @version 1.0.0
  */
 public class IllegalNumberException extends IllegalArgumentException {
   /**

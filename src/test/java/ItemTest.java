@@ -1,7 +1,7 @@
 import no.ntnu.idatt1001.util.Category;
 import no.ntnu.idatt1001.util.Color;
-import no.ntnu.idatt1001.util.Item;
-import no.ntnu.idatt1001.util.ItemBuilder;
+import no.ntnu.idatt1001.util.item.Item;
+import no.ntnu.idatt1001.util.item.ItemBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

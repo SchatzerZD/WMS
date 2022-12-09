@@ -1,4 +1,8 @@
-package no.ntnu.idatt1001.util;
+package no.ntnu.idatt1001.util.item;
+
+import no.ntnu.idatt1001.util.Category;
+import no.ntnu.idatt1001.util.Color;
+import no.ntnu.idatt1001.util.IllegalNumberException;
 
 /**
  * A class representing an item stored inside
@@ -81,7 +85,7 @@ public class Item {
   }
 
   /**
-   * Gets the price of the item after calculation. The calculation
+   * Gets the {@link Item#price} of the item after calculation. The calculation
    * takes into account the {@link Item#discount} value.
    * The price is calculated by taking the {@link Item#discount} value,
    * dividing it by 100, subtracting 1 from the result,
@@ -127,7 +131,7 @@ public class Item {
   }
 
   /**
-   * Sets the price of the item to the specified integer.
+   * Sets the {@link Item#price} of the item to the specified integer.
    *
    * @param price                     The price which the item should be set to
    * @throws IllegalNumberException   If the price specified is negative
@@ -140,7 +144,7 @@ public class Item {
   }
 
   /**
-   * Sets the discount of the item. The discount is taken into account when
+   * Sets the {@link Item#discount} of the item. The discount is taken into account when
    * the {@link Item#getPrice()} method is called.
    *
    * @param discount                    The amount of discount specified
@@ -156,7 +160,7 @@ public class Item {
   }
 
   /**
-   * Sets the warehouse stock of the item to the specified amount.
+   * Sets the {@link Item#warehouseStock} of the item to the specified amount.
    *
    * @param warehouseStock            The amount representing the number of items in stock
    * @throws IllegalNumberException   If the specified amount is below 0

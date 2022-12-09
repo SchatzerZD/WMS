@@ -1,15 +1,17 @@
-package no.ntnu.idatt1001;
-
-import no.ntnu.idatt1001.util.Category;
-import no.ntnu.idatt1001.util.Color;
-import no.ntnu.idatt1001.util.Item;
-import no.ntnu.idatt1001.util.ItemBuilder;
+package no.ntnu.idatt1001.common;
 
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import no.ntnu.idatt1001.common.lib.ItemRegister;
+import no.ntnu.idatt1001.common.lib.UserInput;
+import no.ntnu.idatt1001.util.Category;
+import no.ntnu.idatt1001.util.Color;
+import no.ntnu.idatt1001.util.item.Item;
+import no.ntnu.idatt1001.util.item.ItemBuilder;
 
 public class Menu {
+
   private final ItemRegister itemRegister;
   private final Scanner scanner;
 
@@ -26,38 +28,31 @@ public class Menu {
       }
 
       System.out.println(this);
-      selectMenu(Integer.parseInt(getUserInput("Input", () -> {
-        String menuIndexInput = scanner.nextLine();
-        try{
-          Integer.parseInt(menuIndexInput);
-        }catch (NumberFormatException nfe){
-          menuIndexInput = "0";
-        }
-        return menuIndexInput;
-      })));
+
+      try{
+        selectMenu(MenuOption.getMenuOption(Integer.parseInt(getUserInput("Input", scanner::nextLine))));
+      }catch (NoSuchElementException nse){
+        System.out.println("Menu option not found\nProgram closing...");
+        noMenuWasSelected();
+      }catch (NumberFormatException nfe){
+        System.out.println("No numbers were inputted\nProgram closing...");
+        noMenuWasSelected();
+      }
+
     }
   }
 
-  private void selectMenu(int menuSelection) {
-
-    final int printOutItems = 1;
-    final int searchForItem = 2;
-    final int addNewItem = 3;
-    final int increaseItemStock = 4;
-    final int decreaseItemStock = 5;
-    final int removeItem = 6;
-    final int changeItemPrice = 7;
-    final int changeItemDiscount = 8;
+  private void selectMenu(MenuOption menuSelection) {
 
     switch (menuSelection) {
-      case printOutItems -> printOutItems();
-      case searchForItem -> searchForItem();
-      case addNewItem -> addNewItem();
-      case increaseItemStock -> increaseItemStock();
-      case decreaseItemStock -> decreaseItemStock();
-      case removeItem -> removeItem();
-      case changeItemPrice -> changeItemPrice();
-      case changeItemDiscount -> changeItemDiscount();
+      case PRINT_OUT_ITEMS -> printOutItems();
+      case SEARCH_FOR_ITEM -> searchForItem();
+      case ADD_NEW_ITEM -> addNewItem();
+      case INCREASE_ITEM_STOCK -> increaseItemStock();
+      case DECREASE_ITEM_STOCK -> decreaseItemStock();
+      case REMOVE_ITEM -> removeItem();
+      case CHANGE_ITEM_PRICE -> changeItemPrice();
+      case CHANGE_ITEM_DISCOUNT -> changeItemDiscount();
       default -> noMenuWasSelected();
     }
   }
@@ -86,7 +81,6 @@ public class Menu {
   private void addNewItem() {
 
     Item newItem = new ItemBuilder()
-
             .setItemNumber(getUserInput("Input item number",() -> {
               boolean itemNumberExists;
               boolean isNullString;

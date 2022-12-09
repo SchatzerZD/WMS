@@ -1,9 +1,9 @@
-package no.ntnu.idatt1001;
+package no.ntnu.idatt1001.common.lib;
 
 import no.ntnu.idatt1001.util.Category;
 import no.ntnu.idatt1001.util.Color;
-import no.ntnu.idatt1001.util.Item;
-import no.ntnu.idatt1001.util.ItemBuilder;
+import no.ntnu.idatt1001.util.item.Item;
+import no.ntnu.idatt1001.util.item.ItemBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
