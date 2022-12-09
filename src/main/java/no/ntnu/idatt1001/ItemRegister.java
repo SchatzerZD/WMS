@@ -29,9 +29,9 @@ public class ItemRegister {
             .orElse(null);
   }
 
-  public void addItem(ItemBuilder itemBuilder){
+  public void addItem(Item item){
 
-    itemList.add(itemBuilder.build());
+    itemList.add(item);
     sortByItemNumber();
   }
 
@@ -53,7 +53,7 @@ public class ItemRegister {
             .setPrice(price);
   }
 
-  public void changeDiscountOfItem(Item itemInput, int discount){
+  public void changeDiscountOfItem(Item itemInput, double discount){
     optionalItemFromList(item -> item.equals(itemInput))
             .orElseThrow(NoSuchElementException::new)
             .setDiscount(discount);
@@ -93,7 +93,7 @@ public class ItemRegister {
             .setLength(15.8)
             .setHeight(27.5)
             .setColor(Color.WHITE)
-            .setCategory(Category.WINDOWS));
+            .setCategory(Category.WINDOWS).build());
 
     addItem(new ItemBuilder()
             .setItemNumber("M5788B")
@@ -105,7 +105,7 @@ public class ItemRegister {
             .setLength(30.48)
             .setHeight(3.2)
             .setColor(Color.BROWN)
-            .setCategory(Category.LUMBER));
+            .setCategory(Category.LUMBER).build());
 
     addItem(new ItemBuilder()
             .setItemNumber("C1007B")
@@ -117,7 +117,7 @@ public class ItemRegister {
             .setLength(57.3)
             .setHeight(210.47)
             .setColor(Color.GRAY)
-            .setCategory(Category.DOORS));
+            .setCategory(Category.DOORS).build());
 
     addItem(new ItemBuilder()
             .setItemNumber("A1008B")
@@ -129,7 +129,7 @@ public class ItemRegister {
             .setLength(96.3)
             .setHeight(45.2)
             .setColor(Color.GRAY)
-            .setCategory(Category.WINDOWS));
+            .setCategory(Category.WINDOWS).build());
 
     addItem(new ItemBuilder()
             .setItemNumber("F4020G")
@@ -141,7 +141,7 @@ public class ItemRegister {
             .setLength(30.48)
             .setHeight(30.48)
             .setColor(Color.BLACK)
-            .setCategory(Category.FLOOR_LAMINATES));
+            .setCategory(Category.FLOOR_LAMINATES).build());
   }
   public Item getItem(int index){
     return itemList.get(index);
@@ -154,12 +154,12 @@ public class ItemRegister {
   @Override
   public String toString() {
     StringBuilder returnString = new StringBuilder(String.format(
-            "| %-15s | %-22s | %-6s | %-6s | %-10s | %-10s | %-10s | %-8s | %-18s | %s\n",
-            "ITEM NUMBER", "BRAND NAME", "PRICE", "STOCK", "WEIGHT",
+            "| %-15s | %-22s | %-17s | %-6s | %-10s | %-10s | %-10s | %-8s | %-18s | %s\n",
+            "ITEM NUMBER", "BRAND NAME", "PRICE (DISCOUNT)", "STOCK", "WEIGHT",
             "LENGTH", "HEIGHT", "COLOR", "CATEGORY", "DESCRIPTION"));
 
     returnString.append("+ ").append("-".repeat(15)).append(" + ").append("-".repeat(22)).append(" + ")
-            .append("-".repeat(6)).append(" + ").append("-".repeat(6)).append(" + ")
+            .append("-".repeat(17)).append(" + ").append("-".repeat(6)).append(" + ")
             .append("-".repeat(10)).append(" + ").append("-".repeat(10)).append(" + ")
             .append("-".repeat(10)).append(" + ").append("-".repeat(8)).append(" + ")
             .append("-".repeat(18)).append(" + ").append("-".repeat(64)).append("\n");
