@@ -1,8 +1,7 @@
 package no.ntnu.idatt1001.common;
 
-import java.util.Arrays;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
+import java.util.*;
+
 import no.ntnu.idatt1001.common.lib.ItemRegister;
 import no.ntnu.idatt1001.common.lib.UserInput;
 import no.ntnu.idatt1001.util.Category;
@@ -64,7 +63,7 @@ public class Menu {
   }
 
   private void searchForItem() {
-    System.out.println("Search for item by number or description");
+    System.out.println("Search for item by item number or description");
     String userInput = scannerNextLine();
 
     if (itemRegister.searchByItemNumber(userInput) != null) {
@@ -95,12 +94,11 @@ public class Menu {
                   isNullString = true;
                   continue;
                 }
-                for (int i = 0; i < itemRegister.size(); i++) {
-                  if (itemRegister.getItem(i).getItemNumber().equals(itemNumberInput)) {
-                    itemNumberExists = true;
-                    break;
-                  }
-                }
+                List<Item> itemArrayList = itemRegister.getCopyOfList();
+                String finalItemNumberInput = itemNumberInput;
+                itemNumberExists = itemArrayList
+                        .stream()
+                        .anyMatch(item -> item.getItemNumber().equals(finalItemNumberInput));
 
                 if(itemNumberExists){
                   System.out.print("Item number already exists, try again: ");
@@ -301,18 +299,44 @@ public class Menu {
   private void sortList() {
     String sortMenu =
             """
+            
             1. Sort by item number
             2. Sort by brand name
             3. Sort by price
             4. Sort by warehouse stock
             5. Sort by color
             6. Sort by category
-            
             """;
     System.out.println(sortMenu);
 
+    int sortMenuSelection;
 
+    do {
+      sortMenuSelection = Integer.parseInt(getUserInput("Choose sort option",intUserInput()));
+      if(sortMenuSelection < 1 || sortMenuSelection > 6){
+        System.out.println("Input a valid number, try again");
+      }
+    }while(sortMenuSelection < 1 || sortMenuSelection > 6);
 
+    boolean ascending = Boolean.parseBoolean(getUserInput("Ascending? (y/n)",() ->{
+      String booleanStringInput = scannerNextLine().toLowerCase();
+      if(booleanStringInput.equals("y") || booleanStringInput.equals("yes")){
+        return "True";
+      }else{
+        return "False";
+      }
+    }));
+
+    switch (sortMenuSelection){
+      case 1 -> itemRegister.sortListByItemnumber(ascending);
+      case 2 -> itemRegister.sortListByBrandname(ascending);
+      case 3 -> itemRegister.sortListByPrice(ascending);
+      case 4 -> itemRegister.sortListByWarehousestock(ascending);
+      case 5 -> itemRegister.sortListByColor(ascending);
+      case 6 -> itemRegister.sortListByCategory(ascending);
+    }
+    System.out.println("List sorted successfully");
+    halt();
   }
 
   private void noMenuWasSelected() {

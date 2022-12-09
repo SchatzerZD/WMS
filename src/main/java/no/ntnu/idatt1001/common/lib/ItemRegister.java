@@ -65,17 +65,23 @@ public class ItemRegister {
     return itemList.remove(item);
   }
 
-  public void sortListByItemnumber(){
+  public void sortListByItemnumber(boolean ascending){
     itemList.sort(((o1, o2) -> {
       if(o1.getItemNumber().equals(o2.getItemNumber()))return 0;
-      return (o1.getItemNumber().compareTo(o2.getItemNumber()) > 0) ? 1 : -1;
+      if(ascending)
+        return (o1.getItemNumber().compareTo(o2.getItemNumber()) > 0) ? 1 : -1;
+      else
+        return (o1.getItemNumber().compareTo(o2.getItemNumber()) > 0) ? -1 : 1;
     }));
   }
 
-  public void sortListByBrandname(){
+  public void sortListByBrandname(boolean ascending){
     itemList.sort(((o1, o2) -> {
       if(o1.getBrandName().equals(o2.getBrandName()))return 0;
-      return (o1.getBrandName().compareTo(o2.getBrandName()) > 0) ? 1 : -1;
+      if(ascending)
+        return (o1.getBrandName().compareTo(o2.getBrandName()) > 0) ? 1 : -1;
+      else
+        return (o1.getBrandName().compareTo(o2.getBrandName()) > 0) ? -1 : 1;
     }));
   }
 
@@ -89,24 +95,33 @@ public class ItemRegister {
     }));
   }
 
-  public void sortListByWarehousestock(){
+  public void sortListByWarehousestock(boolean ascending){
     itemList.sort(((o1, o2) -> {
       if(o1.getWarehouseStock() == o2.getWarehouseStock())return 0;
-      return (o1.getWarehouseStock() > o2.getWarehouseStock()) ? 1 : -1;
+      if(ascending)
+        return (o1.getWarehouseStock() > o2.getWarehouseStock()) ? 1 : -1;
+      else
+        return (o1.getWarehouseStock() > o2.getWarehouseStock()) ? -1 : 1;
     }));
   }
 
-  public void sortListByColor(){
+  public void sortListByColor(boolean ascending){
     itemList.sort(((o1, o2) -> {
       if(o1.getColor().equals(o2.getColor()))return 0;
-      return (o1.getColor().compareTo(o2.getColor()) > 0) ? 1 : -1;
+      if(ascending)
+        return (o1.getColor().name().compareTo(o2.getColor().name()) > 0) ? 1 : -1;
+      else
+        return (o1.getColor().name().compareTo(o2.getColor().name()) > 0) ? -1 : 1;
     }));
   }
 
-  public void sortListByCategory(){
+  public void sortListByCategory(boolean ascending){
     itemList.sort(((o1, o2) -> {
       if(o1.getCategory().equals(o2.getCategory()))return 0;
-      return (o1.getCategory().compareTo(o2.getCategory()) > 0) ? 1 : -1;
+      if(ascending)
+        return (o1.getCategory().name().compareTo(o2.getCategory().name()) > 0) ? 1 : -1;
+      else
+        return (o1.getCategory().name().compareTo(o2.getCategory().name()) > 0) ? -1 : 1;
     }));
   }
 
