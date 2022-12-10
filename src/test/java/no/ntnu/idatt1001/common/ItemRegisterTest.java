@@ -2,6 +2,7 @@ package no.ntnu.idatt1001.common;
 
 import no.ntnu.idatt1001.util.Category;
 import no.ntnu.idatt1001.util.Color;
+import no.ntnu.idatt1001.util.IllegalNumberException;
 import no.ntnu.idatt1001.util.item.Item;
 import no.ntnu.idatt1001.util.item.ItemBuilder;
 import org.junit.jupiter.api.Assertions;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -227,6 +229,69 @@ class ItemRegisterTest {
   void size() {
 
     assertEquals(5,itemRegister.size());
+
+  }
+
+  @Test
+  void testExceptionsInMethods(){
+
+    Item itemNotInList = new ItemBuilder()
+            .setItemNumber("A1215C")
+            .setDescription("Large Christmas Window")
+            .setBrandName("SULOLI")
+            .setPrice(130)
+            .setWarehouseStock(2)
+            .setWeight(0.45)
+            .setLength(15.8)
+            .setHeight(27.5)
+            .setColor(Color.WHITE)
+            .setCategory(Category.WINDOWS).build();
+
+    assertThrows(NullPointerException.class, () -> itemRegister.addItem(null));
+    assertThrows(IllegalArgumentException.class, () ->
+            itemRegister.addItem(new ItemBuilder()
+            .setItemNumber("A1205B")
+            .setDescription("Large Christmas Window")
+            .setBrandName("SULOLI")
+            .setPrice(130)
+            .setWarehouseStock(2)
+            .setWeight(0.45)
+            .setLength(15.8)
+            .setHeight(27.5)
+            .setColor(Color.WHITE)
+            .setCategory(Category.WINDOWS).build()));
+
+
+    assertThrows(NullPointerException.class, () -> itemRegister.increaseItemStock(null, 50));
+    assertThrows(IllegalNumberException.class, () -> itemRegister.increaseItemStock(itemRegister.getItem(0), -2));
+    assertThrows(NoSuchElementException.class, () -> itemRegister.increaseItemStock(itemNotInList,5));
+
+    assertThrows(NullPointerException.class, () -> itemRegister.decreaseItemStock(null, 50));
+    assertThrows(IllegalNumberException.class, () -> itemRegister.decreaseItemStock(itemRegister.getItem(0), -2));
+    assertThrows(NoSuchElementException.class, () -> itemRegister.decreaseItemStock(itemNotInList,5));
+
+    assertThrows(NullPointerException.class, () -> itemRegister.changePriceOfItem(null, 50));
+    assertThrows(IllegalNumberException.class, () -> itemRegister.changePriceOfItem(itemRegister.getItem(0), -2));
+    assertThrows(NoSuchElementException.class, () -> itemRegister.changePriceOfItem(itemNotInList,5));
+
+    assertThrows(NullPointerException.class, () -> itemRegister.changeDiscountOfItem(null, 50));
+    assertThrows(IllegalNumberException.class, () -> itemRegister.changeDiscountOfItem(itemRegister.getItem(0), -2));
+    assertThrows(NoSuchElementException.class, () -> itemRegister.changeDiscountOfItem(itemNotInList,5));
+
+
+    assertThrows(NullPointerException.class, () -> itemRegister.changeDescriptionOfItem(null,"Test"));
+    assertThrows(NoSuchElementException.class, () -> itemRegister.changeDescriptionOfItem(itemNotInList,"Test"));
+
+
+    assertThrows(NullPointerException.class, () -> itemRegister.getIndexOfItem(null));
+    assertEquals(-1, itemRegister.getIndexOfItem(itemNotInList));
+
+
+    assertThrows(NullPointerException.class, () -> itemRegister.removeItem(null));
+    assertFalse(itemRegister.removeItem(itemNotInList));
+
+
+    assertThrows(IndexOutOfBoundsException.class, () -> itemRegister.getItem(7));
 
   }
 }
