@@ -36,7 +36,7 @@ enum MenuOption {
    *
    * @return The {@code menuIndex} of this {@link MenuOption}
    */
-  public int getMenuIndex() {
+  int getMenuIndex() {
     return menuIndex;
   }
 
@@ -50,7 +50,7 @@ enum MenuOption {
    * @param menuIndex The index of the menu option which should be returned
    * @return          The menu option with the specified {@code menuIndex}
    */
-  public static MenuOption getMenuOption(int menuIndex) {
+  static MenuOption getMenuOption(int menuIndex) {
     return Arrays.stream(MenuOption.values())
             .filter(mo -> mo.getMenuIndex() == menuIndex)
             .findFirst()
