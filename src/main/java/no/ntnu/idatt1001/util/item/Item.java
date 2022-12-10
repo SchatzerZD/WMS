@@ -119,7 +119,7 @@ public class Item {
     this.itemNumber = item.getItemNumber();
     this.description = item.getDescription();
     this.brandName = item.getBrandName();
-    this.price = item.getPrice();
+    this.price = item.price;
     this.warehouseStock = item.getWarehouseStock();
     this.weight = item.getWeight();
     this.length = item.getLength();

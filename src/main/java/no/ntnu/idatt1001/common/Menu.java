@@ -286,7 +286,7 @@ public class Menu {
 
     try {
       itemRegister.increaseItemStock(selectedItem.getItemNumber(), stockIncrease);
-      System.out.printf("Item updated:\n %4d %s\n", itemRegister.getIndexOfItem(selectedItem)
+      System.out.printf("Item updated:\n %4d %s\n", itemRegister.getIndexOfItem(itemRegister.searchByItemNumber(selectedItem.getItemNumber()).getItemNumber())
               + 1, itemRegister.searchByItemNumber(selectedItem.getItemNumber()));
       halt();
     } catch (NoSuchElementException nee) {
@@ -322,7 +322,7 @@ public class Menu {
 
     try {
       itemRegister.decreaseItemStock(selectedItem.getDescription(), stockDecrease);
-      System.out.printf("Item updated:\n %4d %s\n", itemRegister.getIndexOfItem(selectedItem)
+      System.out.printf("Item updated:\n %4d %s\n", itemRegister.getIndexOfItem(itemRegister.searchByItemNumber(selectedItem.getItemNumber()).getItemNumber())
               + 1, itemRegister.searchByItemNumber(selectedItem.getItemNumber()));
       halt();
     } catch (NoSuchElementException nee) {
@@ -355,7 +355,7 @@ public class Menu {
     int newPrice = Integer.parseInt(getUserInput("Input new price for the item", intUserInput()));
     try {
       itemRegister.changePriceOfItem(selectedItem.getItemNumber(), newPrice);
-      System.out.printf("Item updated:\n %4d %s\n", itemRegister.getIndexOfItem(selectedItem)
+      System.out.printf("Item updated:\n %4d %s\n", itemRegister.getIndexOfItem(itemRegister.searchByItemNumber(selectedItem.getItemNumber()).getItemNumber())
               + 1, itemRegister.searchByItemNumber(selectedItem.getItemNumber()));
       halt();
     } catch (NoSuchElementException nee) {
@@ -382,7 +382,7 @@ public class Menu {
 
     try {
       itemRegister.changeDiscountOfItem(selectedItem.getItemNumber(), newDiscount);
-      System.out.printf("Item updated:\n %4d %s\n", itemRegister.getIndexOfItem(selectedItem)
+      System.out.printf("Item updated:\n %4d %s\n", itemRegister.getIndexOfItem(itemRegister.searchByItemNumber(selectedItem.getItemNumber()).getItemNumber())
               + 1, itemRegister.searchByItemNumber(selectedItem.getItemNumber()));
       halt();
     } catch (IllegalArgumentException iae) {
@@ -403,7 +403,7 @@ public class Menu {
     String newDescription = scannerNextLine();
     try {
       itemRegister.changeDescriptionOfItem(selectedItem.getItemNumber(), newDescription);
-      System.out.printf("Item updated:\n %4d %s\n", itemRegister.getIndexOfItem(selectedItem)
+      System.out.printf("Item updated:\n %4d %s\n", itemRegister.getIndexOfItem(itemRegister.searchByItemNumber(selectedItem.getItemNumber()).getItemNumber())
               + 1, itemRegister.searchByItemNumber(selectedItem.getItemNumber()));
 
       halt();
