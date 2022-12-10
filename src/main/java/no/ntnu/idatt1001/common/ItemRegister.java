@@ -8,7 +8,6 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.IntStream;
-
 import no.ntnu.idatt1001.util.Category;
 import no.ntnu.idatt1001.util.Color;
 import no.ntnu.idatt1001.util.IllegalNumberException;
@@ -146,7 +145,8 @@ public class ItemRegister {
       throw new IllegalNumberException("Stock amount specified cannot be below 0");
     }
 
-    Item optionalItem = optionalItemFromList(item -> item.getItemNumber().equals(itemInput.getItemNumber()))
+    Item optionalItem = optionalItemFromList(item ->
+            item.getItemNumber().equals(itemInput.getItemNumber()))
             .orElseThrow(NoSuchElementException::new);
     optionalItem.setWarehouseStock(optionalItem.getWarehouseStock() + stockIncrease);
 
@@ -178,7 +178,8 @@ public class ItemRegister {
       throw new IllegalNumberException("Stock amount specified cannot be below 0");
     }
 
-    Item optionalItem = optionalItemFromList(item -> item.getItemNumber().equals(itemInput.getItemNumber()))
+    Item optionalItem = optionalItemFromList(item ->
+            item.getItemNumber().equals(itemInput.getItemNumber()))
             .orElseThrow(NoSuchElementException::new);
     optionalItem.setWarehouseStock(optionalItem.getWarehouseStock() - stockDecrease);
   }
@@ -207,7 +208,8 @@ public class ItemRegister {
       throw new IllegalNumberException("Price amount specified cannot be below 0");
     }
 
-    Item optionalItem = optionalItemFromList(item -> item.getItemNumber().equals(itemInput.getItemNumber()))
+    Item optionalItem = optionalItemFromList(item ->
+            item.getItemNumber().equals(itemInput.getItemNumber()))
             .orElseThrow(NoSuchElementException::new);
     optionalItem.setPrice(price);
   }
@@ -236,7 +238,8 @@ public class ItemRegister {
       throw new IllegalNumberException("Discount amount specified cannot be below 0 or above 100");
     }
 
-    Item optionalItem = optionalItemFromList(item -> item.getItemNumber().equals(itemInput.getItemNumber()))
+    Item optionalItem = optionalItemFromList(item ->
+            item.getItemNumber().equals(itemInput.getItemNumber()))
             .orElseThrow(NoSuchElementException::new);
 
     optionalItem.setDiscount(discount);
@@ -260,7 +263,8 @@ public class ItemRegister {
       throw new NullPointerException("Item specified cannot be null");
     }
 
-    Item optionalItem = optionalItemFromList(item -> item.getItemNumber().equals(itemInput.getItemNumber()))
+    Item optionalItem = optionalItemFromList(item ->
+            item.getItemNumber().equals(itemInput.getItemNumber()))
             .orElseThrow(NoSuchElementException::new);
     optionalItem.setDescription(description);
   }
@@ -283,7 +287,7 @@ public class ItemRegister {
       throw new NullPointerException("The specified item cannot be null");
     }
 
-    return IntStream.range(0,itemList.size())
+    return IntStream.range(0, itemList.size())
             .filter(i -> itemInput.getItemNumber().equals(itemList.get(i).getItemNumber()))
             .findFirst()
             .orElse(-1);
@@ -305,10 +309,11 @@ public class ItemRegister {
       throw new NullPointerException("The specified item cannot be null");
     }
 
-    Item optionalItem = optionalItemFromList(item -> item.getItemNumber().equals(itemInput.getItemNumber()))
+    Item optionalItem = optionalItemFromList(item ->
+            item.getItemNumber().equals(itemInput.getItemNumber()))
             .orElse(null);
 
-    if(optionalItem == null){
+    if (optionalItem == null) {
       return false;
     }
 
