@@ -1,4 +1,4 @@
-package no.ntnu.idatt1001.common;
+package no.ntnu.idatt1001.common.menu;
 
 import java.util.Arrays;
 import java.util.NoSuchElementException;

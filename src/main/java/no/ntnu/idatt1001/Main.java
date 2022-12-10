@@ -1,7 +1,7 @@
 package no.ntnu.idatt1001;
 
 import no.ntnu.idatt1001.common.ItemRegister;
-import no.ntnu.idatt1001.common.Menu;
+import no.ntnu.idatt1001.common.menu.Menu;
 import no.ntnu.idatt1001.util.item.Item;
 
 /**

@@ -1,10 +1,13 @@
-package no.ntnu.idatt1001.common;
+package no.ntnu.idatt1001.common.menu;
 
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+
+import no.ntnu.idatt1001.common.ItemRegister;
+import no.ntnu.idatt1001.common.UserInput;
 import no.ntnu.idatt1001.util.Category;
 import no.ntnu.idatt1001.util.Color;
 import no.ntnu.idatt1001.util.item.Item;
