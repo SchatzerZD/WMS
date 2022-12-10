@@ -49,8 +49,13 @@ public class ItemRegister {
    *                                    added to this register's list
    * @throws IllegalArgumentException   If the specified item's item number
    *                                    already exists in the register's list
+   * @throws NullPointerException       If the specified item is {@code null}
    */
   public void addItem(Item item) {
+    if (item == null) {
+      throw new NullPointerException("Item specified cannot be null");
+    }
+
     boolean itemNumberExists = itemList.stream().anyMatch(itemInList ->
             itemInList.getItemNumber().equalsIgnoreCase(item.getItemNumber()));
 
@@ -73,6 +78,10 @@ public class ItemRegister {
    *                        were found,otherwise returns {@code null}
    */
   public Item searchByItemNumber(String itemNumberInput) {
+    if (itemNumberInput == null) {
+      throw new NullPointerException("Item number specified cannot be null");
+    }
+
     Item optionalItem = optionalItemFromList(item ->
             item.getItemNumber().toLowerCase().trim().equals(itemNumberInput.toLowerCase().trim()))
             .orElse(null);
@@ -96,6 +105,10 @@ public class ItemRegister {
    *                        were found,otherwise returns {@code null}
    */
   public Item searchByItemDesc(String itemDescInput) {
+    if (itemDescInput == null) {
+      throw new NullPointerException("Description cannot be null");
+    }
+
     Item optionalItem = optionalItemFromList(item ->
             item.getDescription().toLowerCase().trim().equals(itemDescInput.toLowerCase().trim()))
             .orElse(null);
@@ -114,21 +127,26 @@ public class ItemRegister {
    * to the existing amount. If the item is not found in this register's list, a
    * {@link NoSuchElementException} is thrown. A negative amount is not allowed because that
    * would cause the item stock to decrease. Use the
-   * {@link ItemRegister#decreaseItemStock(String, int)} method instead.
+   * {@link ItemRegister#decreaseItemStock(Item, int)} method instead.
    *
-   * @param itemNumber              The item number of the {@link Item} which the stock
+   * @param itemInput               The {@link Item} which the stock
    *                                of should be changed
    * @param stockIncrease           The amount of stock that should be added to the
    *                                specified item's stock. Cannot be below 0
    * @throws IllegalNumberException If the specified amount is below 0
    * @throws NoSuchElementException If the specified item doesn't exist in this register's list
+   * @throws NullPointerException   If the specified item is {@code null}
    */
-  public void increaseItemStock(String itemNumber, int stockIncrease) {
+  public void increaseItemStock(Item itemInput, int stockIncrease) {
+    if (itemInput == null) {
+      throw new NullPointerException("Item specified cannot be null");
+    }
+
     if (stockIncrease < 0) {
       throw new IllegalNumberException("Stock amount specified cannot be below 0");
     }
 
-    Item optionalItem = optionalItemFromList(item -> item.getItemNumber().equals(itemNumber))
+    Item optionalItem = optionalItemFromList(item -> item.getItemNumber().equals(itemInput.getItemNumber()))
             .orElseThrow(NoSuchElementException::new);
     optionalItem.setWarehouseStock(optionalItem.getWarehouseStock() + stockIncrease);
 
@@ -141,21 +159,26 @@ public class ItemRegister {
    * from the existing amount. If the item is not found in this register's list, a
    * {@link NoSuchElementException} is thrown. A negative amount is not allowed because that
    * would cause the item stock to increase. Use the
-   * {@link ItemRegister#increaseItemStock(String, int)} method instead.
+   * {@link ItemRegister#increaseItemStock(Item, int)} method instead.
    *
-   * @param itemNumber              The item number of the {@link Item} which the stock
+   * @param itemInput               The {@link Item} which the stock
    *                                of should be changed
    * @param stockDecrease           The amount of stock that should be subtraced from the
    *                                specified item's stock. Cannot be below 0
    * @throws IllegalNumberException If the specified amount is below 0
    * @throws NoSuchElementException If the specified item doesn't exist in this register's list
+   * @throws NullPointerException   If the specified item is {@code null}
    */
-  public void decreaseItemStock(String itemNumber, int stockDecrease) {
+  public void decreaseItemStock(Item itemInput, int stockDecrease) {
+    if (itemInput == null) {
+      throw new NullPointerException("Item specified cannot be null");
+    }
+
     if (stockDecrease < 0) {
       throw new IllegalNumberException("Stock amount specified cannot be below 0");
     }
 
-    Item optionalItem = optionalItemFromList(item -> item.getItemNumber().equals(itemNumber))
+    Item optionalItem = optionalItemFromList(item -> item.getItemNumber().equals(itemInput.getItemNumber()))
             .orElseThrow(NoSuchElementException::new);
     optionalItem.setWarehouseStock(optionalItem.getWarehouseStock() - stockDecrease);
   }
@@ -167,19 +190,24 @@ public class ItemRegister {
    * item to the specified amount. If the item is not found in this register's list,
    * a {@link NoSuchElementException} is thrown. A negative amount is not allowed.
    *
-   * @param itemNumber              The item number of the {@link Item} which the price
+   * @param itemInput               The {@link Item} which the price
    *                                of should be changed
    * @param price                   The new price which the specified item will have. Cannot
    *                                be below 0
    * @throws IllegalNumberException If the specified price is below 0
    * @throws NoSuchElementException If the specified item doesn't exist in this register's list
+   * @throws NullPointerException   If the specified item is {@code null}
    */
-  public void changePriceOfItem(String itemNumber, int price) {
+  public void changePriceOfItem(Item itemInput, int price) {
+    if (itemInput == null) {
+      throw new NullPointerException("Item specified cannot be null");
+    }
+
     if (price < 0) {
       throw new IllegalNumberException("Price amount specified cannot be below 0");
     }
 
-    Item optionalItem = optionalItemFromList(item -> item.getItemNumber().equals(itemNumber))
+    Item optionalItem = optionalItemFromList(item -> item.getItemNumber().equals(itemInput.getItemNumber()))
             .orElseThrow(NoSuchElementException::new);
     optionalItem.setPrice(price);
   }
@@ -191,19 +219,24 @@ public class ItemRegister {
    * item to the specified amount. If the item is not found in this register's list,
    * a {@link NoSuchElementException} is thrown.
    *
-   * @param itemNumber              The item number of the {@link Item} which the discount
+   * @param itemInput               The {@link Item} which the discount
    *                                of should be changed.
    * @param discount                The new discount which the specified item will have.
    *                                Accept numbers between 0 and 100
    * @throws IllegalNumberException If the specified discount is below 0 or above 100
    * @throws NoSuchElementException If the specified item doesn't exist in this register's list
+   * @throws NullPointerException   If the specified item is {@code null}
    */
-  public void changeDiscountOfItem(String itemNumber, double discount) {
+  public void changeDiscountOfItem(Item itemInput, double discount) {
+    if (itemInput == null) {
+      throw new NullPointerException("Item specified cannot be null");
+    }
+
     if (discount < 0 || discount > 100) {
       throw new IllegalNumberException("Discount amount specified cannot be below 0 or above 100");
     }
 
-    Item optionalItem = optionalItemFromList(item -> item.getItemNumber().equals(itemNumber))
+    Item optionalItem = optionalItemFromList(item -> item.getItemNumber().equals(itemInput.getItemNumber()))
             .orElseThrow(NoSuchElementException::new);
 
     optionalItem.setDiscount(discount);
@@ -216,13 +249,18 @@ public class ItemRegister {
    * item to the specified string. If the item is not found in this register's list,
    * a {@link NoSuchElementException} is thrown.
    *
-   * @param itemNumber              The item number of the {@link Item} which the description
+   * @param itemInput               The {@link Item} which the description
    *                                of should be changed
    * @param description             The new description which the specified item will have
    * @throws NoSuchElementException If the specified item doesn't exist in this register's list
+   * @throws NullPointerException   If the specified item is {@code null}
    */
-  public void changeDescriptionOfItem(String itemNumber, String description) {
-    Item optionalItem = optionalItemFromList(item -> item.getItemNumber().equals(itemNumber))
+  public void changeDescriptionOfItem(Item itemInput, String description) {
+    if (itemInput == null) {
+      throw new NullPointerException("Item specified cannot be null");
+    }
+
+    Item optionalItem = optionalItemFromList(item -> item.getItemNumber().equals(itemInput.getItemNumber()))
             .orElseThrow(NoSuchElementException::new);
     optionalItem.setDescription(description);
   }
@@ -233,20 +271,20 @@ public class ItemRegister {
    * uses the {@link java.util.stream.Stream#filter(Predicate)} method to find the
    * item with the specified {@code itemNumber} and returns the index.
    *
-   * @param itemNumber              The item number of the {@link Item} which the index
+   * @param itemInput               The {@link Item} which the index
    *                                of should be returned
    * @return                        The index number of the specified {@link Item} in this
    *                                register's list, otherwise returns
    *                                {@code -1} if the item is not found in the list
-   * @throws NullPointerException   If the specified item number is {@code null}
+   * @throws NullPointerException   If the specified item is {@code null}
    */
-  public int getIndexOfItem(String itemNumber) {
-    if (itemNumber == null) {
-      throw new NullPointerException("The specified item number cannot be null");
+  public int getIndexOfItem(Item itemInput) {
+    if (itemInput == null) {
+      throw new NullPointerException("The specified item cannot be null");
     }
 
     return IntStream.range(0,itemList.size())
-            .filter(i -> itemNumber.equals(itemList.get(i).getItemNumber()))
+            .filter(i -> itemInput.getItemNumber().equals(itemList.get(i).getItemNumber()))
             .findFirst()
             .orElse(-1);
   }
@@ -255,19 +293,26 @@ public class ItemRegister {
    * Removes the specified {@link Item} from this register's list by
    * utilizing the {@link List#remove(Object)} method.
    *
-   * @param item                  The {@link Item} that should be removed from this
-   *                              register's item list
-   * @return                      {@code true} if the specified item is in the list,
-   *                              otherwise returns {@code false} if the item wasn't found
-   *                              in the list
-   * @throws NullPointerException If the specified item is {@code null}
+   * @param itemInput               The {@link Item} that should be removed from this
+   *                                register's item list
+   * @return                        {@code true} if the specified item is in the list,
+   *                                otherwise returns {@code false} if the item wasn't found
+   *                                in the list
+   * @throws NullPointerException   If the specified item is {@code null}
    */
-  public boolean removeItem(Item item) {
-    if (item == null) {
-      throw new NullPointerException();
+  public boolean removeItem(Item itemInput) {
+    if (itemInput == null) {
+      throw new NullPointerException("The specified item cannot be null");
     }
 
-    return itemList.remove(item);
+    Item optionalItem = optionalItemFromList(item -> item.getItemNumber().equals(itemInput.getItemNumber()))
+            .orElse(null);
+
+    if(optionalItem == null){
+      return false;
+    }
+
+    return itemList.remove(optionalItem);
   }
 
   /**

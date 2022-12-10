@@ -261,7 +261,7 @@ public class Menu {
 
   /**
    * Increases the stock of an {@link Item} in the register by utilizing
-   * the {@link ItemRegister#increaseItemStock(String, int)} method.
+   * the {@link ItemRegister#increaseItemStock(Item, int)} method.
    */
   private void increaseItemStock() {
     Item selectedItem = itemSelection();
@@ -285,8 +285,8 @@ public class Menu {
             }));
 
     try {
-      itemRegister.increaseItemStock(selectedItem.getItemNumber(), stockIncrease);
-      System.out.printf("Item updated:\n %4d %s\n", itemRegister.getIndexOfItem(itemRegister.searchByItemNumber(selectedItem.getItemNumber()).getItemNumber())
+      itemRegister.increaseItemStock(selectedItem, stockIncrease);
+      System.out.printf("Item updated:\n %4d %s\n", itemRegister.getIndexOfItem(selectedItem)
               + 1, itemRegister.searchByItemNumber(selectedItem.getItemNumber()));
       halt();
     } catch (NoSuchElementException nee) {
@@ -297,7 +297,7 @@ public class Menu {
 
   /**
    * Decreases the stock of an {@link Item} in the register by utilizing
-   * the {@link ItemRegister#decreaseItemStock(String, int)} method.
+   * the {@link ItemRegister#decreaseItemStock(Item, int)} method.
    */
   private void decreaseItemStock() {
     Item selectedItem = itemSelection();
@@ -321,8 +321,8 @@ public class Menu {
             }));
 
     try {
-      itemRegister.decreaseItemStock(selectedItem.getDescription(), stockDecrease);
-      System.out.printf("Item updated:\n %4d %s\n", itemRegister.getIndexOfItem(itemRegister.searchByItemNumber(selectedItem.getItemNumber()).getItemNumber())
+      itemRegister.decreaseItemStock(selectedItem, stockDecrease);
+      System.out.printf("Item updated:\n %4d %s\n", itemRegister.getIndexOfItem(selectedItem)
               + 1, itemRegister.searchByItemNumber(selectedItem.getItemNumber()));
       halt();
     } catch (NoSuchElementException nee) {
@@ -347,15 +347,15 @@ public class Menu {
 
   /**
    * Changes the price of an {@link Item} in the register
-   * by utilizing the {@link ItemRegister#changePriceOfItem(String, int)} method.
+   * by utilizing the {@link ItemRegister#changePriceOfItem(Item, int)} method.
    */
   private void changeItemPrice() {
     Item selectedItem = itemSelection();
 
     int newPrice = Integer.parseInt(getUserInput("Input new price for the item", intUserInput()));
     try {
-      itemRegister.changePriceOfItem(selectedItem.getItemNumber(), newPrice);
-      System.out.printf("Item updated:\n %4d %s\n", itemRegister.getIndexOfItem(itemRegister.searchByItemNumber(selectedItem.getItemNumber()).getItemNumber())
+      itemRegister.changePriceOfItem(selectedItem, newPrice);
+      System.out.printf("Item updated:\n %4d %s\n", itemRegister.getIndexOfItem(selectedItem)
               + 1, itemRegister.searchByItemNumber(selectedItem.getItemNumber()));
       halt();
     } catch (NoSuchElementException nee) {
@@ -365,7 +365,7 @@ public class Menu {
 
   /**
    * Changes the discount of an {@link Item} in the register
-   * by utilizing the {@link ItemRegister#changeDiscountOfItem(String, double)} method.
+   * by utilizing the {@link ItemRegister#changeDiscountOfItem(Item, double)} method.
    */
   private void changeItemDiscount() {
     Item selectedItem = itemSelection();
@@ -381,8 +381,8 @@ public class Menu {
     } while (newDiscount > 100);
 
     try {
-      itemRegister.changeDiscountOfItem(selectedItem.getItemNumber(), newDiscount);
-      System.out.printf("Item updated:\n %4d %s\n", itemRegister.getIndexOfItem(itemRegister.searchByItemNumber(selectedItem.getItemNumber()).getItemNumber())
+      itemRegister.changeDiscountOfItem(selectedItem, newDiscount);
+      System.out.printf("Item updated:\n %4d %s\n", itemRegister.getIndexOfItem(selectedItem)
               + 1, itemRegister.searchByItemNumber(selectedItem.getItemNumber()));
       halt();
     } catch (IllegalArgumentException iae) {
@@ -394,7 +394,7 @@ public class Menu {
 
   /**
    * Changes the description of an {@link Item} in the register
-   * by utilizing the {@link ItemRegister#changeDescriptionOfItem(String, String)} method.
+   * by utilizing the {@link ItemRegister#changeDescriptionOfItem(Item, String)} method.
    */
   private void changeItemDescription() {
     Item selectedItem = itemSelection();
@@ -402,8 +402,8 @@ public class Menu {
     System.out.print("Input new item description:");
     String newDescription = scannerNextLine();
     try {
-      itemRegister.changeDescriptionOfItem(selectedItem.getItemNumber(), newDescription);
-      System.out.printf("Item updated:\n %4d %s\n", itemRegister.getIndexOfItem(itemRegister.searchByItemNumber(selectedItem.getItemNumber()).getItemNumber())
+      itemRegister.changeDescriptionOfItem(selectedItem, newDescription);
+      System.out.printf("Item updated:\n %4d %s\n", itemRegister.getIndexOfItem(selectedItem)
               + 1, itemRegister.searchByItemNumber(selectedItem.getItemNumber()));
 
       halt();
