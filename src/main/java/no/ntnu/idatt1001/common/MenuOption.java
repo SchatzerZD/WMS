@@ -3,6 +3,15 @@ package no.ntnu.idatt1001.common;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
+/**
+ * Enum class representing the options available
+ * in the menu for the user interface. Each menu
+ * option has a menu index specified on the declaration
+ * of the menu option. Each menu index should be unique.
+ *
+ * @author 10124
+ * @version 1.0.0
+ */
 enum MenuOption {
 
   PRINT_OUT_ITEMS(1),
@@ -22,10 +31,25 @@ enum MenuOption {
     this.menuIndex = menuIndex;
   }
 
+  /**
+   * Gets the menu index of this menu option.
+   *
+   * @return The {@code menuIndex} of this {@link MenuOption}
+   */
   public int getMenuIndex() {
     return menuIndex;
   }
 
+  /**
+   * Gets the {@link MenuOption} of the specified index. This method
+   * utilizes the {@link java.util.stream.Stream} class for iterating
+   * through all the menu option values and returning the first match.
+   * As long as all menu options has unique {@code menuIndex} values,
+   * this method works as intended.
+   *
+   * @param menuIndex The index of the menu option which should be returned
+   * @return          The menu option with the specified {@code menuIndex}
+   */
   public static MenuOption getMenuOption(int menuIndex) {
     return Arrays.stream(MenuOption.values())
             .filter(mo -> mo.getMenuIndex() == menuIndex)

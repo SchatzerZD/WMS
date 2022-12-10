@@ -10,7 +10,7 @@ import no.ntnu.idatt1001.util.IllegalNumberException;
  * A class representing a builder for constructing instances
  * of an {@link Item} object.
  *
- * @author Daniel Ireneo Neri Saren
+ * @author 10124
  * @version 1.0.0
  */
 public class ItemBuilder {
@@ -225,11 +225,16 @@ public class ItemBuilder {
    * Utilizes the {@link Item#Item(Item)} constructor for creating a
    * new item with all the same field values as the specified item.
    *
-   * @param item  The {@link Item} which should be copied from
-   * @return      An instance of a new {@link Item} object which has
-   *              been deep-copied from the specified item
+   * @param item                  The {@link Item} which should be copied from
+   * @return                      An instance of a new {@link Item} object which has
+   *                              been deep-copied from the specified item
+   * @throws NullPointerException If the parameter specified is {@code null}
    */
   public static Item deepCopy(Item item) {
+    if (item == null) {
+      throw new NullPointerException("Item cannot be null");
+    }
+
     return new Item(item);
   }
 }

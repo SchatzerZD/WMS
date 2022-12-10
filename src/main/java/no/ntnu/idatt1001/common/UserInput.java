@@ -5,7 +5,7 @@ package no.ntnu.idatt1001.common;
  * the user. This interface can be used for when wanting
  * to process user input for live feedback applications.
  *
- * @author Daniel Ireneo Neri Saren
+ * @author 10124
  * @version 1.0.0
  */
 @FunctionalInterface

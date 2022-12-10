@@ -9,7 +9,7 @@ import no.ntnu.idatt1001.util.IllegalNumberException;
  * the warehouse. An item contains information accessed
  * by the warehouse for simple warehouse functionality
  *
- * @author Daniel Ireneo Neri Saren
+ * @author 10124
  * @version 1.1.0
  */
 public class Item {
@@ -48,12 +48,43 @@ public class Item {
    * @param category                    Which warehouse category the item belongs to
    * @throws IllegalNumberException     If the specified price is below 0. Also throws
    *                                    if weight, length or height is 0 or below 0.
+   * @throws NullPointerException       If the specified {@code itemNumber},
+   *                                    {@code color} or {@code category} is {@code null}
    */
-  protected Item(String itemNumber, String description, String brandName, int price, int warehouseStock,
-                 double weight, double length, double height, Color color, Category category) {
+  protected Item(String itemNumber, String description, String brandName, int price,
+                 int warehouseStock, double weight, double length, double height, Color color,
+                 Category category) {
 
-    if (price < 0 || warehouseStock < 0 || weight <= 0 || length <= 0 || height <= 0) {
-      throw new IllegalNumberException();
+    if (itemNumber == null) {
+      throw new NullPointerException("Item number cannot be null");
+    }
+
+    if (color == null) {
+      throw new NullPointerException("Color cannot be null");
+    }
+
+    if (category == null) {
+      throw new NullPointerException("Category cannot be null");
+    }
+
+    if (price < 0) {
+      throw new IllegalNumberException("Price cannot be below 0");
+    }
+
+    if (warehouseStock < 0) {
+      throw new IllegalNumberException("Warehouse stock cannot be below 0");
+    }
+
+    if (weight <= 0) {
+      throw new IllegalNumberException("Weight cannot be 0 or below 0");
+    }
+
+    if (length <= 0) {
+      throw new IllegalNumberException("Length cannot be 0 or below 0");
+    }
+
+    if (height <= 0) {
+      throw new IllegalNumberException("Height cannot be 0 or below 0");
     }
 
     this.price = price;
@@ -77,11 +108,12 @@ public class Item {
    * The constructor takes an item as a parameter, and assigns the value
    * of each field to this object's fields.
    *
-   * @param item  The {@link Item} which should be copied from
+   * @param item                  The {@link Item} which should be copied from
+   * @throws NullPointerException If the specified item is {@code null}
    */
   protected Item(Item item) {
     if (item == null) {
-      throw new NullPointerException();
+      throw new NullPointerException("Item cannot be null");
     }
 
     this.itemNumber = item.getItemNumber();
@@ -97,14 +129,29 @@ public class Item {
     this.discount = item.getDiscount();
   }
 
+  /**
+   * Gets the {@code itemNumber} of this item.
+   *
+   * @return The item number of this item
+   */
   public String getItemNumber() {
     return itemNumber;
   }
 
+  /**
+   * Gets the {@code description} of this item.
+   *
+   * @return The description of this item
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * Gets the {@code brandName} of this item.
+   *
+   * @return The brand name of this item
+   */
   public String getBrandName() {
     return brandName;
   }
@@ -122,30 +169,65 @@ public class Item {
     return (int) (price * (1 - (discount / 100)));
   }
 
+  /**
+   * Gets the {@code discount} of this item.
+   *
+   * @return The discount of this item
+   */
   public double getDiscount() {
     return discount;
   }
 
+  /**
+   * Gets the {@code warehouseStock} of this item.
+   *
+   * @return The warehouse stock of this item
+   */
   public int getWarehouseStock() {
     return warehouseStock;
   }
 
+  /**
+   * Gets the {@code weight} of this item.
+   *
+   * @return The weight of this item
+   */
   public double getWeight() {
     return weight;
   }
 
+  /**
+   * Gets the {@code length} of this item.
+   *
+   * @return The length of this item
+   */
   public double getLength() {
     return length;
   }
 
+  /**
+   * Gets the {@code height} of this item.
+   *
+   * @return The height of this item
+   */
   public double getHeight() {
     return height;
   }
 
+  /**
+   * Gets the {@link Color} of this item.
+   *
+   * @return The color of this item
+   */
   public Color getColor() {
     return color;
   }
 
+  /**
+   * Gets the {@link Category} of this item.
+   *
+   * @return The category of this item
+   */
   public Category getCategory() {
     return category;
   }
@@ -154,8 +236,7 @@ public class Item {
   /**
    * Sets the {@link Item#description} of the item to the specified string.
    *
-   * @param description                      The description which the item should be set to
-   * @throws IllegalNumberException   If the price specified is negative
+   * @param description  The description which the item should be set to
    */
   public void setDescription(String description) {
     this.description = description;
@@ -169,7 +250,7 @@ public class Item {
    */
   public void setPrice(int price) {
     if (price < 0) {
-      throw new IllegalNumberException();
+      throw new IllegalNumberException("Price cannot be set to a negative integer");
     }
     this.price = price;
   }
@@ -180,12 +261,13 @@ public class Item {
    *
    * @param discount                    The amount of discount specified
    *                                    in a percentage between 0 and 100
-   * @throws IllegalArgumentException   If the specified discount amount is
+   * @throws IllegalNumberException     If the specified discount amount is
    *                                    below 0 or above 100
    */
   public void setDiscount(double discount) {
     if (discount < 0 || discount > 100) {
-      throw new IllegalArgumentException();
+      throw new IllegalNumberException("Discount cannot "
+              + "be set to a negative integer or an integer above 100");
     }
     this.discount = discount;
   }
@@ -198,11 +280,17 @@ public class Item {
    */
   public void setWarehouseStock(int warehouseStock) {
     if (warehouseStock < 0) {
-      throw new IllegalNumberException();
+      throw new IllegalNumberException("Warehouse stock cannot be set to a negative integer");
     }
     this.warehouseStock = warehouseStock;
   }
 
+  /**
+   * A standard to-string method with all the relevant information from this
+   * item in a specific format.
+   *
+   * @return A string formatted with all the relevant information about this item
+   */
   @Override
   public String toString() {
     return String.format(

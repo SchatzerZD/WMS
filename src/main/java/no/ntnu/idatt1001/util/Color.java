@@ -3,7 +3,7 @@ package no.ntnu.idatt1001.util;
 /**
  * Enum class representing different colors.
  *
- * @author Daniel Ireneo Neri Saren
+ * @author 10124
  * @version 1.0.0
  */
 public enum Color {
