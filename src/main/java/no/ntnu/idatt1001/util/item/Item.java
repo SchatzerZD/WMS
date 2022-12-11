@@ -24,6 +24,7 @@ public class Item {
   private final double weight;
   private final double length;
   private final double height;
+  private final double width;
 
   private final Color color;
   private final Category category;
@@ -52,8 +53,8 @@ public class Item {
    *                                    {@code color} or {@code category} is {@code null}
    */
   protected Item(String itemNumber, String description, String brandName, int price,
-                 int warehouseStock, double weight, double length, double height, Color color,
-                 Category category) {
+                 int warehouseStock, double weight, double length, double height, double width,
+                 Color color, Category category) {
 
     if (itemNumber == null) {
       throw new NullPointerException("Item number cannot be null");
@@ -87,11 +88,16 @@ public class Item {
       throw new IllegalNumberException("Height cannot be 0 or below 0");
     }
 
+    if (width <= 0) {
+      throw new IllegalNumberException("Width cannot be 0 or below 0");
+    }
+
     this.price = price;
     this.warehouseStock = warehouseStock;
     this.weight = weight;
     this.length = length;
     this.height = height;
+    this.width = width;
 
     this.itemNumber = itemNumber;
     this.description = description;
@@ -124,6 +130,7 @@ public class Item {
     this.weight = item.getWeight();
     this.length = item.getLength();
     this.height = item.getHeight();
+    this.width = item.getWidth();
     this.color = item.getColor();
     this.category = item.getCategory();
     this.discount = item.getDiscount();
@@ -215,6 +222,15 @@ public class Item {
   }
 
   /**
+   * Gets the {@code width} of this width.
+   *
+   * @return The width of this item
+   */
+  public double getWidth() {
+    return width;
+  }
+
+  /**
    * Gets the {@link Color} of this item.
    *
    * @return The color of this item
@@ -294,10 +310,11 @@ public class Item {
   @Override
   public String toString() {
     return String.format(
-            "| %-15s | %-22s | %6d (%8.2f%%)| %6d | %10.2f | %10.2f | %10.2f | %-8s | %-18s | %s",
+            "| %-15s | %-22s | %6d (%8.2f%%)| %6d | %10.2f | "
+                    + "%10.2f | %10.2f | %10.2f | %-8s | %-18s | %s",
             this.getItemNumber(), this.getBrandName(),
             this.getPrice(), this.getDiscount(), this.getWarehouseStock(),
             this.getWeight(), this.getLength(), this.getHeight(),
-            this.getColor(), this.getCategory(), this.getDescription());
+            this.getWidth(), this.getColor(), this.getCategory(), this.getDescription());
   }
 }

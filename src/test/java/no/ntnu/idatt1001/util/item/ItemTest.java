@@ -16,7 +16,7 @@ class ItemTest {
   @BeforeEach
   void setUp() {
     item = new Item("A1205B","Large Christmas Window","SULOLI",
-            130,2,0.45,15.8,27.5,Color.WHITE,Category.WINDOWS);
+            130,2,0.45,15.8,27.5,20, Color.WHITE,Category.WINDOWS);
 
   }
 
@@ -117,15 +117,15 @@ class ItemTest {
 
     assertThrows(NullPointerException.class, () ->
             new Item(null,"Large Christmas Window","SULOLI",
-            130,2,0.45,15.8,27.5,Color.WHITE,Category.WINDOWS));
+            130,2,0.45,15.8,27.5, 20,Color.WHITE,Category.WINDOWS));
 
     assertThrows(NullPointerException.class, () ->
             new Item("A1205B","Large Christmas Window","SULOLI",
-                    130,2,0.45,15.8,27.5,null,Category.WINDOWS));
+                    130,2,0.45,15.8,27.5, 20,null,Category.WINDOWS));
 
     assertThrows(NullPointerException.class, () ->
             new Item("A1205B","Large Christmas Window","SULOLI",
-                    130,2,0.45,15.8,27.5,Color.WHITE,null));
+                    130,2,0.45,15.8,27.5, 20,Color.WHITE,null));
 
     assertThrows(NullPointerException.class, () ->
             new Item(null));
@@ -133,23 +133,23 @@ class ItemTest {
 
     assertThrows(IllegalNumberException.class, () ->
             new Item("A1205B","Large Christmas Window","SULOLI",
-                    -5,2,0.45,15.8,27.5,Color.WHITE,Category.WINDOWS));
+                    -5,2,0.45,15.8,27.5, 20,Color.WHITE,Category.WINDOWS));
 
     assertThrows(IllegalNumberException.class, () ->
             new Item("A1205B","Large Christmas Window","SULOLI",
-                    130,-2,0.45,15.8,27.5,Color.WHITE,Category.WINDOWS));
+                    130,-2,0.45,15.8,27.5, 20,Color.WHITE,Category.WINDOWS));
 
     assertThrows(IllegalNumberException.class, () ->
             new Item("A1205B","Large Christmas Window","SULOLI",
-                    130,2,-0.45,15.8,27.5,Color.WHITE,Category.WINDOWS));
+                    130,2,-0.45,15.8,27.5, 20,Color.WHITE,Category.WINDOWS));
 
     assertThrows(IllegalNumberException.class, () ->
             new Item("A1205B","Large Christmas Window","SULOLI",
-                    130,2,0.45,-15.8,27.5,Color.WHITE,Category.WINDOWS));
+                    130,2,0.45,-15.8,27.5, 20,Color.WHITE,Category.WINDOWS));
 
     assertThrows(IllegalNumberException.class, () ->
             new Item("A1205B","Large Christmas Window","SULOLI",
-                    130,2,0.45,15.8,-27.5,Color.WHITE,Category.WINDOWS));
+                    130,2,0.45,15.8,-27.5, 20,Color.WHITE,Category.WINDOWS));
 
 
   }
