@@ -163,7 +163,7 @@ public class ItemBuilder {
   }
 
   /**
-   * Sets the {@link ItemBuilder#height} to the specified amount.
+   * Sets the {@link ItemBuilder#width} to the specified amount.
    *
    * @param width                    The width for an {@link Item} object
    * @return                         This builder object
