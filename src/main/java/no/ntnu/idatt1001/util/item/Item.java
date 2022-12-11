@@ -222,7 +222,7 @@ public class Item {
   }
 
   /**
-   * Gets the {@code width} of this width.
+   * Gets the {@code width} of this item.
    *
    * @return The width of this item
    */
