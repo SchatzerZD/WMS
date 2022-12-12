@@ -81,8 +81,8 @@ class ItemRegisterTest {
 
   /**
    * Test for the {@link ItemRegister#searchByItemDesc(String)} method.
-   * Test will <code>PASS</code> if the item was found successfully
-   * Test will <code>FAIL</code> if the item wasn't found successfully
+   * Test will <code>PASS</code> if the items was found successfully
+   * Test will <code>FAIL</code> if the items were not found successfully
    */
   @Test
   void searchByItemDesc() {
@@ -94,6 +94,22 @@ class ItemRegisterTest {
     assertEquals(item.getPrice(),130);
     assertEquals(item.getWeight(),0.45);
 
+  }
+
+  /**
+   * Test for the {@link ItemRegister#searchByCategory(Category)} method.
+   * Test will <code>PASS</code> if the items were found successfully
+   * Test will <code>FAIL</code> if the items were not found successfully
+   */
+  @Test
+  void searchByCategory(){
+    List<Item> itemListFromSearch = itemRegister.searchByCategory(Category.WINDOWS);
+    Item item = itemListFromSearch.get(0);
+
+    assertEquals(item.getItemNumber(),"A1205B");
+    assertEquals(item.getDescription(),"Large Christmas Window");
+    assertEquals(item.getPrice(),130);
+    assertEquals(item.getWeight(),0.45);
   }
 
   /**

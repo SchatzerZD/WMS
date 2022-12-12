@@ -16,14 +16,15 @@ enum MenuOption {
 
   PRINT_OUT_ITEMS(1, "Print out items in List"),
   SEARCH_FOR_ITEM(2, "Search for item"),
-  ADD_NEW_ITEM(3, "Add new item"),
-  INCREASE_ITEM_STOCK(4, "Increase stock of an item"),
-  DECREASE_ITEM_STOCK(5, "Decrease stock of an item"),
-  REMOVE_ITEM(6, "Remove an item"),
-  CHANGE_ITEM_PRICE(7, "Change price of an item"),
-  CHANGE_ITEM_DISCOUNT(8, "Change discount of an item"),
-  CHANGE_ITEM_DESCRIPTION(9, "Change description of an item"),
-  SORT_LIST(10, "Sort List"),
+  GET_ALL_ITEMS_BY_CATEGORY(3, "Get item list by category"),
+  ADD_NEW_ITEM(4, "Add new item"),
+  INCREASE_ITEM_STOCK(5, "Increase stock of an item"),
+  DECREASE_ITEM_STOCK(6, "Decrease stock of an item"),
+  REMOVE_ITEM(7, "Remove an item"),
+  CHANGE_ITEM_PRICE(8, "Change price of an item"),
+  CHANGE_ITEM_DISCOUNT(9, "Change discount of an item"),
+  CHANGE_ITEM_DESCRIPTION(10, "Change description of an item"),
+  SORT_LIST(11, "Sort List"),
   EXIT(15, "EXIT");
 
   private final int menuIndex;

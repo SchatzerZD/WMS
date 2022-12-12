@@ -24,7 +24,7 @@ import no.ntnu.idatt1001.util.item.ItemBuilder;
  * @author 10124
  * @version 1.0.0
  */
-public class ItemRegister{
+public class ItemRegister {
 
   private final List<Item> itemList;
 
@@ -72,9 +72,10 @@ public class ItemRegister{
    * found. Utilizes the {@link ItemBuilder#deepCopy(Item)} method for
    * deep copying the item.
    *
-   * @param itemNumberInput Item number which is used to find any matches
-   * @return                Copy of an {@link Item} object if any matches
-   *                        were found,otherwise returns {@code null}
+   * @param itemNumberInput             Item number which is used to find any matches
+   * @return                            Copy of an {@link Item} object if any matches
+   *                                    were found,otherwise returns {@code null}
+   * @throws NullPointerException       If the specified item number is {@code null}
    */
   public Item searchByItemNumber(String itemNumberInput) {
     if (itemNumberInput == null) {
@@ -98,9 +99,11 @@ public class ItemRegister{
    * and returns the list. Utilizes the {@link ItemBuilder#deepCopy(Item)} method for
    * deep copying the items.
    *
-   * @param itemDescInput   Item description which is used to find any matches
-   * @return                A list containing copies of {@link Item} objects if any matches
-   *                        were found, otherwise returns {@code null}
+   * @param itemDescInput               Item description which is used to find any matches
+   * @return                            A list containing copies of {@link Item}
+   *                                    objects if any matches
+   *                                    were found, otherwise returns {@code null}
+   * @throws NullPointerException       If the specified description is {@code null}
    */
   public List<Item> searchByItemDesc(String itemDescInput) {
     if (itemDescInput == null) {
@@ -116,6 +119,37 @@ public class ItemRegister{
 
     if (!listFilteredByDescription.isEmpty()) {
       return listFilteredByDescription;
+    }
+
+    return null;
+  }
+
+  /**
+   * Searches the {@link ItemRegister#itemList} of this instance for the
+   * specified category. Creates a list containing deep-copies of the items that were found,
+   * and returns the list. Utilizes the {@link ItemBuilder#deepCopy(Item)} method for
+   * deep copying the items.
+   *
+   * @param category                    Item {@link Category} which is used to find any matches
+   * @return                            A list containing copies of {@link Item}
+   *                                    objects if any matches
+   *                                    were found, otherwise returns {@code null}
+   * @throws NullPointerException       If the specified {@link Category} is {@code null}
+   */
+  public List<Item> searchByCategory(Category category) {
+    if (category == null) {
+      throw new NullPointerException("Category cannot be null");
+    }
+
+    List<Item> listFilteredByCategory =
+            itemList.stream()
+                    .filter(item -> item.getCategory()
+                            .equals(category))
+                    .map(ItemBuilder::deepCopy)
+                    .toList();
+
+    if (!listFilteredByCategory.isEmpty()) {
+      return listFilteredByCategory;
     }
 
     return null;

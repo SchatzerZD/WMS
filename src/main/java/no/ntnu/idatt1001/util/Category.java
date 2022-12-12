@@ -7,11 +7,12 @@ package no.ntnu.idatt1001.util;
  * @author 10124
  * @version 1.0.0
  */
-public enum Category{
+public enum Category {
 
     FLOOR_LAMINATES,
     WINDOWS,
     DOORS,
-    LUMBER
+    LUMBER,
+    METAL
 
 }

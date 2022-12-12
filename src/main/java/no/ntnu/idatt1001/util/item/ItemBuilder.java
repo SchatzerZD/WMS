@@ -1,10 +1,9 @@
 package no.ntnu.idatt1001.util.item;
 
+import java.util.Objects;
 import no.ntnu.idatt1001.util.Category;
 import no.ntnu.idatt1001.util.Color;
 import no.ntnu.idatt1001.util.IllegalNumberException;
-
-import java.util.Objects;
 
 
 /**
@@ -14,7 +13,7 @@ import java.util.Objects;
  * @author 10124
  * @version 1.0.0
  */
-public class ItemBuilder{
+public class ItemBuilder {
 
   private String itemNumber;
   private String description;

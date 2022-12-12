@@ -6,7 +6,7 @@ package no.ntnu.idatt1001.util;
  * @author 10124
  * @version 1.0.0
  */
-public enum Color{
+public enum Color {
 
     BLACK,
     BLUE,

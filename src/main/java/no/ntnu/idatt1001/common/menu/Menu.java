@@ -53,7 +53,7 @@ public class Menu {
    * method is called inside the loop as long as the application is running.
    */
   public void start() {
-    if(!running){
+    if (!running) {
       System.out.println("Something went wrong with the initialization of this object");
     }
 
@@ -88,6 +88,7 @@ public class Menu {
     switch (menuSelection) {
       case PRINT_OUT_ITEMS -> printOutItems();
       case SEARCH_FOR_ITEM -> searchForItem();
+      case GET_ALL_ITEMS_BY_CATEGORY -> getItemsByCategory();
       case ADD_NEW_ITEM -> addNewItem();
       case INCREASE_ITEM_STOCK -> increaseItemStock();
       case DECREASE_ITEM_STOCK -> decreaseItemStock();
@@ -101,6 +102,7 @@ public class Menu {
               + "Something went wrong with the menu selection\u001B[0m");
     }
   }
+
 
   /**
    * Utilizes the {@link ItemRegister#toString()} method for printing out
@@ -148,6 +150,44 @@ public class Menu {
 
     if (!isItemNumber && !isDescription) {
       System.out.println("\u001B[31mItem not found\u001B[0m");
+    }
+
+    halt();
+
+  }
+
+
+  /**
+   * Finds all the items by the specified category by
+   * utilizing the {@link ItemRegister#searchByCategory(Category)} method.
+   */
+  private void getItemsByCategory() {
+    Category categorySelected = Category.valueOf(
+            getUserInput("Choose Category " + Arrays.toString(Category.values()), () -> {
+              boolean isCategory;
+              String categoryInput;
+              do {
+                isCategory = false;
+                categoryInput = scannerNextLine().toUpperCase();
+                try {
+                  Category.valueOf(categoryInput);
+                  isCategory = true;
+                } catch (IllegalArgumentException iae) {
+                  System.out.print("\u001B[31mCould not find category, try again:\u001B[0m");
+                }
+              } while (!isCategory);
+
+
+              return categoryInput;
+            }));
+
+    List<Item> itemsFoundByCategory = itemRegister.searchByCategory(categorySelected);
+    if (itemsFoundByCategory != null) {
+      System.out.print("\u001B[33m");
+      itemsFoundByCategory.forEach(System.out::println);
+      System.out.print("\u001B[0m");
+    } else {
+      System.out.println("\u001B[32mNo items in the specified category were found\u001B[0m");
     }
 
     halt();
@@ -225,9 +265,12 @@ public class Menu {
 
         .setPrice(Integer.parseInt(getUserInput("Input item price", intUserInput())))
         .setWarehouseStock(Integer.parseInt(getUserInput("Input item stock", intUserInput())))
-        .setWeight(Double.parseDouble(getUserInput("Specify item weight (kg)", doubleUserInput(true))))
-        .setLength(Double.parseDouble(getUserInput("Specify item length (m)", doubleUserInput(true))))
-        .setHeight(Double.parseDouble(getUserInput("Specify item height (m)", doubleUserInput(true))))
+        .setWeight(Double.parseDouble(
+                getUserInput("Specify item weight (kg)", doubleUserInput(true))))
+        .setLength(Double.parseDouble(
+                getUserInput("Specify item length (m)", doubleUserInput(true))))
+        .setHeight(Double.parseDouble(
+                getUserInput("Specify item height (m)", doubleUserInput(true))))
         .setWidth(Double.parseDouble(getUserInput("Specify item width (m)", doubleUserInput(true))))
         .setColor(Color.valueOf(
                 getUserInput("Specify item color " + Arrays.toString(Color.values()), () -> {
