@@ -336,8 +336,17 @@ public class Menu {
    */
   private void removeItem() {
     Item selectedItem = itemSelection();
+    boolean confirmation = Boolean.parseBoolean(getUserInput(
+            "Are you sure you want to delete this item? (y/n)", () -> {
+        String booleanStringInput = scannerNextLine().toLowerCase();
+        if (booleanStringInput.equals("y") || booleanStringInput.equals("yes")) {
+          return "True";
+        } else {
+          return "False";
+        }
+      }));
 
-    if (itemRegister.removeItem(selectedItem)) {
+    if (confirmation && itemRegister.removeItem(selectedItem)) {
       System.out.print("Item successfully removed\n");
       halt();
     }

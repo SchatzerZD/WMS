@@ -511,7 +511,9 @@ public class ItemRegister {
             .setLength(15.8)
             .setHeight(27.5)
             .setColor(Color.WHITE)
-            .setCategory(Category.WINDOWS).build());
+            .setCategory(Category.WINDOWS)
+            .setWidth(20)
+            .build());
 
     addItem(new ItemBuilder()
             .setItemNumber("M5788B")
@@ -523,7 +525,9 @@ public class ItemRegister {
             .setLength(30.48)
             .setHeight(3.2)
             .setColor(Color.BROWN)
-            .setCategory(Category.LUMBER).build());
+            .setCategory(Category.LUMBER)
+            .setWidth(20)
+            .build());
 
     addItem(new ItemBuilder()
             .setItemNumber("C1007B")
@@ -535,7 +539,9 @@ public class ItemRegister {
             .setLength(57.3)
             .setHeight(210.47)
             .setColor(Color.GRAY)
-            .setCategory(Category.DOORS).build());
+            .setCategory(Category.DOORS)
+            .setWidth(20)
+            .build());
 
     addItem(new ItemBuilder()
             .setItemNumber("A1008B")
@@ -547,7 +553,9 @@ public class ItemRegister {
             .setLength(96.3)
             .setHeight(45.2)
             .setColor(Color.GRAY)
-            .setCategory(Category.WINDOWS).build());
+            .setCategory(Category.WINDOWS)
+            .setWidth(20)
+            .build());
 
     addItem(new ItemBuilder()
             .setItemNumber("F4020G")
@@ -559,7 +567,9 @@ public class ItemRegister {
             .setLength(30.48)
             .setHeight(30.48)
             .setColor(Color.BLACK)
-            .setCategory(Category.FLOOR_LAMINATES).build());
+            .setCategory(Category.FLOOR_LAMINATES)
+            .setWidth(20)
+            .build());
   }
 
   /**
@@ -603,16 +613,17 @@ public class ItemRegister {
   @Override
   public String toString() {
     StringBuilder returnString = new StringBuilder(String.format(
-            "| %-15s | %-22s | %-17s | %-6s | %-10s | %-10s | %-10s | %-8s | %-18s | %s\n",
+            "| %-15s | %-22s | %-17s | %-6s | %-10s | %-10s | %-10s | %-10s | %-8s | %-18s | %s\n",
             "ITEM NUMBER", "BRAND NAME", "PRICE (DISCOUNT)", "STOCK", "WEIGHT",
-            "LENGTH", "HEIGHT", "COLOR", "CATEGORY", "DESCRIPTION"));
+            "LENGTH", "HEIGHT", "WIDTH" , "COLOR", "CATEGORY", "DESCRIPTION"));
 
     returnString.append("+ ").append("-".repeat(15)).append(" + ")
             .append("-".repeat(22)).append(" + ")
             .append("-".repeat(17)).append(" + ").append("-".repeat(6)).append(" + ")
             .append("-".repeat(10)).append(" + ").append("-".repeat(10)).append(" + ")
-            .append("-".repeat(10)).append(" + ").append("-".repeat(8)).append(" + ")
-            .append("-".repeat(18)).append(" + ").append("-".repeat(64)).append("\n");
+            .append("-".repeat(10)).append(" + ").append("-".repeat(10)).append("+")
+            .append("-".repeat(8)).append(" + ").append("-".repeat(18)).append(" + ")
+            .append("-".repeat(64)).append("\n");
 
     returnString.append("\u001B[33m");
     for (Item item : itemList) {

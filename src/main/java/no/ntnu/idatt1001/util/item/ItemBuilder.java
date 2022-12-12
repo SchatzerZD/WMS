@@ -23,6 +23,7 @@ public class ItemBuilder {
   private double weight;
   private double length;
   private double height;
+  private double width;
 
   private Color color;
   private Category category;
@@ -162,6 +163,23 @@ public class ItemBuilder {
   }
 
   /**
+   * Sets the {@link ItemBuilder#width} to the specified amount.
+   *
+   * @param width                    The width for an {@link Item} object
+   * @return                         This builder object
+   * @throws IllegalNumberException  If the specified parameter is negative or 0
+   */
+  public ItemBuilder setWidth(double width) {
+
+    if (width <= 0) {
+      throw new IllegalNumberException("Width cannot be 0 or below");
+    }
+
+    this.width = width;
+    return this;
+  }
+
+  /**
    * Sets the {@link ItemBuilder#color} to the specified color.
    *
    * @param color                   The {@link Color} for an {@link Item} object
@@ -213,11 +231,12 @@ public class ItemBuilder {
     this.setWeight(weight);
     this.setLength(length);
     this.setHeight(height);
+    this.setWidth(width);
     this.setColor(color);
     this.setCategory(category);
 
     return new Item(itemNumber, description, brandName, price,
-            warehouseStock, weight, length, height, color, category);
+            warehouseStock, weight, length, height, width, color, category);
   }
 
   /**

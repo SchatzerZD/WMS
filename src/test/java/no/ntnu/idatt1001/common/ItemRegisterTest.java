@@ -37,7 +37,9 @@ class ItemRegisterTest {
             .setLength(15.8)
             .setHeight(27.5)
             .setColor(Color.WHITE)
-            .setCategory(Category.WINDOWS).build());
+            .setCategory(Category.WINDOWS)
+            .setWidth(20)
+            .build());
 
     Assertions.assertEquals(6,itemRegister.size());
     Item item = itemRegister.getItem(itemRegister.size() -1);
@@ -245,7 +247,9 @@ class ItemRegisterTest {
             .setLength(15.8)
             .setHeight(27.5)
             .setColor(Color.WHITE)
-            .setCategory(Category.WINDOWS).build();
+            .setCategory(Category.WINDOWS)
+            .setWidth(20)
+            .build();
 
     assertThrows(NullPointerException.class, () -> itemRegister.addItem(null));
     assertThrows(IllegalArgumentException.class, () ->
@@ -259,7 +263,9 @@ class ItemRegisterTest {
             .setLength(15.8)
             .setHeight(27.5)
             .setColor(Color.WHITE)
-            .setCategory(Category.WINDOWS).build()));
+            .setCategory(Category.WINDOWS)
+            .setWidth(20)
+            .build()));
 
 
     assertThrows(NullPointerException.class, () -> itemRegister.increaseItemStock(null, 50));

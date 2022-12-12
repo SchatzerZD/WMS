@@ -25,6 +25,7 @@ class ItemBuilderTest {
     itemBuilder.setHeight(27.5);
     itemBuilder.setColor(Color.WHITE);
     itemBuilder.setCategory(Category.WINDOWS);
+    itemBuilder.setWidth(20);
   }
 
   @Test
