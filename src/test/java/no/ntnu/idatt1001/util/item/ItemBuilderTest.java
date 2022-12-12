@@ -8,10 +8,18 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * A JUnit test class for the {@link ItemBuilder} class.
+ */
 class ItemBuilderTest {
 
   ItemBuilder itemBuilder;
 
+  /**
+   * The code that gets executed before each test operation.
+   * Assigns a new {@link ItemBuilder} to the {@code itemBuilder} value for
+   * further testing purposes.
+   */
   @BeforeEach
   void setUp() {
     itemBuilder = new ItemBuilder();
@@ -28,6 +36,11 @@ class ItemBuilderTest {
     itemBuilder.setWidth(20);
   }
 
+  /**
+   * Test for the {@link ItemBuilder#build()} method.
+   * Test will <code>PASS</code> if the field variables matches
+   * Test will <code>FAIL</code> if the field variables doesn't match
+   */
   @Test
   void build() {
     Item item = itemBuilder.build();
@@ -38,6 +51,14 @@ class ItemBuilderTest {
     assertEquals(Color.WHITE,item.getColor());
   }
 
+  /**
+   * Test for the {@link ItemBuilder#deepCopy(Item)} method for deep-copying
+   * an item.
+   * Test will <code>PASS</code> if the new item doesn't equal the
+   * previous item, and if all field values are the same
+   * Test will <code>FAIL</code> if the new item equals the
+   * previous item or if all field values are not the same
+   */
   @Test
   void deepCopy() {
 
@@ -52,6 +73,14 @@ class ItemBuilderTest {
 
   }
 
+  /**
+   * Test for all the exceptions that can be thrown
+   * in the methods.
+   * Test will <code>PASS</code> if all exceptions were
+   * thrown as expected
+   * Test will <code>FAIL</code> if any exceptions were
+   * thrown as unexpectedly
+   */
   @Test
   void testExceptionsInMethods(){
     assertThrows(NullPointerException.class, () -> itemBuilder.setItemNumber(null));

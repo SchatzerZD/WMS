@@ -8,16 +8,24 @@ import no.ntnu.idatt1001.util.item.ItemBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.util.List;
 import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * A JUnit class for testing the {@link ItemRegister} class.
+ */
 class ItemRegisterTest {
 
   ItemRegister itemRegister;
 
+  /**
+   * The code that gets executed before each test operation.
+   * Assigns a new {@link ItemRegister} to the {@code itemRegister} value and fills it with default
+   * items with the {@link ItemRegister#fillListWithDefaultItems()} method for
+   * further testing purposes.
+   */
   @BeforeEach
   void setUp() {
     itemRegister = new ItemRegister();
@@ -25,6 +33,11 @@ class ItemRegisterTest {
 
   }
 
+  /**
+   * Test for the {@link ItemRegister#addItem(Item)} method.
+   * Test will <code>PASS</code> if the item was added successfully
+   * Test will <code>FAIL</code> if the item wasn't added successfully
+   */
   @Test
   void addItem() {
     itemRegister.addItem(new ItemBuilder()
@@ -51,6 +64,11 @@ class ItemRegisterTest {
 
   }
 
+  /**
+   * Test for the {@link ItemRegister#searchByItemNumber(String)} method.
+   * Test will <code>PASS</code> if the item was found successfully
+   * Test will <code>FAIL</code> if the item wasn't found successfully
+   */
   @Test
   void searchByItemNumber() {
     Item item = itemRegister.searchByItemNumber("a1205B");
@@ -61,6 +79,11 @@ class ItemRegisterTest {
     assertEquals(item.getWeight(),0.45);
   }
 
+  /**
+   * Test for the {@link ItemRegister#searchByItemDesc(String)} method.
+   * Test will <code>PASS</code> if the item was found successfully
+   * Test will <code>FAIL</code> if the item wasn't found successfully
+   */
   @Test
   void searchByItemDesc() {
     List<Item> itemListFromSearch = itemRegister.searchByItemDesc("  LARGE ChristmAs Window");
@@ -73,6 +96,11 @@ class ItemRegisterTest {
 
   }
 
+  /**
+   * Test for the {@link ItemRegister#increaseItemStock(Item, int)} method.
+   * Test will <code>PASS</code> if the item stock was increased successfully
+   * Test will <code>FAIL</code> if the item stock wasn't increased successfully
+   */
   @Test
   void increaseItemStock() {
     itemRegister.increaseItemStock(itemRegister.searchByItemNumber("A1205B"),3);
@@ -81,6 +109,11 @@ class ItemRegisterTest {
 
   }
 
+  /**
+   * Test for the {@link ItemRegister#decreaseItemStock(Item, int)} method.
+   * Test will <code>PASS</code> if the item stock was decreased successfully
+   * Test will <code>FAIL</code> if the item stock wasn't decreased successfully
+   */
   @Test
   void decreaseItemStock() {
 
@@ -90,6 +123,11 @@ class ItemRegisterTest {
 
   }
 
+  /**
+   * Test for the {@link ItemRegister#changePriceOfItem(Item, int)} method.
+   * Test will <code>PASS</code> if the item price was changed successfully
+   * Test will <code>FAIL</code> if the item price wasn't changed successfully
+   */
   @Test
   void changePriceOfItem() {
 
@@ -99,6 +137,11 @@ class ItemRegisterTest {
 
   }
 
+  /**
+   * Test for the {@link ItemRegister#changeDiscountOfItem(Item, double)} method.
+   * Test will <code>PASS</code> if the item discount was changed successfully
+   * Test will <code>FAIL</code> if the item discount wasn't changed successfully
+   */
   @Test
   void changeDiscountOfItem() {
 
@@ -110,6 +153,11 @@ class ItemRegisterTest {
     assertEquals(104,item.getPrice());
   }
 
+  /**
+   * Test for the {@link ItemRegister#changeDescriptionOfItem(Item, String)} method.
+   * Test will <code>PASS</code> if the item description was changed successfully
+   * Test will <code>FAIL</code> if the item description wasn't changed successfully
+   */
   @Test
   void changeDescriptionOfItem() {
 
@@ -118,6 +166,11 @@ class ItemRegisterTest {
     assertEquals("Test",itemRegister.searchByItemNumber("A1205B").getDescription());
   }
 
+  /**
+   * Test for the {@link ItemRegister#getIndexOfItem(Item)} method.
+   * Test will <code>PASS</code> if the item index was returned successfully
+   * Test will <code>FAIL</code> if the item index wasn't returned successfully
+   */
   @Test
   void getIndexOfItem() {
 
@@ -125,6 +178,11 @@ class ItemRegisterTest {
 
   }
 
+  /**
+   * Test for the {@link ItemRegister#removeItem(Item)} method.
+   * Test will <code>PASS</code> if the item was removed successfully
+   * Test will <code>FAIL</code> if the item wasn't removed successfully
+   */
   @Test
   void removeItem() {
 
@@ -133,6 +191,11 @@ class ItemRegisterTest {
 
   }
 
+  /**
+   * Test for the {@link ItemRegister#sortListByItemnumber(boolean)} method.
+   * Test will <code>PASS</code> if the list was sorted successfully
+   * Test will <code>FAIL</code> if the list wasn't sorted successfully
+   */
   @Test
   void sortListByItemnumber() {
 
@@ -144,6 +207,11 @@ class ItemRegisterTest {
 
   }
 
+  /**
+   * Test for the {@link ItemRegister#sortListByBrandname(boolean)} method.
+   * Test will <code>PASS</code> if the list was sorted successfully
+   * Test will <code>FAIL</code> if the list wasn't sorted successfully
+   */
   @Test
   void sortListByBrandname() {
 
@@ -155,6 +223,11 @@ class ItemRegisterTest {
 
   }
 
+  /**
+   * Test for the {@link ItemRegister#sortListByPrice(boolean)} method.
+   * Test will <code>PASS</code> if the list was sorted successfully
+   * Test will <code>FAIL</code> if the list wasn't sorted successfully
+   */
   @Test
   void sortListByPrice() {
 
@@ -166,6 +239,11 @@ class ItemRegisterTest {
 
   }
 
+  /**
+   * Test for the {@link ItemRegister#sortListByWarehousestock(boolean)} method.
+   * Test will <code>PASS</code> if the list was sorted successfully
+   * Test will <code>FAIL</code> if the list wasn't sorted successfully
+   */
   @Test
   void sortListByWarehousestock() {
 
@@ -177,6 +255,11 @@ class ItemRegisterTest {
 
   }
 
+  /**
+   * Test for the {@link ItemRegister#sortListByColor(boolean)} method.
+   * Test will <code>PASS</code> if the list was sorted successfully
+   * Test will <code>FAIL</code> if the list wasn't sorted successfully
+   */
   @Test
   void sortListByColor() {
 
@@ -188,6 +271,11 @@ class ItemRegisterTest {
 
   }
 
+  /**
+   * Test for the {@link ItemRegister#sortListByCategory(boolean)} method.
+   * Test will <code>PASS</code> if the list was sorted successfully
+   * Test will <code>FAIL</code> if the list wasn't sorted successfully
+   */
   @Test
   void sortListByCategory() {
 
@@ -199,6 +287,11 @@ class ItemRegisterTest {
 
   }
 
+  /**
+   * Test for the {@link ItemRegister#getCopyOfList()} method.
+   * Test will <code>PASS</code> if the list was deep-copied successfully
+   * Test will <code>FAIL</code> if the list wasn't deep-copied successfully
+   */
   @Test
   void getCopyOfList() {
 
@@ -215,6 +308,11 @@ class ItemRegisterTest {
 
   }
 
+  /**
+   * Test for the {@link ItemRegister#getItem(int)} method.
+   * Test will <code>PASS</code> if the item was returned successfully
+   * Test will <code>FAIL</code> if the item wasn't returned successfully
+   */
   @Test
   void getItem() {
 
@@ -228,6 +326,11 @@ class ItemRegisterTest {
 
   }
 
+  /**
+   * Test for the {@link ItemRegister#size()} method.
+   * Test will <code>PASS</code> if the list size was returned successfully
+   * Test will <code>FAIL</code> if the list size wasn't returned successfully
+   */
   @Test
   void size() {
 
@@ -235,6 +338,14 @@ class ItemRegisterTest {
 
   }
 
+  /**
+   * Test for all the exceptions that can be thrown
+   * in the methods.
+   * Test will <code>PASS</code> if all exceptions were
+   * thrown as expected
+   * Test will <code>FAIL</code> if any exceptions were
+   * thrown as unexpectedly
+   */
   @Test
   void testExceptionsInMethods(){
 
