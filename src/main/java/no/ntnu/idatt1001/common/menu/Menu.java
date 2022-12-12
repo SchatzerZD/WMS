@@ -9,6 +9,7 @@ import no.ntnu.idatt1001.common.ItemRegister;
 import no.ntnu.idatt1001.common.UserInput;
 import no.ntnu.idatt1001.util.Category;
 import no.ntnu.idatt1001.util.Color;
+import no.ntnu.idatt1001.util.IllegalNumberException;
 import no.ntnu.idatt1001.util.item.Item;
 import no.ntnu.idatt1001.util.item.ItemBuilder;
 
@@ -26,6 +27,7 @@ public class Menu {
 
   private final ItemRegister itemRegister;
   private final Scanner scanner;
+  private boolean running;
 
   /**
    * A constructor for the {@link Menu} class. Creating an instance
@@ -39,6 +41,7 @@ public class Menu {
   public Menu(ItemRegister itemRegister) {
     this.itemRegister = itemRegister;
     this.scanner = new Scanner(System.in);
+    running = true;
   }
 
   /**
@@ -52,7 +55,11 @@ public class Menu {
    * method is called inside the loop as long as the application is running.
    */
   public void start() {
-    while (true) {
+    if(!running){
+      System.out.println("Something went wrong with the initialization of this object");
+    }
+
+    while (running) {
       if (itemRegister == null) {
         System.out.println("Item register is null\nProgram closing...");
         break;
@@ -220,10 +227,10 @@ public class Menu {
 
         .setPrice(Integer.parseInt(getUserInput("Input item price", intUserInput())))
         .setWarehouseStock(Integer.parseInt(getUserInput("Input item stock", intUserInput())))
-        .setWeight(Double.parseDouble(getUserInput("Specify item weight", doubleUserInput(true))))
-        .setLength(Double.parseDouble(getUserInput("Specify item length", doubleUserInput(true))))
-        .setHeight(Double.parseDouble(getUserInput("Specify item height", doubleUserInput(true))))
-        .setWidth(Double.parseDouble(getUserInput("Specify item width", doubleUserInput(true))))
+        .setWeight(Double.parseDouble(getUserInput("Specify item weight (kg)", doubleUserInput(true))))
+        .setLength(Double.parseDouble(getUserInput("Specify item length (m)", doubleUserInput(true))))
+        .setHeight(Double.parseDouble(getUserInput("Specify item height (m)", doubleUserInput(true))))
+        .setWidth(Double.parseDouble(getUserInput("Specify item width (m)", doubleUserInput(true))))
         .setColor(Color.valueOf(
                 getUserInput("Specify item color " + Arrays.toString(Color.values()), () -> {
                   boolean isColor;
@@ -510,7 +517,7 @@ public class Menu {
   private void exit() {
     System.out.println("Thank you for using WMS");
     System.out.println("Exiting application...");
-    scanner.close();
+    running = false;
     System.exit(0);
   }
 
@@ -627,10 +634,10 @@ public class Menu {
    * @return A deep-copy of the selected {@link Item}
    */
   private Item itemSelection() {
-    System.out.printf("%-5s | %-15s | %-22s | %-17s | %-6s | %-10s | %-10s | %-10s "
-                    + "| %-8s | %-18s | %s\n",
-            "index", "ITEM NUMBER", "BRAND NAME", "PRICE (DISCOUNT)", "STOCK", "WEIGHT",
-            "LENGTH", "HEIGHT", "COLOR", "CATEGORY", "DESCRIPTION");
+    System.out.printf("%-5s | %-15s | %-22s | %-17s | %-6s | %-12s | %-11s | %-11s "
+                    + "| %-11s | %-8s | %-18s | %s\n",
+            "index", "ITEM NUMBER", "BRAND NAME", "PRICE (DISCOUNT)", "STOCK", "WEIGHT(kg)",
+            "LENGTH(m)", "HEIGHT(m)", "WIDTH(m)", "COLOR", "CATEGORY", "DESCRIPTION");
     for (int i = 0; i < itemRegister.size(); i++) {
       System.out.printf("%5d %s\n", i + 1, itemRegister.getItem(i));
     }
@@ -677,6 +684,7 @@ public class Menu {
   private String scannerNextLine() {
     String userInput = scanner.nextLine();
     if (userInput.equalsIgnoreCase("/back")) {
+      scanner.reset();
       start();
     }
     return userInput;

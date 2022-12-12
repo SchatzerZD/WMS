@@ -1,12 +1,14 @@
 package no.ntnu.idatt1001.util;
 
+import no.ntnu.idatt1001.util.item.Item;
+
 /**
  * Enum class representing different colors.
  *
  * @author 10124
  * @version 1.0.0
  */
-public enum Color {
+public enum Color{
 
     BLACK,
     BLUE,

@@ -24,7 +24,7 @@ import no.ntnu.idatt1001.util.item.ItemBuilder;
  * @author 10124
  * @version 1.0.0
  */
-public class ItemRegister {
+public class ItemRegister{
 
   private final List<Item> itemList;
 
@@ -615,15 +615,15 @@ public class ItemRegister {
   @Override
   public String toString() {
     StringBuilder returnString = new StringBuilder(String.format(
-            "| %-15s | %-22s | %-17s | %-6s | %-10s | %-10s | %-10s | %-10s | %-8s | %-18s | %s\n",
-            "ITEM NUMBER", "BRAND NAME", "PRICE (DISCOUNT)", "STOCK", "WEIGHT",
-            "LENGTH", "HEIGHT", "WIDTH", "COLOR", "CATEGORY", "DESCRIPTION"));
+            "| %-15s | %-22s | %-17s | %-6s | %-12s | %-11s | %-11s | %-11s | %-8s | %-18s | %s\n",
+            "ITEM NUMBER", "BRAND NAME", "PRICE (DISCOUNT)", "STOCK", "WEIGHT(kg)",
+            "LENGTH(m)", "HEIGHT(m)", "WIDTH(m)", "COLOR", "CATEGORY", "DESCRIPTION"));
 
     returnString.append("+ ").append("-".repeat(15)).append(" + ")
             .append("-".repeat(22)).append(" + ")
             .append("-".repeat(17)).append(" + ").append("-".repeat(6)).append(" + ")
-            .append("-".repeat(10)).append(" + ").append("-".repeat(10)).append(" + ")
-            .append("-".repeat(10)).append(" + ").append("-".repeat(10)).append("+")
+            .append("-".repeat(12)).append(" + ").append("-".repeat(11)).append(" + ")
+            .append("-".repeat(11)).append(" + ").append("-".repeat(11)).append("+")
             .append("-".repeat(8)).append(" + ").append("-".repeat(18)).append(" + ")
             .append("-".repeat(64)).append("\n");
 

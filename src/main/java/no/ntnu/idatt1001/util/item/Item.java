@@ -310,8 +310,8 @@ public class Item {
   @Override
   public String toString() {
     return String.format(
-            "| %-15s | %-22s | %6d (%8.2f%%)| %6d | %10.2f | "
-                    + "%10.2f | %10.2f | %10.2f | %-8s | %-18s | %s",
+            "| %-15s | %-22s | %6d (%8.2f%%)| %6d | %10.2fkg | "
+                    + "%10.2fm | %10.2fm | %10.2fm | %-8s | %-18s | %s",
             this.getItemNumber(), this.getBrandName(),
             this.getPrice(), this.getDiscount(), this.getWarehouseStock(),
             this.getWeight(), this.getLength(), this.getHeight(),
