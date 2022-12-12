@@ -705,7 +705,6 @@ public class Menu {
             15. EXIT
             
             Select option by typing the index number
-            Type "/BACK" to return to this menu at any point
-            Press any other key to exit program""";
+            Type "/BACK" to return to this menu at any point""";
   }
 }
