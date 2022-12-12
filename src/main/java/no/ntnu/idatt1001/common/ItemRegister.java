@@ -94,26 +94,28 @@ public class ItemRegister {
 
   /**
    * Searches the {@link ItemRegister#itemList} of this instance for the
-   * specified description. Creates a deep-copy of the item that was found,
-   * and returns the copy. Only uses one matching item if any matches were
-   * found. Utilizes the {@link ItemBuilder#deepCopy(Item)} method for
-   * deep copying the item.
+   * specified description. Creates a list containing deep-copies of the items that were found,
+   * and returns the list. Utilizes the {@link ItemBuilder#deepCopy(Item)} method for
+   * deep copying the items.
    *
    * @param itemDescInput   Item description which is used to find any matches
-   * @return                Copy of an {@link Item} object if any matches
-   *                        were found,otherwise returns {@code null}
+   * @return                A list containing copies of {@link Item} objects if any matches
+   *                        were found, otherwise returns {@code null}
    */
-  public Item searchByItemDesc(String itemDescInput) {
+  public List<Item> searchByItemDesc(String itemDescInput) {
     if (itemDescInput == null) {
       throw new NullPointerException("Description cannot be null");
     }
 
-    Item optionalItem = optionalItemFromList(item ->
-            item.getDescription().toLowerCase().trim().equals(itemDescInput.toLowerCase().trim()))
-            .orElse(null);
+    List<Item> listFilteredByDescription =
+            itemList.stream()
+            .filter(item -> item.getDescription().toLowerCase().trim()
+                    .equals(itemDescInput.toLowerCase().trim()))
+            .map(ItemBuilder::deepCopy)
+            .toList();
 
-    if (optionalItem != null) {
-      return ItemBuilder.deepCopy(optionalItem);
+    if (!listFilteredByDescription.isEmpty()) {
+      return listFilteredByDescription;
     }
 
     return null;
@@ -526,7 +528,7 @@ public class ItemRegister {
             .setHeight(3.2)
             .setColor(Color.BROWN)
             .setCategory(Category.LUMBER)
-            .setWidth(20)
+            .setWidth(10.5)
             .build());
 
     addItem(new ItemBuilder()
@@ -540,7 +542,7 @@ public class ItemRegister {
             .setHeight(210.47)
             .setColor(Color.GRAY)
             .setCategory(Category.DOORS)
-            .setWidth(20)
+            .setWidth(200.2)
             .build());
 
     addItem(new ItemBuilder()
@@ -554,7 +556,7 @@ public class ItemRegister {
             .setHeight(45.2)
             .setColor(Color.GRAY)
             .setCategory(Category.WINDOWS)
-            .setWidth(20)
+            .setWidth(15)
             .build());
 
     addItem(new ItemBuilder()
@@ -568,7 +570,7 @@ public class ItemRegister {
             .setHeight(30.48)
             .setColor(Color.BLACK)
             .setCategory(Category.FLOOR_LAMINATES)
-            .setWidth(20)
+            .setWidth(13)
             .build());
   }
 
@@ -615,7 +617,7 @@ public class ItemRegister {
     StringBuilder returnString = new StringBuilder(String.format(
             "| %-15s | %-22s | %-17s | %-6s | %-10s | %-10s | %-10s | %-10s | %-8s | %-18s | %s\n",
             "ITEM NUMBER", "BRAND NAME", "PRICE (DISCOUNT)", "STOCK", "WEIGHT",
-            "LENGTH", "HEIGHT", "WIDTH" , "COLOR", "CATEGORY", "DESCRIPTION"));
+            "LENGTH", "HEIGHT", "WIDTH", "COLOR", "CATEGORY", "DESCRIPTION"));
 
     returnString.append("+ ").append("-".repeat(15)).append(" + ")
             .append("-".repeat(22)).append(" + ")

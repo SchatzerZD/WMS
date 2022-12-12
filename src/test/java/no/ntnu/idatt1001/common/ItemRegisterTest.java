@@ -63,7 +63,8 @@ class ItemRegisterTest {
 
   @Test
   void searchByItemDesc() {
-    Item item = itemRegister.searchByItemDesc("  LARGE ChristmAs Window");
+    List<Item> itemListFromSearch = itemRegister.searchByItemDesc("  LARGE ChristmAs Window");
+    Item item = itemListFromSearch.get(0);
 
     assertEquals(item.getItemNumber(),"A1205B");
     assertEquals(item.getDescription(),"Large Christmas Window");

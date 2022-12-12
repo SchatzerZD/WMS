@@ -64,9 +64,9 @@ public class Menu {
         selectMenu(MenuOption.getMenuOption(
                 Integer.parseInt(getUserInput("Input", scanner::nextLine))));
       } catch (NoSuchElementException nse) {
-        System.out.println("\n\nMenu option not found, try again");
+        System.out.println("\n\n\u001B[31mMenu option not found, try again\u001B[0m");
       } catch (NumberFormatException nfe) {
-        System.out.println("\n\nPlease input a number");
+        System.out.println("\n\n\u001B[31mPlease input a number\u001B[0m");
       }
 
     }
@@ -92,7 +92,8 @@ public class Menu {
       case CHANGE_ITEM_DESCRIPTION -> changeItemDescription();
       case SORT_LIST -> sortList();
       case EXIT -> exit();
-      default -> System.out.println("Something went wrong with the menu selection");
+      default -> System.out.println("\u001B[31m"
+              + "Something went wrong with the menu selection\u001B[0m");
     }
   }
 
@@ -114,23 +115,34 @@ public class Menu {
     System.out.println("Search for item by item number or description");
     String userInput = scannerNextLine();
 
-    Item itemSearchedFor = itemRegister.searchByItemNumber(userInput);
-    boolean found = false;
+    Item itemFoundByItemNumber = itemRegister.searchByItemNumber(userInput);
+    List<Item> itemsFoundByDescription = itemRegister.searchByItemDesc(userInput);
 
-    if (itemSearchedFor != null) {
-      System.out.println(itemSearchedFor);
-      found = true;
-    } else {
-      itemSearchedFor = itemRegister.searchByItemDesc(userInput);
+    boolean isItemNumber = false;
+    boolean isDescription = false;
+
+    if (itemFoundByItemNumber != null) {
+      isItemNumber = true;
     }
 
-    if (!found && itemSearchedFor != null) {
-      System.out.println(itemSearchedFor);
-      found = true;
+    if (itemsFoundByDescription != null) {
+      isDescription = true;
     }
 
-    if (!found) {
-      System.out.println("Item not found");
+    if (isItemNumber) {
+      System.out.println(itemFoundByItemNumber);
+    }
+
+    if (isDescription) {
+      itemsFoundByDescription.forEach(item -> {
+        if (!item.getItemNumber().toLowerCase().trim().equals(userInput)) {
+          System.out.println(item);
+        }
+      });
+    }
+
+    if (!isItemNumber && !isDescription) {
+      System.out.println("\u001B[31mItem not found\u001B[0m");
     }
 
     halt();
@@ -154,7 +166,7 @@ public class Menu {
             isNullString = false;
             itemNumberInput = scannerNextLine();
             if (itemNumberInput.equals("")) {
-              System.out.print("Cant input empty string: ");
+              System.out.print("\u001B[31mCant input empty string:\u001B[0m");
               isNullString = true;
               continue;
             }
@@ -167,7 +179,7 @@ public class Menu {
                             .equalsIgnoreCase(finalItemNumberInput));
 
             if (itemNumberExists) {
-              System.out.print("Item number already exists, try again: ");
+              System.out.print("\u001B[31mItem number already exists, try again:\u001B[0m");
             }
           } while (itemNumberExists || isNullString);
 
@@ -183,7 +195,7 @@ public class Menu {
             itemDescInput = scannerNextLine();
             if (itemDescInput.equals("")) {
               isNullString = true;
-              System.out.print("Cant input empty string: ");
+              System.out.print("\u001B[31mCant input empty string:\u001B[0m");
             }
           } while (isNullString);
 
@@ -199,7 +211,7 @@ public class Menu {
             itemBrandInput = scannerNextLine();
             if (itemBrandInput.equals("")) {
               isNullString = true;
-              System.out.print("Cant input empty string: ");
+              System.out.print("\u001B[31mCant input empty string:\u001B[0m");
             }
           } while (isNullString);
 
@@ -223,7 +235,7 @@ public class Menu {
                       Color.valueOf(colorInput);
                       isColor = true;
                     } catch (IllegalArgumentException iae) {
-                      System.out.print("Could not find color, try again: ");
+                      System.out.print("\u001B[31mCould not find color, try again:\u001B[0m");
                     }
                   } while (!isColor);
 
@@ -242,7 +254,7 @@ public class Menu {
                       Category.valueOf(categoryInput);
                       isCategory = true;
                     } catch (IllegalArgumentException iae) {
-                      System.out.print("Could not find category, try again: ");
+                      System.out.print("\u001B[31mCould not find category, try again:\u001B[0m");
                     }
                   } while (!isCategory);
 
@@ -255,7 +267,7 @@ public class Menu {
 
     itemRegister.addItem(newItem);
 
-    System.out.println("Item successfully added");
+    System.out.println("\u001B[32mItem successfully added\u001B[0m");
     halt();
   }
 
@@ -277,7 +289,8 @@ public class Menu {
                 int stringToInt = Integer.parseInt(numberInput);
                 if (selectedItem.getWarehouseStock() + stringToInt < 0) {
                   isGreaterThanMax = true;
-                  System.out.print("Stock amount exceeds maximum amount, try again: ");
+                  System.out.print("\u001B[31m"
+                          + "Stock amount exceeds maximum amount, try again:\u001B[0m");
                 }
               } while (isGreaterThanMax);
 
@@ -290,7 +303,7 @@ public class Menu {
               + 1, itemRegister.searchByItemNumber(selectedItem.getItemNumber()));
       halt();
     } catch (NoSuchElementException nee) {
-      System.out.print("Item was not found in the item register");
+      System.out.print("\u001B[31mItem was not found in the item register\u001B[0m");
     }
 
   }
@@ -313,7 +326,8 @@ public class Menu {
                 int stringToInt = Integer.parseInt(numberInput);
                 if (selectedItem.getWarehouseStock() < stringToInt) {
                   isGreaterThanStock = true;
-                  System.out.print("Number inputted is greater than item stock, try again: ");
+                  System.out.print("\u001B[31m"
+                          + "Number inputted is greater than item stock, try again:\u001B[0m");
                 }
               } while (isGreaterThanStock);
 
@@ -326,7 +340,7 @@ public class Menu {
               + 1, itemRegister.searchByItemNumber(selectedItem.getItemNumber()));
       halt();
     } catch (NoSuchElementException nee) {
-      System.out.print("Item was not found in the item register");
+      System.out.print("\u001B[31mItem was not found in the item register\u001B[0m");
     }
 
   }
@@ -348,7 +362,7 @@ public class Menu {
       }));
 
     if (confirmation && itemRegister.removeItem(selectedItem)) {
-      System.out.print("Item successfully removed\n");
+      System.out.print("\u001B[32mItem successfully removed\u001B[0m\n");
       halt();
     }
 
@@ -368,7 +382,7 @@ public class Menu {
               + 1, itemRegister.searchByItemNumber(selectedItem.getItemNumber()));
       halt();
     } catch (NoSuchElementException nee) {
-      System.out.println("Item was not found in the item register");
+      System.out.println("\u001B[31mItem was not found in the item register\u001B[0m");
     }
   }
 
@@ -384,7 +398,7 @@ public class Menu {
       newDiscount = Double.parseDouble(
               getUserInput("Input new discount for the item (0-100)", doubleUserInput(false)));
       if (newDiscount > 100) {
-        System.out.println("Discount cannot be greater than 100");
+        System.out.println("\u001B[31mDiscount cannot be greater than 100\u001B[0m");
       }
 
     } while (newDiscount > 100);
@@ -395,9 +409,9 @@ public class Menu {
               + 1, itemRegister.searchByItemNumber(selectedItem.getItemNumber()));
       halt();
     } catch (IllegalArgumentException iae) {
-      System.out.println("Something went wrong with inputted number");
+      System.out.println("\u001B[31mSomething went wrong with inputted number\u001B[0m");
     } catch (NoSuchElementException nee) {
-      System.out.println("Item was not found in the item register");
+      System.out.println("\u001B[31mItem was not found in the item register\u001B[0m");
     }
   }
 
@@ -417,7 +431,7 @@ public class Menu {
 
       halt();
     } catch (NoSuchElementException nee) {
-      System.out.println("Item was not found in the item register");
+      System.out.println("\u001B[31mItem was not found in the item register\u001B[0m");
     }
 
   }
@@ -445,7 +459,7 @@ public class Menu {
     do {
       sortMenuSelection = Integer.parseInt(getUserInput("Choose sort option", intUserInput()));
       if (sortMenuSelection < 1 || sortMenuSelection > 6) {
-        System.out.println("Input a valid number, try again");
+        System.out.println("\u001B[31mInput a valid number, try again\u001B[0m");
       }
     } while (sortMenuSelection < 1 || sortMenuSelection > 6);
 
@@ -461,29 +475,29 @@ public class Menu {
     switch (sortMenuSelection) {
       case 1 -> {
         itemRegister.sortListByItemnumber(ascending);
-        System.out.println("List sorted successfully by item number");
+        System.out.println("\u001B[32mList sorted successfully by item number\u001B[0m");
       }
       case 2 -> {
         itemRegister.sortListByBrandname(ascending);
-        System.out.println("List sorted successfully by brand name");
+        System.out.println("\u001B[32mList sorted successfully by brand name\u001B[0m");
       }
       case 3 -> {
         itemRegister.sortListByPrice(ascending);
-        System.out.println("List sorted successfully by price");
+        System.out.println("\u001B[32mList sorted successfully by price\u001B[0m");
       }
       case 4 -> {
         itemRegister.sortListByWarehousestock(ascending);
-        System.out.println("List sorted successfully by warehouse stock");
+        System.out.println("\u001B[32mList sorted successfully by warehouse stock\u001B[0m");
       }
       case 5 -> {
         itemRegister.sortListByColor(ascending);
-        System.out.println("List sorted successfully by color");
+        System.out.println("\u001B[32mList sorted successfully by color\u001B[0m");
       }
       case 6 -> {
         itemRegister.sortListByCategory(ascending);
-        System.out.println("List sorted successfully by category");
+        System.out.println("\u001B[32mList sorted successfully by category\u001B[0m");
       }
-      default -> System.out.println("Something went wrong");
+      default -> System.out.println("\u001B[31mSomething went wrong\u001B[0m");
     }
 
     halt();
@@ -523,7 +537,7 @@ public class Menu {
    * where the user input doesn't matter.
    */
   private void halt() {
-    System.out.println("Press ENTER to continue");
+    System.out.println("\u001B[32mPress ENTER to continue\u001B[0m");
     scanner.nextLine();
   }
 
@@ -553,10 +567,10 @@ public class Menu {
           isNumber = true;
           if (stringToInt < 0) {
             isNegative = true;
-            System.out.print("Can't input negative numbers, try again: ");
+            System.out.print("\u001B[31mCan't input negative numbers, try again:\u001B[0m");
           }
         } catch (NumberFormatException | NullPointerException e) {
-          System.out.print("Input numbers, try again: ");
+          System.out.print("\u001B[31mInput numbers, try again:\u001B[0m");
         }
       } while (!isNumber || isNegative);
 
@@ -592,13 +606,13 @@ public class Menu {
           isNumber = true;
           if (!zeroIsInclusive && stringToDouble < 0) {
             isNegative = true;
-            System.out.print("Can't input negative numbers, try again: ");
+            System.out.print("\u001B[31mCan't input negative numbers, try again:\u001B[0m");
           } else if (zeroIsInclusive && stringToDouble <= 0) {
             isNegative = true;
-            System.out.print("Can't input 0 or negative numbers, try again: ");
+            System.out.print("\u001B[31mCan't input 0 or negative numbers, try again:\u001B[0m");
           }
         } catch (NumberFormatException | NullPointerException e) {
-          System.out.print("Input numbers. try again: ");
+          System.out.print("\u001B[31mInput numbers. try again:\u001B[0m");
         }
       } while (!isNumber || isNegative);
 
@@ -635,10 +649,11 @@ public class Menu {
                   if (stringToInt > 0 && stringToInt <= itemRegister.size()) {
                     isListIndex = true;
                   } else {
-                    System.out.print("Input a number in the index list, try again: ");
+                    System.out.print("\u001B[31m"
+                            + "Input a number in the index list, try again:\u001B[0m");
                   }
                 } catch (NumberFormatException nfe) {
-                  System.out.print("Input numbers, try again: ");
+                  System.out.print("\u001B[31mInput numbers, try again:\u001B[0m");
                 }
 
               } while (!isListIndex);
