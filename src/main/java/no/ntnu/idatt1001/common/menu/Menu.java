@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-
 import no.ntnu.idatt1001.common.ItemRegister;
 import no.ntnu.idatt1001.common.UserInput;
 import no.ntnu.idatt1001.util.Category;
@@ -65,11 +64,9 @@ public class Menu {
         selectMenu(MenuOption.getMenuOption(
                 Integer.parseInt(getUserInput("Input", scanner::nextLine))));
       } catch (NoSuchElementException nse) {
-        System.out.println("Menu option not found\nProgram closing...");
-        noMenuWasSelected();
+        System.out.println("\n\nMenu option not found, try again");
       } catch (NumberFormatException nfe) {
-        System.out.println("No numbers were inputted\nProgram closing...");
-        noMenuWasSelected();
+        System.out.println("\n\nPlease input a number");
       }
 
     }
@@ -77,9 +74,7 @@ public class Menu {
 
   /**
    * A method for selecting a function which will be performed on
-   * the register by the user. Switch-case defaults to the
-   * {@link Menu#noMenuWasSelected()} method, which exits the
-   * program.
+   * the register by the user.
    *
    * @param menuSelection The menu option which should be selected
    */
@@ -96,7 +91,8 @@ public class Menu {
       case CHANGE_ITEM_DISCOUNT -> changeItemDiscount();
       case CHANGE_ITEM_DESCRIPTION -> changeItemDescription();
       case SORT_LIST -> sortList();
-      default -> noMenuWasSelected();
+      case EXIT -> exit();
+      default -> System.out.println("Something went wrong with the menu selection");
     }
   }
 
@@ -485,14 +481,15 @@ public class Menu {
   }
 
   /**
-   * This method is called if no menu is selected in the {@link Menu#selectMenu(MenuOption)}
-   * method. This method closes the running application
+   * Exits the current running application.
    */
-  private void noMenuWasSelected() {
-    System.out.println("Application closed");
+  private void exit() {
+    System.out.println("Thank you for using WMS");
+    System.out.println("Exiting application...");
     scanner.close();
     System.exit(0);
   }
+
 
   /**
    * A standard method for receiving input from the user. Utilizes the
@@ -670,16 +667,17 @@ public class Menu {
   public String toString() {
     return """
             -------------- MENU --------------
-            1. Print out items in List
-            2. Search for item
-            3. Add new item
-            4. Increase stock of an item
-            5. Decrease stock of an item
-            6. Remove an item
-            7. Change price of an item
-            8. Change discount of an item
-            9. Change description of an item
+            1.  Print out items in List
+            2.  Search for item
+            3.  Add new item
+            4.  Increase stock of an item
+            5.  Decrease stock of an item
+            6.  Remove an item
+            7.  Change price of an item
+            8.  Change discount of an item
+            9.  Change description of an item
             10. Sort List
+            15. EXIT
             
             Select option by typing the index number
             Type "/BACK" to return to this menu at any point

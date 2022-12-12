@@ -23,7 +23,8 @@ enum MenuOption {
   CHANGE_ITEM_PRICE(7),
   CHANGE_ITEM_DISCOUNT(8),
   CHANGE_ITEM_DESCRIPTION(9),
-  SORT_LIST(10);
+  SORT_LIST(10),
+  EXIT(15);
 
   private final int menuIndex;
 

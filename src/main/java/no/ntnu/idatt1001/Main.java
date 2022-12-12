@@ -4,6 +4,8 @@ import no.ntnu.idatt1001.common.ItemRegister;
 import no.ntnu.idatt1001.common.menu.Menu;
 import no.ntnu.idatt1001.util.item.Item;
 
+import java.util.Arrays;
+
 /**
  * The main class which has the {@link Main#main(String[])} method
  * which gets executed at the start of the program. The program
@@ -30,6 +32,7 @@ public class Main {
     itemRegister.fillListWithDefaultItems();
 
     Menu menu = new Menu(itemRegister);
+
 
     menu.start();
   }

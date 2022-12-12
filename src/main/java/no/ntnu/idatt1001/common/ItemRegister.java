@@ -614,9 +614,11 @@ public class ItemRegister {
             .append("-".repeat(10)).append(" + ").append("-".repeat(8)).append(" + ")
             .append("-".repeat(18)).append(" + ").append("-".repeat(64)).append("\n");
 
+    returnString.append("\u001B[33m");
     for (Item item : itemList) {
       returnString.append(item.toString()).append("\n");
     }
+    returnString.append("\u001B[0m");
 
     return returnString.toString();
   }
