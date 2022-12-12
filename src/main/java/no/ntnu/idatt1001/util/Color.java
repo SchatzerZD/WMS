@@ -1,7 +1,5 @@
 package no.ntnu.idatt1001.util;
 
-import no.ntnu.idatt1001.util.item.Item;
-
 /**
  * Enum class representing different colors.
  *

@@ -1,11 +1,10 @@
 package no.ntnu.idatt1001.util.item;
 
-import java.util.Objects;
-
-import no.ntnu.idatt1001.common.ItemRegister;
 import no.ntnu.idatt1001.util.Category;
 import no.ntnu.idatt1001.util.Color;
 import no.ntnu.idatt1001.util.IllegalNumberException;
+
+import java.util.Objects;
 
 
 /**

@@ -1,6 +1,5 @@
 package no.ntnu.idatt1001.common.menu;
 
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -9,7 +8,6 @@ import no.ntnu.idatt1001.common.ItemRegister;
 import no.ntnu.idatt1001.common.UserInput;
 import no.ntnu.idatt1001.util.Category;
 import no.ntnu.idatt1001.util.Color;
-import no.ntnu.idatt1001.util.IllegalNumberException;
 import no.ntnu.idatt1001.util.item.Item;
 import no.ntnu.idatt1001.util.item.ItemBuilder;
 
@@ -294,7 +292,7 @@ public class Menu {
                 isGreaterThanMax = false;
 
                 int stringToInt = Integer.parseInt(numberInput);
-                if (selectedItem.getWarehouseStock() + stringToInt < 0) {
+                if (selectedItem.getWarehouseStock() + stringToInt <= 0) {
                   isGreaterThanMax = true;
                   System.out.print("\u001B[31m"
                           + "Stock amount exceeds maximum amount, try again:\u001B[0m");
