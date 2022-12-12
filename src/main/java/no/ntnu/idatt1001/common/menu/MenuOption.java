@@ -14,22 +14,31 @@ import java.util.NoSuchElementException;
  */
 enum MenuOption {
 
-  PRINT_OUT_ITEMS(1),
-  SEARCH_FOR_ITEM(2),
-  ADD_NEW_ITEM(3),
-  INCREASE_ITEM_STOCK(4),
-  DECREASE_ITEM_STOCK(5),
-  REMOVE_ITEM(6),
-  CHANGE_ITEM_PRICE(7),
-  CHANGE_ITEM_DISCOUNT(8),
-  CHANGE_ITEM_DESCRIPTION(9),
-  SORT_LIST(10),
-  EXIT(15);
+  PRINT_OUT_ITEMS(1, "Print out items in List"),
+  SEARCH_FOR_ITEM(2, "Search for item"),
+  ADD_NEW_ITEM(3, "Add new item"),
+  INCREASE_ITEM_STOCK(4, "Increase stock of an item"),
+  DECREASE_ITEM_STOCK(5, "Decrease stock of an item"),
+  REMOVE_ITEM(6, "Remove an item"),
+  CHANGE_ITEM_PRICE(7, "Change price of an item"),
+  CHANGE_ITEM_DISCOUNT(8, "Change discount of an item"),
+  CHANGE_ITEM_DESCRIPTION(9, "Change description of an item"),
+  SORT_LIST(10, "Sort List"),
+  EXIT(15, "EXIT");
 
   private final int menuIndex;
+  private final String optionDescription;
 
-  MenuOption(int menuIndex) {
+  /**
+   * An enum constructor for the {@link MenuOption} class.
+   *
+   * @param menuIndex           The index of the menu option, should be
+   *                            unique
+   * @param optionDescription   The description of the menu option
+   */
+  MenuOption(int menuIndex, String optionDescription) {
     this.menuIndex = menuIndex;
+    this.optionDescription = optionDescription;
   }
 
   /**
@@ -39,6 +48,15 @@ enum MenuOption {
    */
   int getMenuIndex() {
     return menuIndex;
+  }
+
+  /**
+   * Gets the menu option description of this menu option.
+   *
+   * @return The {@code optionDescription} of this {@link MenuOption}
+   */
+  String getOptionDescription() {
+    return optionDescription;
   }
 
   /**

@@ -676,35 +676,36 @@ public class Menu {
    */
   private String scannerNextLine() {
     String userInput = scanner.nextLine();
-    if (userInput.equals("/BACK")) {
+    if (userInput.equalsIgnoreCase("/back")) {
       start();
     }
     return userInput;
-
   }
 
   /**
    * A standard to-string method for displaying all the specified menu options.
+   * Builds the string by using the {@link MenuOption} class. Any new options
+   * added to this class will get added.
    *
    * @return A string formatted with all the menu options specified
    */
   @Override
   public String toString() {
-    return """
-            -------------- MENU --------------
-            1.  Print out items in List
-            2.  Search for item
-            3.  Add new item
-            4.  Increase stock of an item
-            5.  Decrease stock of an item
-            6.  Remove an item
-            7.  Change price of an item
-            8.  Change discount of an item
-            9.  Change description of an item
-            10. Sort List
-            15. EXIT
-            
-            Select option by typing the index number
-            Type "/BACK" to return to this menu at any point""";
+
+    StringBuilder returnString = new StringBuilder("\u001B[36m"
+           + "-------------- MENU --------------\u001B[0m\n");
+
+    for (int i = 0; i < MenuOption.values().length; i++) {
+      returnString.append(MenuOption.values()[i].getMenuIndex()).append(".\t")
+              .append(MenuOption.values()[i].getOptionDescription())
+              .append("\n");
+    }
+
+    returnString.append("\n\u001B[36mSelect option by typing the index number\u001B[0m\n");
+    returnString.append("\u001B[36mType \u001B[35m\"/BACK\"\u001B[36m "
+            + "to return to this menu at any point\u001B[0m\n");
+
+    return returnString.toString();
+
   }
 }
