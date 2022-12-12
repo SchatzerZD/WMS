@@ -211,6 +211,7 @@ public class Menu {
         .setWeight(Double.parseDouble(getUserInput("Specify item weight", doubleUserInput(true))))
         .setLength(Double.parseDouble(getUserInput("Specify item length", doubleUserInput(true))))
         .setHeight(Double.parseDouble(getUserInput("Specify item height", doubleUserInput(true))))
+        .setWidth(Double.parseDouble(getUserInput("Specify item width", doubleUserInput(true))))
         .setColor(Color.valueOf(
                 getUserInput("Specify item color " + Arrays.toString(Color.values()), () -> {
                   boolean isColor;
