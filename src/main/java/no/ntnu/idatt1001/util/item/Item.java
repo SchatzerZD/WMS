@@ -255,7 +255,11 @@ public class Item {
    * @param description  The description which the item should be set to
    */
   public void setDescription(String description) {
-    this.description = description;
+    if (description == null) {
+      this.description = "";
+    } else {
+      this.description = description;
+    }
   }
 
   /**

@@ -290,6 +290,9 @@ class ItemTest {
 
     assertThrows(IllegalNumberException.class, () -> item.setWarehouseStock(-15));
 
+    item.setDescription(null);
+    assertEquals("", item.getDescription());
+
 
 
   }
