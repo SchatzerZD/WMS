@@ -45,6 +45,7 @@ public class Item {
    * @param weight                      The weight of the item
    * @param length                      The length of the item
    * @param height                      The height of the item
+   * @param width                       The width of the item
    * @param color                       The color of the item
    * @param category                    Which warehouse category the item belongs to
    * @throws IllegalNumberException     If the specified price is below 0. Also throws
